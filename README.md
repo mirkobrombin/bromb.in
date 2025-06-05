@@ -9,7 +9,7 @@ The template is distributed under the MIT license. The contents (texts, articles
 - Node.js (version 18 or higher)
 
 ```bash
-npm install
+pnpm install
 ```
 
 Content lives under the `src/` directory and templates under `src/templates`.
@@ -18,13 +18,13 @@ Configuration is stored in `site.yml`.
 ### Build
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 > [!NOTE]
