@@ -1,0 +1,427 @@
+/* Body */
+body,
+button {
+    font-family: "Arvo", serif;
+    font-size: 1.1em;
+}
+
+/* Transitions */
+.card,
+.button,
+button {
+    transition: all .2s ease-in-out;
+}
+
+/* Wrapper */
+.wrapper {
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+/* Main */
+main {
+    padding: 2rem;
+}
+
+/* Scrollbar */
+html::-webkit-scrollbar {
+    background: 0 0;
+    height: 20px;
+    width: 20px
+}
+
+html::-webkit-scrollbar-track {
+    border-radius: 20px;
+    box-sizing: content-box;
+    width: 6px
+}
+
+html::-webkit-scrollbar-thumb {
+    background-clip: content-box;
+    border: 7px solid transparent;
+    border-radius: 20px;
+    box-sizing: content-box;
+    min-height: 30px;
+    width: 6px
+}
+
+pre>code::-webkit-scrollbar {
+    display: none
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: .2em;
+    line-height: 1.3em;
+}
+
+h1,
+h2 {
+    font-family: "Bevan", serif;
+}
+
+h1 {
+    font-size: 2.3em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+.logo,
+h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+h1,
+h2 {
+    font-weight: 500;
+}
+
+/* Hr */
+hr {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid;
+    margin: 2rem 0;
+}
+
+/* Header */
+header {
+    padding: 1.5rem 2rem;
+    position: relative;
+    z-index: 9;
+}
+
+header .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a {
+    color: initial;
+
+}
+
+header::after {
+    content: "";
+    display: block;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+}
+
+/* Footer */
+footer {
+    padding: 1rem 2rem 2rem;
+}
+
+/* Nav */
+.button.menu-toggle {
+    display: none;
+}
+
+.button.menu-toggle ion-icon {
+    font-size: 22px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+nav li a.active {
+    font-weight: 600;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+/* Dropdown */
+li.dropdown ul {
+    display: none;
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    top: -6px;
+    z-index: 1;
+    padding: 2.7rem .5rem .36rem;
+    border-radius: 1.3em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+li.dropdown ul.show {
+    display: flex;
+    align-items: stretch;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown button {
+    position: relative;
+    z-index: 2;
+}
+
+li.dropdown ul li a {
+    display: block;
+    font-size: .9em;
+    padding: 4px 9px;
+
+}
+
+li.dropdown ul li {
+    border-radius: 1.3em;
+}
+
+
+/* Paragraph */
+p {
+    margin-block-start: .5em;
+    margin-block-end: .8em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+/* Article */
+article {
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+}
+
+section article {
+    margin-bottom: 1rem;
+}
+
+article p {
+    font-size: 1.1em;
+    line-height: 36px;
+}
+
+article p strong {
+    font-weight: 600;
+}
+
+article ul li {
+    font-size: 1.125em;
+    line-height: 36px;
+}
+
+article ul {
+    list-style: disc;
+    margin: 0 0 0 22px;
+}
+
+/* Reveal */
+article.reveal {
+    position: relative;
+    overflow: hidden;
+    max-height: 18rem;
+    transition: all .2s ease-in-out;
+}
+
+article.reveal::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10rem;
+}
+
+article.reveal .expand {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+article.reveal.show {
+    max-height: initial;
+    padding-bottom: 3.3rem;
+}
+
+article.reveal.show::after {
+    background-image: none;
+}
+
+article time {
+    font-size: .8em;
+    opacity: .9;
+}
+
+article img {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+/* Card */
+.card {
+    border-radius: .5em;
+    padding: 1em;
+    border: 1px solid;
+}
+
+.card-header>div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-header>div>h3 {
+    margin: 0;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0 0 0;
+}
+
+.card:hover code {
+    background-color: var(--color-bg);
+    color: var(--color-primary-fg);
+}
+
+/* Button */
+.button {
+    border: 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: .78em;
+    letter-spacing: .05em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 2em;
+    text-decoration: none;
+}
+
+.button.link {
+    padding: .5em 0;
+    text-decoration: underline;
+}
+
+/* Icon */
+ion-icon {
+    font-size: 16px;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6em;
+}
+
+/* Text */
+.text.right {
+    text-align: right;
+}
+
+.text.center {
+    text-align: center;
+}
+
+/* Twitter */
+div.twitter-tweet {
+    margin: 10px auto;
+}
+
+/* Panel */
+.panel {
+    padding: 1rem 1.3rem;
+    border-radius: .8em;
+    margin: 1rem 0;
+}
+
+/* Blockquote */
+blockquote {
+    font-style: italic;
+    padding: 10px 20px;
+    margin: 1rem 0;
+    line-height: 1.5em;
+}
+
+blockquote,
+main>ol li {
+    border-left: 3px solid;
+}
+
+/* Rich List */
+.rich-list {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.rich-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: transparent;
+    padding: 10px;
+    border-radius: .5em;
+}
+
+img.rich-list-item-icon {
+    width: 50px;
+}
+
+.rich-list-item-text h4 {
+    font-weight: 900;
+}
+
+.rich-list-item-text p {
+    line-height: 1.4;
+    font-size: 16px;
+}
+
+.rich-list-item:hover {
+    background-color: var(--color-bg);
+    color: var(--color-primary-fg);
+}
+
+.rich-list-item-link ion-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* Common */
+code {
+    background-color: var(--color-primary-bg);
+    padding: 20px;
+    border-radius: .5em;
+    line-height: 1.6;
+    overflow-x: auto;
+}

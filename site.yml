@@ -1,0 +1,34 @@
+title: Mirko Brombin
+description: 
+author: Mirko brombin
+email: mirko@bromb.in
+
+assets: /assets
+uploads: /uploads
+
+permalink: /blog/:title/
+markdown: kramdown
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+navigation:
+    - link: "/"
+      name: Me
+    - link: "/blog/"
+      name: Blog
+    - link: "/support/"
+      name: Support Me
+    - link: "https://github.com/mirkobrombin"
+      name: Projects
+    - link: "https://t.me/mirkofeeds"
+      name: Feed
+
