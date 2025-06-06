@@ -41,7 +41,7 @@ served me to find him, the ultimate IDE.
 
 The way I program and the target itself have changed very recently.
 From 2017 I started to develop 
-[Telegram bot] (https://unifiedban.solutions) for the safety and management of
+[Telegram bot](https://unifiedban.solutions) for the safety and management of
 groups, desktop and server software (Linux), publishing portals and
 [CMS](https://github.com/biskuitorg/) etc.
 
@@ -49,7 +49,7 @@ As GTK application development is my main target, I have
 started using <mark>GNOME Builder</mark>, the IDE all in one of
 Gnome.
 
-![](/uploads/2021-01-03 09-00-54-gnome-builder.png)
+![](/uploads/2021-01-03-09-00-54-gnome-builder.png)
 
 I avoid talking about his elegance and my being fond of GTKs in
 general or we don't stop talking about it.
@@ -66,7 +66,7 @@ Rust, Rust
 - C#
 - Vala
 
-![](/uploads/2021-01-03 09-50-43-gnome-builder-new-project.png)
+![](/uploads/2021-01-03-09-50-43-gnome-builder-new-project.png)
 
 It allows you to immediately choose the license with which to distribute the software,
 enable Git versioning and preconfigure the project for a given
@@ -82,7 +82,7 @@ that we are going to develop:
 We can even choose one of GNOME's projects from which to learn or
 Collaborate.
 
-![](/uploads/2021-01-03 09-55-09-gnome-builder-gnome-sources.png)
+![](/uploads/2021-01-03-09-55-09-gnome-builder-gnome-sources.png)
 
 #### Meson & Flatpak Integration
 
@@ -102,21 +102,21 @@ it's a really powerful tool that from a graphic editor returns
 the project in interpretable format 'xml', normally with extension '.ui' or
 '.glade'.
 
-![](/uploads/2021-01-03 10-03-31-glade.png)
+![](/uploads/2021-01-03-10-03-31-glade.png)
 
 Includes all [widgets](https://developer.gnome.org/gtk3/stable/GtkWidget.html)
 GTK, properties, signals, accelerators, everything. It allows you to create a
 full interface from scratch. Initially, amazed by the efficiency of this
 tool, I did not miss its integration into GNOME Builder.
 But with the continuous expansion of the code of
-[Bottles] (https://github.com/bottlesdevs/Bottles), one of the applications to which
+[Bottles](https://github.com/bottlesdevs/Bottles), one of the applications to which
 work, I began to feel *the weight* of having to go through an application
 to the other.
 
 Now, because I'm a 🙈 and I never analyze a program right before
 to use it, I hadn't noticed that Builder provides a Glade integration.
 
-![](/uploads/2021-01-03 09-05-21-gnome-builder-glade.png)
+![](/uploads/2021-01-03-09-05-21-gnome-builder-glade.png)
 
 I think it's still an unstable stage because some slowdown
 i sensed it but this integration makes Builder the complete IDE as far as
