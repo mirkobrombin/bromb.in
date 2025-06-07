@@ -102,10 +102,17 @@ async function buildMarkdown(engine, site, srcDir, destDir, posts = []) {
       { filepath: fullPath }
     );
     const htmlContent = marked.parse(rendered);
+    const filename = path.basename(fullPath, ".md");
+    const dateFromName = filename.match(/^(\d{4}-\d{2}-\d{2})-/);
+    const pageDate = data.date
+      ? new Date(data.date)
+      : dateFromName
+      ? new Date(dateFromName[1])
+      : stat.mtime;
     const page = {
       ...data,
       content: htmlContent,
-      date: data.date || stat.mtime,
+      date: pageDate,
     };
     let url = data.permalink;
     if (!url && srcDir.includes("posts")) {
@@ -158,7 +165,8 @@ export default async function build() {
   });
   registerFilters(engine);
   await fs.emptyDir("dist");
-  const posts = await buildMarkdown(engine, site, "src/posts", "dist");
+  let posts = await buildMarkdown(engine, site, "src/posts", "dist");
+  posts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
   site.posts = posts;
   await buildMarkdown(engine, site, "src/pages", "dist");
   await copyStatic("assets");
