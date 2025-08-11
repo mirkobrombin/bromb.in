@@ -7,6 +7,7 @@ The template is distributed under the MIT license. The contents (texts, articles
 ### Dependencies
 
 - Node.js (version 18 or higher)
+- pnpm (suggested)
 
 ```bash
 pnpm install
