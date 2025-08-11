@@ -6,7 +6,6 @@ layout: plain
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
 body {
@@ -47,8 +46,8 @@ body {
 }
 
 #hearts .heart-icon {
-  font-size: 7rem;
-  color: #e91e63;
+  width: 7rem;
+  height: 7rem;
   animation: beat 1s infinite;
 }
 
@@ -70,8 +69,8 @@ body {
   position: absolute;
   top: -32px;
   left: 0;
-  font-size: 64px;
-  color: #d81b60;
+  width: 64px;
+  height: 64px;
   transition: left 1s linear;
   animation: bounce 2s infinite;
 }
@@ -93,18 +92,18 @@ body {
 }
 
 @media (max-width: 600px) {
-  #hearts .heart-icon { font-size: 5rem; }
-  .plane { font-size: 40px; top: -20px; }
+  #hearts .heart-icon { width: 5rem; height: 5rem; }
+  .plane { width: 40px; height: 40px; top: -20px; }
   #countdown { font-size: 1.5rem; }
 }
 </style>
 
 <div id="hearts" class="hearts">
-  <span class="material-symbols-outlined heart-icon">favorite</span>
+  <img src="/assets/icons/heart.svg" class="heart-icon" alt="heart">
   <div class="path">
-    <span id="plane" class="material-symbols-outlined plane">flight</span>
+    <img id="plane" src="/assets/icons/flight.svg" class="plane" alt="plane">
   </div>
-  <span class="material-symbols-outlined heart-icon">favorite</span>
+  <img src="/assets/icons/heart.svg" class="heart-icon" alt="heart">
 </div>
 
 <div id="countdown"></div>
