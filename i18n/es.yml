@@ -1,0 +1,76 @@
+nav:
+  me: "Yo"
+  blog: "Blog"
+  support: "Apóyame"
+  projects: "Proyectos"
+  feed: "Feed"
+  reach_me: "Contáctame"
+posts:
+  read_more: "Leer más"
+  reviewed_by: "Revisado por"
+blog:
+  title: "Blog"
+  description: "Mis reflexiones y opiniones personales."
+home:
+  title: "Soy Mirko B."
+  p1: "¡Ciao! Soy un diseñador de UI/UX y orgulloso usuario de Linux de Italia, nacido en el '94."
+  p2: >-
+    Mi viaje en el mundo de la informática comenzó cuando el primer PC llegó a casa cuando era muy joven. Me fascinaba esta caja "mágica", no solo porque mostraba imágenes, sino porque podía interactuar con el contenido en la pantalla, a diferencia de una TV. Desde ese momento supe que los ordenadores serían parte integral de mi vida.
+  p3: >-
+    Recuerdo pasar horas escribiendo textos en el ordenador para mi padre. Memorice rápidamente el teclado y dediqué mucho tiempo a dar formato al texto: colores, fuentes (las pocas disponibles).
+  p4: >-
+    Un día, un amigo de la familia nos trajo una caja con un CD de Debian. Mi hermano y yo intentamos instalarlo de inmediato, lo cual tomó bastante tiempo porque no teníamos idea de lo que hacíamos. Esa fue mi primera experiencia con una distribución Linux y KDE. Poco después instalé Ubuntu 8.04 y empecé a usarlo con más frecuencia.
+  p5: >-
+    Unos años más tarde, recibí mi primer PC personal con Windows XP, en el que creé mi primer sitio web.
+  p6: >-
+    Con los años, he cultivado mi pasión por el diseño y la experiencia de usuario. Con cada proyecto, mi atención al detalle creció, hasta el punto de encontrar los frameworks existentes demasiado voluminosos y genéricos. Las interfaces se sentían repetitivas, todas usando los mismos frameworks y diseños. Así que comencé a excluirlos de mi flujo de trabajo y volví a trabajar desde cero. Este enfoque me permitió liberarme de los diseños convencionales y crear algo único.
+  p7: >-
+    He tenido la oportunidad de dar forma a la UX de productos de varias empresas a lo largo de los años. Desde 2021, me dedico a la UI y UX de los productos de fabricators.ltd, una empresa que cofundé con Pietro, un querido amigo.
+  p8: >-
+    Soy un firme defensor del código abierto y en mi tiempo libre trabajo en proyectos personales y contribuyo a otros.
+  expand: "Expandir texto"
+  latest_projects: "Últimos proyectos"
+  see_all_projects: "Ver todos mis proyectos <a href=\"https://github.com/mirkobrombin\">aquí</a>."
+projects:
+  vanilla_desc: "Vanilla OS es una distribución de Linux inmutable centrada en la simplicidad."
+  bottles_desc: "¡Ejecuta fácilmente software de Windows en Linux usando entornos WINE!"
+  vnt_desc: "Vue Native Toolkit imita el comportamiento de los toolkits gráficos nativos pero con Vue.js."
+  dabadee_desc: "DaBaDee es una herramienta sencilla de deduplicación/almacenamiento de archivos."
+  goup_desc: "GoUp! es un servidor web minimalista, hackeable y muy eficiente escrito en Go."
+  containerpak_desc: "Un formato de paquetes rápido, descentralizado, portátil, potente y de bajo consumo de memoria para Linux."
+  official_website: "Sitio oficial"
+  see_on_github: "Ver en GitHub"
+support:
+  title: "Apóyame"
+  paypal: "PayPal"
+  paypal_tag: "Única vez / Recurrente"
+  paypal_donate: "Donar con PayPal"
+  paypal_old: "Método PayPal antiguo"
+  github: "GitHub Sponsors"
+  github_tag: "Recurrente"
+  github_sponsor: "Patrocinar en GitHub"
+  patreon: "Patreon"
+  patreon_tag: "Recurrente"
+  patreon_support: "Apoyar en Patreon"
+  bank: "Transferencia bancaria"
+  bank_tag: "Única vez"
+  crypto: "Criptomoneda"
+  crypto_tag: "Bitcoin, Ethereum y más"
+  support_projects: "Apoya mis proyectos principales"
+  emerging_projects: "Proyectos emergentes"
+  all_projects: "Todos mis proyectos"
+footer:
+  copyright: "Copyright © 2019-2025 bromb.in (Mirko B.). Todos los derechos reservados."
+  cookies: "Este sitio no utiliza cookies pero podría usar servicios que las emplean."
+  privacy_policy: "Política de privacidad"
+  hosted_by: "Alojado por"
+404:
+  title: "Página no encontrada"
+  description: "Esta página pertenece a otro universo."
+navlist:
+  mastodon: "Mastodon"
+  github: "GitHub"
+  telegram: "Telegram"
+  twitter: "Twitter"
+  patreon: "Patreon"
+  linkedin: "LinkedIn"

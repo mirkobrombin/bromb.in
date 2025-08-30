@@ -13,23 +13,55 @@
             <ul>
                 {% for item in site.navigation %}
                 <li>
-                    <a href="{{ item.link }}" class="{% if page.url == item.link %}active{% endif %}">{{ item.name
-                        }}</a>
+                    <a href="{{ item.link }}" class="{% if page.url == item.link %}active{% endif %}">{{ item.name | t: page.lang }}</a>
                 </li>
                 {% endfor %}
-                <li class="dropdown">
+                <li class="dropdown lang">
                     <button class="button primary">
-                        Reach me <ion-icon name="chevron-down-outline"></ion-icon>
+                        {{ page.lang | upcase }} <ion-icon name="chevron-down-outline"></ion-icon>
                     </button>
                     <ul>
-                        <li><a rel="me" href="https://mastodon.social/@mirkobrombin">Mastodon</a></li>
-                        <li><a href="https://github.com/mirkobrombin">GitHub</a></li>
-                        <li><a href="https://t.me/brombinmirko">Telegram</a></li>
-                        <li><a href="https://twitter.com/brombinmirko">Twitter</a></li>
-                        <li><a href="https://www.patreon.com/c/MirkoBrombin">Patreon</a></li>
+                        {% for lang in site.languages %}
+                        {% assign prefix = '' %}
+                        {% if lang.code != site.default_lang %}
+                        {% assign prefix = '/' | append: lang.code %}
+                        {% endif %}
+                        <li><a href="#" data-lang="{{ lang.code }}" data-url="{{ prefix }}{{ page.baseUrl }}">{{ lang.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <button class="button primary">
+                        {{ 'nav.reach_me' | t: page.lang }} <ion-icon name="chevron-down-outline"></ion-icon>
+                    </button>
+                    <ul>
+                        <li><a rel="me" href="https://mastodon.social/@mirkobrombin">{{ 'navlist.mastodon' | t: page.lang }}</a></li>
+                        <li><a href="https://github.com/mirkobrombin">{{ 'navlist.github' | t: page.lang }}</a></li>
+                        <li><a href="https://t.me/brombinmirko">{{ 'navlist.telegram' | t: page.lang }}</a></li>
+                        <li><a href="https://twitter.com/brombinmirko">{{ 'navlist.twitter' | t: page.lang }}</a></li>
+                        <li><a href="https://www.patreon.com/c/MirkoBrombin">{{ 'navlist.patreon' | t: page.lang }}</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
     </div>
 </header>
+<script>
+document.querySelectorAll('.dropdown.lang a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const lang = link.dataset.lang;
+    const url = link.dataset.url;
+    document.cookie = `lang=${lang};path=/;max-age=31536000`;
+    fetch(url, { method: 'HEAD' })
+      .then(res => {
+        if (res.ok) {
+          window.location.href = url;
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch(() => window.location.reload());
+  });
+});
+</script>

@@ -1,0 +1,76 @@
+nav:
+  me: "Io"
+  blog: "Blog"
+  support: "Sostienimi"
+  projects: "Progetti"
+  feed: "Feed"
+  reach_me: "Contattami"
+posts:
+  read_more: "Leggi tutto"
+  reviewed_by: "Revisione di"
+blog:
+  title: "Blog"
+  description: "Le mie riflessioni e opinioni personali."
+home:
+  title: "Sono Mirko B."
+  p1: "Ciao! Sono un designer UI/UX e un orgoglioso utente Linux italiano, nato nel '94."
+  p2: >-
+    Il mio viaggio nel mondo dell'informatica è iniziato quando il primo PC è arrivato a casa quando ero molto giovane. Ero affascinato da questa scatola "magica", non solo perché mostrava immagini, ma perché potevo interagire con il contenuto sullo schermo, a differenza di una TV. Da quel momento capii che i computer sarebbero diventati parte integrante della mia vita.
+  p3: >-
+    Ricordo di aver passato ore a scrivere testi al computer per mio padre. Ho imparato rapidamente la tastiera e ho dedicato molto tempo alla formattazione del testo: colori, font (le poche disponibili).
+  p4: >-
+    Un giorno un amico di famiglia ci portò una scatola contenente un CD con Debian. Mio fratello ed io provammo subito a installarlo, il che richiese parecchio tempo perché non avevamo idea di cosa stessimo facendo. Quella fu la mia prima esperienza con una distribuzione Linux e KDE. Poco dopo installai Ubuntu 8.04 e iniziai a usarlo più frequentemente.
+  p5: >-
+    Alcuni anni dopo ricevetti il mio primo PC personale con Windows XP, sul quale creai il mio primo sito web.
+  p6: >-
+    Nel corso degli anni ho coltivato la mia passione per il design e l'esperienza utente. Con ogni progetto la mia attenzione ai dettagli cresceva, al punto da trovare i framework esistenti troppo ingombranti e generici. Le interfacce sembravano ripetitive, tutte con gli stessi framework e design. Così ho iniziato a escluderli dal mio flusso di lavoro e sono tornato a lavorare da zero. Questo approccio mi ha permesso di liberarmi dai design convenzionali e creare qualcosa di unico.
+  p7: >-
+    Nel corso degli anni ho avuto l'opportunità di plasmare la UX dei prodotti di varie aziende. Dal 2021 mi dedico alla UI e UX dei prodotti di fabricators.ltd, un'azienda che ho co-fondato con Pietro, un caro amico.
+  p8: >-
+    Sono un forte sostenitore dell'Open Source e nel tempo libero lavoro a progetti personali e contribuisco ad altri.
+  expand: "Espandi testo"
+  latest_projects: "Ultimi progetti"
+  see_all_projects: "Vedi tutti i miei progetti <a href=\"https://github.com/mirkobrombin\">qui</a>."
+projects:
+  vanilla_desc: "Vanilla OS è una distribuzione Linux immutabile focalizzata sulla semplicità."
+  bottles_desc: "Esegui facilmente software Windows su Linux usando ambienti WINE!"
+  vnt_desc: "Vue Native Toolkit imita il comportamento dei toolkit grafici nativi ma con Vue.js."
+  dabadee_desc: "DaBaDee è un semplice strumento/archivio di deduplicazione per file."
+  goup_desc: "GoUp! è un server web minimale, hackerabile e molto performante scritto in Go."
+  containerpak_desc: "Un formato di pacchetti veloce, decentralizzato, portatile, potente e a basso consumo di memoria per Linux."
+  official_website: "Sito ufficiale"
+  see_on_github: "Vedi su GitHub"
+support:
+  title: "Sostienimi"
+  paypal: "PayPal"
+  paypal_tag: "Una tantum / Ricorrente"
+  paypal_donate: "Dona con PayPal"
+  paypal_old: "Vecchio metodo PayPal"
+  github: "GitHub Sponsors"
+  github_tag: "Ricorrente"
+  github_sponsor: "Sponsorizza su GitHub"
+  patreon: "Patreon"
+  patreon_tag: "Ricorrente"
+  patreon_support: "Supporta su Patreon"
+  bank: "Bonifico bancario"
+  bank_tag: "Una tantum"
+  crypto: "Criptovaluta"
+  crypto_tag: "Bitcoin, Ethereum e altro"
+  support_projects: "Supporta i miei progetti principali"
+  emerging_projects: "Progetti emergenti"
+  all_projects: "Tutti i miei progetti"
+footer:
+  copyright: "Copyright © 2019-2025 bromb.in (Mirko B.). Tutti i diritti riservati."
+  cookies: "Questo sito non utilizza cookie ma potrebbe usare servizi che li impiegano."
+  privacy_policy: "Privacy Policy"
+  hosted_by: "Ospitato da"
+404:
+  title: "Pagina non trovata"
+  description: "Questa pagina appartiene a un altro universo."
+navlist:
+  mastodon: "Mastodon"
+  github: "GitHub"
+  telegram: "Telegram"
+  twitter: "Twitter"
+  patreon: "Patreon"
+  linkedin: "LinkedIn"

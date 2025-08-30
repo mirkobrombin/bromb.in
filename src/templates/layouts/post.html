@@ -9,7 +9,7 @@ layout: default
     {% if page.review_by %}
     <br />
     <hr />
-    <span>Reviewed by <a href="https://github.com/{{ page.review_by }}">{{ page.review_by }}</a></span>
+    <span>{{ 'posts.reviewed_by' | t: page.lang }} <a href="https://github.com/{{ page.review_by }}">{{ page.review_by }}</a></span>
     <hr />
     {% endif %}
 </article>

@@ -3,22 +3,22 @@ layout: default
 ---
 
 <div class="support-page">
-    <h1 class="support-title">Support Me</h1>
+    <h1 class="support-title">{{ 'support.title' | t: page.lang }}</h1>
 
     <section class="cards">
         <div class="card">
             <div class="card-header">
                 <div>
                     <ion-icon name="logo-paypal"></ion-icon>
-                    <h3>PayPal</h3>
+                    <h3>{{ 'support.paypal' | t: page.lang }}</h3>
                 </div>
-                <span class="support-tag">One-Time / Recurring</span>
+                <span class="support-tag">{{ 'support.paypal_tag' | t: page.lang }}</span>
             </div>
             <div class="card-buttons">
                 <a href="https://www.paypal.com/donate?hosted_button_id=HM2VKUH5STU4J" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> Donate via PayPal</a>
+                    <ion-icon name="link-outline"></ion-icon> {{ 'support.paypal_donate' | t: page.lang }}</a>
                 <a href="https://paypal.me/MirkoBrombin" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> Old PayPal Method</a>
+                    <ion-icon name="link-outline"></ion-icon> {{ 'support.paypal_old' | t: page.lang }}</a>
             </div>
         </div>
 
@@ -26,12 +26,12 @@ layout: default
             <div class="card-header">
                 <div>
                     <ion-icon name="logo-github"></ion-icon>
-                    <h3>GitHub Sponsors</h3>
+                    <h3>{{ 'support.github' | t: page.lang }}</h3>
                 </div>
-                <span class="support-tag">Recurring</span>
+                <span class="support-tag">{{ 'support.github_tag' | t: page.lang }}</span>
             </div>
             <div class="card-buttons">
-                <a href="https://github.com/sponsors/mirkobrombin" class="button link">Sponsor via GitHub</a>
+                <a href="https://github.com/sponsors/mirkobrombin" class="button link">{{ 'support.github_sponsor' | t: page.lang }}</a>
             </div>
         </div>
 
@@ -39,13 +39,13 @@ layout: default
             <div class="card-header">
                 <div>
                     <ion-icon name="heart"></ion-icon>
-                    <h3>Patreon</h3>
+                    <h3>{{ 'support.patreon' | t: page.lang }}</h3>
                 </div>
-                <span class="support-tag">Recurring</span>
+                <span class="support-tag">{{ 'support.patreon_tag' | t: page.lang }}</span>
             </div>
             <div class="card-buttons">
                 <a href="https://www.patreon.com/MirkoBrombin" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> Support via Patreon</a>
+                    <ion-icon name="link-outline"></ion-icon> {{ 'support.patreon_support' | t: page.lang }}</a>
             </div>
         </div>
 
@@ -53,9 +53,9 @@ layout: default
             <div class="card-header">
                 <div>
                     <ion-icon name="cash-outline"></ion-icon>
-                    <h3>Bank Transfer</h3>
+                    <h3>{{ 'support.bank' | t: page.lang }}</h3>
                 </div>
-                <span class="support-tag">One-Time</span>
+                <span class="support-tag">{{ 'support.bank_tag' | t: page.lang }}</span>
                 <code><pre>Account Name: Mirko Brombin
 IBAN: LT50 3250 0948 5804 5072
 BIC/SWIFT: REVOLT21</pre></code>
@@ -66,9 +66,9 @@ BIC/SWIFT: REVOLT21</pre></code>
             <div class="card-header">
                 <div>
                     <ion-icon name="logo-bitcoin"></ion-icon>
-                    <h3>Cryptocurrency</h3>
+                    <h3>{{ 'support.crypto' | t: page.lang }}</h3>
                 </div>
-                <span class="support-tag">Bitcoin, Ethereum, and more</span>
+                <span class="support-tag">{{ 'support.crypto_tag' | t: page.lang }}</span>
                 <code><pre>Ethereum (ETH)
 Network: ERC20
 0xef6a653c63db31403f507bca277f719d2f3d44f8
@@ -93,7 +93,7 @@ If you can't add the MEMO, coins will be lost.</pre></code>
             <div class="card-header">
                 <div>
                     <ion-icon name="code-outline"></ion-icon>
-                    <h3>Support My Main Projects</h3>
+                    <h3>{{ 'support.support_projects' | t: page.lang }}</h3>
                 </div>
             </div>
             <div class="rich-list">
@@ -102,7 +102,7 @@ If you can't add the MEMO, coins will be lost.</pre></code>
                         class="rich-list-item-icon">
                     <div class="rich-list-item-text">
                         <h4>Bottles</h4>
-                        <p>Easily run Windows software on Linux with Bottles!</p>
+                        <p>{{ 'projects.bottles_desc' | t: page.lang }}</p>
                     </div>
                     <a href="https://usebottles.com/funding/" class="rich-list-item-link">
                         <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -113,7 +113,7 @@ If you can't add the MEMO, coins will be lost.</pre></code>
                         class="rich-list-item-icon">
                     <div class="rich-list-item-text">
                         <h4>Vanilla OS</h4>
-                        <p>Vanilla OS is an immutable Linux distribution with focus on simplicity.</p>
+                        <p>{{ 'projects.vanilla_desc' | t: page.lang }}</p>
                     </div>
                     <a href="https://vanillaos.org/get-involved/funding" class="rich-list-item-link">
                         <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -121,7 +121,7 @@ If you can't add the MEMO, coins will be lost.</pre></code>
                 </div>
 
                 <br />
-                <h5>Emerging Projects</h5>
+                <h5>{{ 'support.emerging_projects' | t: page.lang }}</h5>
                 <br />
 
                 <div class="rich-list-item">
@@ -129,7 +129,7 @@ If you can't add the MEMO, coins will be lost.</pre></code>
                         class="rich-list-item-icon">
                     <div class="rich-list-item-text">
                         <h4>GoUp!</h4>
-                        <p>GoUp! is a minimal, hackable and very performant web server written in Go.</p>
+                        <p>{{ 'projects.goup_desc' | t: page.lang }}</p>
                     </div>
                     <a href="https://github.com/sponsors/tryGoUp" class="rich-list-item-link">
                         <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -140,15 +140,14 @@ If you can't add the MEMO, coins will be lost.</pre></code>
                         class="rich-list-item-icon">
                     <div class="rich-list-item-text">
                         <h4>Containerpak</h4>
-                        <p>A fast, decentralized, portable, powerful and low-memory footprint package format for Linux.
-                        </p>
+                        <p>{{ 'projects.containerpak_desc' | t: page.lang }}</p>
                     </div>
                     <a href="https://github.com/sponsors/Containerpak" class="rich-list-item-link">
                         <ion-icon name="arrow-forward-outline"></ion-icon>
                     </a>
                 </div>
             </div>
-            <a href="https://github.com/mirkobrombin" class="button link">All My Projects</a>
+            <a href="https://github.com/mirkobrombin" class="button link">{{ 'support.all_projects' | t: page.lang }}</a>
         </div>
     </section>
 </div>

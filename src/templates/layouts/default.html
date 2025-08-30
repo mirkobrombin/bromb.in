@@ -1,8 +1,24 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="{{ page.lang | default: site.default_lang }}">
 
 <head>
-	{% include head.html %}
+        {% include head.html %}
+        <script>
+        (function() {
+          const match = document.cookie.match(/(?:^|; )lang=([^;]+)/);
+          const lang = match ? decodeURIComponent(match[1]) : '{{ site.default_lang }}';
+          const current = '{{ page.lang | default: site.default_lang }}';
+          if (lang !== current) {
+            const base = '{{ page.baseUrl }}';
+            const target = lang === '{{ site.default_lang }}' ? base : '/' + lang + base;
+            fetch(target, { method: 'HEAD' }).then(res => {
+              if (res.ok) {
+                window.location.replace(target);
+              }
+            });
+          }
+        })();
+        </script>
 </head>
 
 <body>

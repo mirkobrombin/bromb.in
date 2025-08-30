@@ -1,0 +1,76 @@
+nav:
+  me: "Me"
+  blog: "Blog"
+  support: "Support Me"
+  projects: "Projects"
+  feed: "Feed"
+  reach_me: "Reach me"
+posts:
+  read_more: "Read more"
+  reviewed_by: "Reviewed by"
+blog:
+  title: "Blog"
+  description: "My personal reflections and opinions."
+home:
+  title: "I'm Mirko B."
+  p1: "Ciao! I'm a UI/UX designer and a proud Linux user from Italy, born in '94."
+  p2: >-
+    My journey into the world of computing began when the first PC arrived at home when I was very young. I was fascinated by this "magic" box, not just because it displayed images, but because I could interact with the content on the screen, unlike a TV. From that moment, I knew computers would become an integral part of my life.
+  p3: >-
+    I remember spending hours typing texts on the computer for my father. I quickly memorized the keyboard and dedicated a lot of time to formatting the text: colors, fonts (the few that were available).
+  p4: >-
+    One day, a family friend brought us a box containing a CD with Debian. My brother and I immediately tried to install it, which took quite some time because we had no idea what we were doing. That was my first experience with a Linux distribution and KDE. Shortly after, I installed Ubuntu 8.04 and started using it more frequently.
+  p5: >-
+    A few years later, I received my first personal PC with Windows XP, on which I created my first website.
+  p6: >-
+    Over the years, I have nurtured my passion for design and user experience. With each project, my attention to detail grew, to the point where I found existing frameworks too bulky and generic. The interfaces felt repetitive, all using the same frameworks and designs. So, I began to exclude them from my workflow and went back to working from scratch. This approach allowed me to break free from conventional designs and create something unique.
+  p7: >-
+    I have had the opportunity to shape the UX of various companies' products over the years. Since 2021, I have been dedicating myself to UI and UX for the products of fabricators.ltd, a company I co-founded with Pietro, a dear friend of mine.
+  p8: >-
+    I am a strong advocate of Open Source, and in my spare time, I work on personal projects and contribute to others.
+  expand: "Expand text"
+  latest_projects: "Latest projects"
+  see_all_projects: "See all my projects <a href=\"https://github.com/mirkobrombin\">here</a>."
+projects:
+  vanilla_desc: "Vanilla OS is an immutable Linux distribution with focus on simplicity."
+  bottles_desc: "Easily run Windows software on Linux using WINE environments!"
+  vnt_desc: "Vue Native Toolkit mimics the behavior of native GUI toolkits but with Vue.js."
+  dabadee_desc: "DaBaDee is a simple deduplication tool/storage for files."
+  goup_desc: "GoUp! is a minimal, hackable and very performant web server written in Go."
+  containerpak_desc: "A fast, decentralized, portable, powerful and low-memory footprint package format for Linux."
+  official_website: "Official website"
+  see_on_github: "See on GitHub"
+support:
+  title: "Support Me"
+  paypal: "PayPal"
+  paypal_tag: "One-Time / Recurring"
+  paypal_donate: "Donate via PayPal"
+  paypal_old: "Old PayPal Method"
+  github: "GitHub Sponsors"
+  github_tag: "Recurring"
+  github_sponsor: "Sponsor via GitHub"
+  patreon: "Patreon"
+  patreon_tag: "Recurring"
+  patreon_support: "Support via Patreon"
+  bank: "Bank Transfer"
+  bank_tag: "One-Time"
+  crypto: "Cryptocurrency"
+  crypto_tag: "Bitcoin, Ethereum, and more"
+  support_projects: "Support My Main Projects"
+  emerging_projects: "Emerging Projects"
+  all_projects: "All My Projects"
+footer:
+  copyright: "Copyright © 2019-2025 bromb.in (Mirko B.). All Rights Reserved."
+  cookies: "This site does not use cookies but could use services that make use of them."
+  privacy_policy: "Privacy Policy"
+  hosted_by: "Hosted by"
+404:
+  title: "Page Not Found"
+  description: "This page belongs to another universe."
+navlist:
+  mastodon: "Mastodon"
+  github: "GitHub"
+  telegram: "Telegram"
+  twitter: "Twitter"
+  patreon: "Patreon"
+  linkedin: "LinkedIn"

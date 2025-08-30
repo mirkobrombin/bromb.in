@@ -7,7 +7,7 @@
     <p>{{ post.content | strip_html | truncatewords: 32 }}</p>
     <div class="text right">
         <a href="{{ post.url }}" class="button primary">
-            Read more <ion-icon name="chevron-forward-outline"></ion-icon>
+            {{ 'posts.read_more' | t: page.lang }} <ion-icon name="chevron-forward-outline"></ion-icon>
         </a>
     </div>
 </article>

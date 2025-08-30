@@ -20,15 +20,24 @@ defaults:
     values:
       layout: "post"
 
+default_lang: en
+languages:
+  - code: en
+    name: English
+  - code: es
+    name: Español
+  - code: it
+    name: Italiano
+
 navigation:
-    - link: "/"
-      name: Me
-    - link: "/blog/"
-      name: Blog
-    - link: "/support/"
-      name: Support Me
-    - link: "https://github.com/mirkobrombin"
-      name: Projects
-    - link: "https://t.me/mirkofeeds"
-      name: Feed
+  - link: "/"
+    name: nav.me
+  - link: "/blog/"
+    name: nav.blog
+  - link: "/support/"
+    name: nav.support
+  - link: "https://github.com/mirkobrombin"
+    name: nav.projects
+  - link: "https://t.me/mirkofeeds"
+    name: nav.feed
 
