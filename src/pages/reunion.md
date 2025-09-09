@@ -110,15 +110,16 @@ body {
 
 <script>
 const targetDate = new Date('2025-09-17T00:00:00Z');
-const start = Date.now();
-const total = targetDate - start;
+const startDate = new Date('2024-09-17T00:00:00Z');
+const total = targetDate - startDate;
 const plane = document.getElementById('plane');
 const countdown = document.getElementById('countdown');
 
 function update() {
   const now = Date.now();
   const remaining = targetDate - now;
-  const progress = Math.max(0, Math.min(1, (total - remaining) / total));
+  const elapsed = now - startDate;
+  const progress = Math.max(0, Math.min(1, elapsed / total));
   plane.style.left = (progress * 100) + '%';
 
   if (remaining <= 0) {
