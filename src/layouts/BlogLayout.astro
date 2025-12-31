@@ -1,6 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 import "../styles/global.css";
+import { Icon } from "astro-icon/components";
 
 const { frontmatter } = Astro.props;
 
@@ -21,4 +22,145 @@ const description = frontmatter.description || "No description provided";
             <slot />
         </div>
     </div>
+    <div
+        class="fixed w-full bottom-8 left-0 flex items-center justify-center gap-5 z-50"
+    >
+        <!-- Back Button -->
+        <div
+            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full"
+        >
+            <a
+                id="blog-back-btn"
+                class="flex items-center justify-center p-4  hover:bg-gray-200 transition"
+                href="#"
+            >
+                <Icon name="material-symbols:arrow-back" class="text-2xl" />
+            </a>
+        </div>
+        <!-- Headings Navigation -->
+        <div
+            id="headings-toggle"
+            class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
+            style="cursor:pointer;"
+        >
+            <div
+                id="headings-list-container"
+                class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10"
+            >
+                <ul
+                    id="headings-list"
+                    class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-rounded-full scrollbar-track-zinc-100"
+                >
+                </ul>
+            </div>
+            <div
+                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition"
+            >
+                <Icon name="material-symbols:text-fields" class="text-2xl dark:text-white" />
+            </div>
+        </div>
+    </div>
 </Layout>
+
+<script>
+    if (typeof window !== "undefined") {
+        // --- Back button logic ---
+        const backBtn = document.getElementById("blog-back-btn");
+        if (backBtn) {
+            backBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.history.back();
+            });
+        }
+
+        // --- Headings menu morphing logic ---
+        const toggle = document.getElementById("headings-toggle");
+        const listContainer = document.getElementById(
+            "headings-list-container",
+        );
+        const list = document.getElementById("headings-list");
+
+        if (toggle && listContainer && list) {
+            const buttonEl = toggle.querySelector(":scope > div:last-child");
+
+            function getHeadings() {
+                const art =
+                    document.querySelector("main .prose") ||
+                    document.querySelector(".prose");
+                if (!art) return [];
+                return Array.from(art.querySelectorAll("h1, h2, h3"));
+            }
+
+            function buildHeadingsMenu() {
+                list.innerHTML = "";
+                const headings = getHeadings();
+                headings.forEach((heading, i) => {
+                    if (!heading.id) heading.id = "heading-" + i;
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.textContent = heading.textContent || "";
+                    a.href = "#" + heading.id;
+                    a.className =
+                        "block px-2 py-1 rounded hover:bg-zinc-100 transition text-zinc-800 font-medium underline" +
+                        (heading.tagName === "H1"
+                            ? " text-base font-bold underline"
+                            : heading.tagName === "H2"
+                              ? " text-sm font-semibold pl-4 underline"
+                              : " text-sm font-normal pl-8 underline");
+                    a.addEventListener("click", (ev) => {
+                        ev.preventDefault();
+                        const target = document.getElementById(heading.id);
+                        if (target)
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        collapseMenu();
+                    });
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+            }
+
+            function expandMenu() {
+                listContainer.classList.remove(
+                    "opacity-0",
+                    "pointer-events-none",
+                );
+                listContainer.classList.add(
+                    "opacity-100",
+                    "pointer-events-auto",
+                );
+                if (buttonEl)
+                    buttonEl.classList.remove("bg-white/70", "shadow-sm");
+                buildHeadingsMenu();
+            }
+
+            function collapseMenu() {
+                listContainer.classList.add("opacity-0", "pointer-events-none");
+                listContainer.classList.remove(
+                    "opacity-100",
+                    "pointer-events-auto",
+                );
+                if (buttonEl)
+                    buttonEl.classList.add("bg-white/70", "shadow-sm");
+            }
+
+            let expanded = false;
+            toggle.addEventListener("click", (e) => {
+                if (listContainer.contains(e.target)) return;
+                expanded ? collapseMenu() : expandMenu();
+                expanded = !expanded;
+            });
+
+            document.addEventListener("click", (e) => {
+                if (expanded && !toggle.contains(e.target)) {
+                    collapseMenu();
+                    expanded = false;
+                }
+            });
+
+            collapseMenu();
+        }
+    }
+</script>
