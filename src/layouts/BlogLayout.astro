@@ -25,7 +25,6 @@ const description = frontmatter.description || "No description provided";
     <div
         class="fixed w-full bottom-8 left-0 flex items-center justify-center gap-5 z-50"
     >
-        <!-- Back Button -->
         <div
             class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full"
         >
@@ -37,7 +36,7 @@ const description = frontmatter.description || "No description provided";
                 <Icon name="material-symbols:arrow-back" class="text-2xl" />
             </a>
         </div>
-        <!-- Headings Navigation -->
+
         <div
             id="headings-toggle"
             class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
@@ -64,7 +63,6 @@ const description = frontmatter.description || "No description provided";
 
 <script>
     if (typeof window !== "undefined") {
-        // --- Back button logic ---
         const backBtn = document.getElementById("blog-back-btn");
         if (backBtn) {
             backBtn.addEventListener("click", (e) => {
@@ -73,7 +71,6 @@ const description = frontmatter.description || "No description provided";
             });
         }
 
-        // --- Headings menu morphing logic ---
         const toggle = document.getElementById("headings-toggle");
         const listContainer = document.getElementById(
             "headings-list-container",

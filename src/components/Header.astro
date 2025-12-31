@@ -44,7 +44,6 @@ const textColor = Astro.props.textColor || "#000000";
 </div>
 
 <div class="fixed w-full z-50">
-    <!-- Mobile Header -->
     <div
         id="mobile-menu"
         class="hidden font-sans fixed top-0 left-0 w-full h-full bg-primary/80 backdrop-blur-md flex flex-col items-center justify-center text-black transition-all duration-300 opacity-0 transform scale-95"
@@ -95,7 +94,7 @@ const textColor = Astro.props.textColor || "#000000";
         </div>
     </div>
 
-    <!-- Desktop Header -->
+    <!-- Desktop -->
     <div class="hidden lg:flex w-full items-center justify-center">
         <div
 
@@ -274,11 +273,10 @@ function toggleSearchModal() {
 
 function performSearch(query) {
     const resultsContainer = document.getElementById("search-results");
-    resultsContainer.innerHTML = ""; // Clear previous results
+    resultsContainer.innerHTML = "";
 
     if (!query) return;
 
-    // Simulated search results (replace with actual search logic)
     const pages = [
         { title: "Home", description: "Welcome to the homepage", icon: "home" },
         { title: "Stories", description: "Explore our stories", icon: "book" },

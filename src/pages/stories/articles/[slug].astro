@@ -1,7 +1,6 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 
-// Dynamically import all stories
 const storyFiles = import.meta.glob('./*.md');
 const slugs = Object.keys(storyFiles)
   .map(path => path.split('/').pop()?.replace('.md', '') ?? '')

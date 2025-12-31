@@ -6,10 +6,8 @@ import { Icon } from "astro-icon/components";
 const reviewFiles = import.meta.glob("./reviews/*.md");
 const moviePromises = Object.entries(reviewFiles).map(
     async ([path, resolver]) => {
-        // Cast resolver to a known function signature so TypeScript knows the return shape
         const mod = await (resolver as () => Promise<any>)();
         const frontmatter = mod?.frontmatter ?? {};
-        // Safely extract filename and derive slug
         const filename = path.split("/").pop() ?? "";
         const slug = filename.replace(/\.md$/, "");
         return { ...frontmatter, slug };
@@ -30,7 +28,6 @@ const totalPopcorns = 5;
     </div>
     <div class="flex w-full items-center justify-center">
         <div class="flex flex-col max-w-3xl">
-            <!-- Cinema List -->
             <div class="flex flex-col gap-24 items-center">
                 {
                     movies.map((movie) => (

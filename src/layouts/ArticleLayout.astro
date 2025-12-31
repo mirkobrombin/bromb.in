@@ -102,7 +102,6 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
 
 <script>
     if (typeof window !== "undefined") {
-        // --- Reading time logic ---
         const readingTimeText = document.getElementById("reading-time-text");
         const readingTimeValue = Number(
             (readingTimeText?.textContent?.match(/\d+/) || [0])[0],
@@ -137,7 +136,6 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
         document.addEventListener("DOMContentLoaded", updateReadingTime);
         updateReadingTime();
 
-        // --- Headings menu morphing logic ---
         const toggle = document.getElementById("headings-toggle");
         const listContainer = document.getElementById(
             "headings-list-container",

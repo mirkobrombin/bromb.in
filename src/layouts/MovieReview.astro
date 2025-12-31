@@ -126,7 +126,6 @@ const totalPopcorns = 5;
 
 <script>
     if (typeof window !== "undefined") {
-        // --- Reading time logic (cleaner) ---
         const readingTimeText = document.getElementById("reading-time-text");
         const readingTimeValue = Number(
             (readingTimeText?.textContent?.match(/\d+/) || [0])[0],
@@ -161,7 +160,6 @@ const totalPopcorns = 5;
         document.addEventListener("DOMContentLoaded", updateReadingTime);
         updateReadingTime();
 
-        // --- Headings menu morphing logic (simplified) ---
         const toggle = document.getElementById("headings-toggle");
         const listContainer = document.getElementById(
             "headings-list-container",
@@ -250,7 +248,6 @@ const totalPopcorns = 5;
 
             let expanded = false;
             toggle.addEventListener("click", (e) => {
-                // If click happens inside the list (e.g. a link), don't toggle here
                 if (listContainer.contains(e.target)) return;
                 expanded ? collapseMenu() : expandMenu();
                 expanded = !expanded;
@@ -264,7 +261,6 @@ const totalPopcorns = 5;
                 }
             });
 
-            // Start collapsed
             collapseMenu();
         }
     }
