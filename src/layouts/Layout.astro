@@ -1,3 +1,10 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+const headerTextColor = Astro.props.headerTextColor || "#000000";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +12,10 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>bromb.in</title>
 	</head>
-	<body>
+	<body class="font-serif dark:bg-zinc-900 dark:text-gray-200 bg-white text-black">
+	    <Header textColor={headerTextColor} />
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

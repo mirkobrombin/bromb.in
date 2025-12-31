@@ -1,0 +1,310 @@
+---
+import { Icon } from "astro-icon/components";
+
+const navItems = {
+    main: [{ name: "HOME", href: "/", key: "home" }],
+    secondary: [
+        { name: "STORIES", href: "/stories", key: "stories" },
+        { name: "CINEMA", href: "/cinema", key: "cinema" },
+        { name: "TRAVELS", href: "/travels", key: "travels" },
+        { name: "FOOD & DRINKS", href: "/food-drinks", key: "food-drinks" },
+    ],
+    tertiary: [
+        { name: "BOOKS", href: "/books", key: "books" },
+        { name: "WORK", href: "/work", key: "work" },
+    ],
+};
+
+const socialLinks = [
+    { name: "simple-icons:facebook", href: "#" },
+    { name: "simple-icons:youtube", href: "#" },
+    { name: "simple-icons:twitter", href: "#" },
+    { name: "simple-icons:instagram", href: "#" },
+];
+
+const footerLinks = ["ABOUT", "CONTACT US"];
+
+const currentPage = "home";
+
+const textColor = Astro.props.textColor || "#000000";
+---
+
+<div
+    class="flex items-center justify-between px-4 h-18 md:h-16 lg:hidden"
+    style={`color: ${textColor};`}
+>
+    <h1 class="text-3xl font-semibold font-sans">bromb.in</h1>
+    <button
+        id="hamburger-menu"
+        class="material-symbols-outlined text-4xl"
+        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+    >
+        menu
+    </button>
+</div>
+
+<div class="fixed w-full z-50">
+    <!-- Mobile Header -->
+    <div
+        id="mobile-menu"
+        class="hidden font-sans fixed top-0 left-0 w-full h-full bg-primary/80 backdrop-blur-md flex flex-col items-center justify-center text-black transition-all duration-300 opacity-0 transform scale-95"
+    >
+        <button
+            class="absolute top-5 right-4 material-symbols-outlined text-3xl"
+            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+        >
+            close
+        </button>
+        <nav class="flex flex-col gap-4 text-lg font-medium font-sans">
+            {
+                [
+                    ...navItems.main,
+                    ...navItems.secondary,
+                    ...navItems.tertiary,
+                ].map((item) => (
+                    <a
+                        href={item.href}
+                        class={`hover:underline ${
+                            currentPage === item.key ? "font-extrabold" : ""
+                        }`}
+                    >
+                        {item.name}
+                    </a>
+                ))
+            }
+        </nav>
+        <div class="flex flex-col items-center gap-4 mt-8">
+            <div class="flex gap-4">
+                {
+                    socialLinks.map((icon) => (
+                        <a href={icon.href} class="hover:opacity-75">
+                            <Icon name={icon.name} />
+                        </a>
+                    ))
+                }
+            </div>
+            <div class="flex gap-4">
+                {
+                    footerLinks.map((item) => (
+                        <a href="#" class="hover:underline">
+                            {item}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Header -->
+    <div class="hidden lg:flex w-full items-center justify-center">
+        <div
+
+            class="hidden lg:flex w-max h-12 items-end justify-center text-sm font-medium md:h-16 transition-all duration-300"
+        >
+            <nav
+                class="flex flex-row gap-4 items-center justify-between font-sans text-md px-4 py-2 md:gap-12 md:px-8 rounded-full"
+                       id="desktop-header"
+                style={`color: ${textColor};`}
+            >
+                <div class="flex flex-row gap-4 md:gap-8 justify-center items-center">
+                    {
+                        navItems.main.map((item) => (
+                            <a
+                                href={item.href}
+                                class={`hover:underline ${
+                                    currentPage === item.key
+                                        ? "font-extrabold"
+                                        : ""
+                                }`}
+                            >
+                                {item.name}
+                            </a>
+                        ))
+                    }
+                </div>
+                <div class="hidden md:flex flex-row gap-4">
+                    {
+                        navItems.secondary.map((item) => (
+                            <a
+                                href={item.href}
+                                class={`hover:underline ${
+                                    currentPage === item.key
+                                        ? "font-extrabold"
+                                        : ""
+                                }`}
+                            >
+                                {item.name}
+                            </a>
+                        ))
+                    }
+                </div>
+                <div class="hidden md:flex flex-row gap-4">
+                    {
+                        navItems.tertiary.map((item) => (
+                            <a
+                                href={item.href}
+                                class={`hover:underline ${
+                                    currentPage === item.key
+                                        ? "font-extrabold"
+                                        : ""
+                                }`}
+                            >
+                                {item.name}
+                            </a>
+                        ))
+                    }
+                </div>
+                <button
+                    id="search-button"
+                    class="hover:underline flex items-center justify-center"
+                    onclick="toggleSearchModal()"
+                >
+                    <span class="material-symbols-outlined text-xl">search</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div
+    class="hidden lg:flex flex-col md:flex-row justify-between items-center md:items-end px-4 md:px-12 pb-2 font-sans w-full pt-8 md:pt-12"
+    style={`color: ${textColor};`}
+>
+    <h1 class="text-4xl md:text-5xl font-semibold text-center md:text-left">
+        bromb.in
+    </h1>
+
+    <div class="flex flex-col md:flex-row gap-2 mt-4 md:mt-0">
+        <div class="flex gap-2 justify-center md:justify-start">
+            {
+                socialLinks.map((icon) => (
+                    <a href={icon.href} class="hover:opacity-75">
+                        <Icon name={icon.name} />
+                    </a>
+                ))
+            }
+        </div>
+        <div class="flex gap-2 justify-center md:justify-start">
+            {
+                footerLinks.map((item) => (
+                    <a href="#" class="hover:underline">
+                        {item}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    const menu = document.getElementById("mobile-menu");
+    const toggleMenu = () => {
+        if (menu.classList.contains("hidden")) {
+            menu.classList.remove("hidden");
+            setTimeout(() => {
+                menu.classList.remove("opacity-0", "scale-95");
+            }, 10);
+        } else {
+            menu.classList.add("opacity-0", "scale-95");
+            menu.addEventListener(
+                "transitionend",
+                () => {
+                    menu.classList.add("hidden");
+                },
+                { once: true },
+            );
+        }
+    };
+
+    document.getElementById("hamburger-menu").onclick = toggleMenu;
+    document.querySelector("#mobile-menu .material-symbols-outlined").onclick =
+        toggleMenu;
+
+    const desktopHeader = document.getElementById("desktop-header");
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+        if (!desktopHeader) return;
+
+        const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        if (window.scrollY > lastScrollY) {
+            desktopHeader.classList.add(
+                "bg-white/90",
+                "dark:bg-zinc-800/90",
+                "backdrop-blur-md",
+                "shadow-lg",
+                "transition-all",
+                "duration-300",
+                "ease-in-out"
+            );
+            desktopHeader.style.color = isDarkMode ? "white" : "black";
+        } else if (window.scrollY === 0) {
+            desktopHeader.classList.remove(
+                "bg-white/90",
+                "dark:bg-zinc-800/90",
+                "backdrop-blur-md",
+                "shadow-lg",
+                "transition-all",
+                "duration-300",
+                "ease-in-out"
+            );
+            desktopHeader.style.color = isDarkMode ? "white" : "white";
+        }
+        lastScrollY = window.scrollY;
+    });
+function toggleSearchModal() {
+    const modal = document.getElementById("search-modal");
+    if (modal.classList.contains("hidden")) {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            modal.classList.remove("opacity-0", "scale-95");
+        }, 10);
+    } else {
+        modal.classList.add("opacity-0", "scale-95");
+        modal.addEventListener(
+            "transitionend",
+            () => {
+                modal.classList.add("hidden");
+            },
+            { once: true }
+        );
+    }
+}
+
+function performSearch(query) {
+    const resultsContainer = document.getElementById("search-results");
+    resultsContainer.innerHTML = ""; // Clear previous results
+
+    if (!query) return;
+
+    // Simulated search results (replace with actual search logic)
+    const pages = [
+        { title: "Home", description: "Welcome to the homepage", icon: "home" },
+        { title: "Stories", description: "Explore our stories", icon: "book" },
+        { title: "Cinema", description: "Latest in cinema", icon: "movie" },
+    ];
+
+    const results = pages.filter(
+        (page) =>
+            page.title.toLowerCase().includes(query.toLowerCase()) ||
+            page.description.toLowerCase().includes(query.toLowerCase())
+    );
+
+    results.forEach((result) => {
+        const resultItem = document.createElement("div");
+        resultItem.className =
+            "flex items-center gap-4 p-4 bg-white rounded-md shadow-md";
+
+        resultItem.innerHTML = `
+            <span class="material-symbols-outlined text-2xl">${result.icon}</span>
+            <div>
+                <h3 class="text-lg font-semibold">${result.title}</h3>
+                <p class="text-sm text-gray-600">${result.description}</p>
+            </div>
+        `;
+
+        resultsContainer.appendChild(resultItem);
+    });
+}
+</script>

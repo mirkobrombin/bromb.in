@@ -1,0 +1,83 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/global.css";
+
+// Dynamically import all stories
+const storyFiles = import.meta.glob('./articles/*.md');
+const storyPromises = Object.entries(storyFiles).map(async ([path, resolver]) => {
+  const mod = await resolver();
+  const frontmatter = (mod as { frontmatter: any }).frontmatter;
+  const slug = path?.split('/')?.pop()?.replace('.md', '') ?? '';
+  return { ...frontmatter, slug };
+});
+const stories = await Promise.all(storyPromises);
+---
+
+<Layout headerTextColor="000000">
+    <div class="flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-normal mt-10 text-zinc-900 dark:text-zinc-100 transition-colors duration-200">Stories</h1>
+        <p class="text-xl mt-4 mb-10 max-w-2xl text-center px-4 text-zinc-700 dark:text-zinc-300 transition-colors duration-200">
+            Read some of our latest stories and articles about various topics
+            that interest us.
+        </p>
+        <hr class="w-128 border-t-2 border-zinc-400 dark:border-zinc-700 mb-10" />
+    </div>
+    <div class="flex w-full items-center justify-center">
+        <div class="flex flex-col max-w-3xl">
+            <!-- Stories List -->
+            <div class="flex flex-col gap-24 items-center max-w-4xl">
+                {
+                    stories.map((story, i) => (
+                        <div class="flex flex-row items-center justify-between gap-12 w-full max-md:flex-col">
+                            {i % 2 === 0 ? (
+                                <>
+                                    <div class="flex-1 flex gap-2 flex-col justify-center">
+                                        <h2 class="text-5xl font-medium text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+                                            <a href={`/stories/articles/${story.slug}`}>{story.title}</a>
+                                        </h2>
+                                        <p class="text-2xl text-zinc-600 dark:text-zinc-400 transition-colors duration-200">
+                                            by {story.author} –{" "}
+                                            <span class="text-base text-zinc-500 dark:text-zinc-300">
+                                                {story.date}
+                                            </span>
+                                        </p>
+                                        <p class="text-base text-zinc-800 dark:text-zinc-300 transition-colors duration-200">
+                                            {story.description}
+                                        </p>
+                                    </div>
+                                    <img
+                                        src={story.cover}
+                                        alt={story.title}
+                                        class="size-72 object-cover rounded-md shadow-md dark:shadow-lg flex-1"
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <img
+                                        src={story.cover}
+                                        alt={story.title}
+                                        class="size-72 object-cover rounded-md shadow-md dark:shadow-lg flex-1"
+                                    />
+                                    <div class="flex-1 flex gap-2 flex-col justify-center">
+                                        <h2 class="text-5xl font-medium text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
+                                            <a href={`/stories/articles/${story.slug}`}>{story.title}</a>
+                                        </h2>
+                                        <p class="text-2xl text-zinc-600 dark:text-zinc-400 transition-colors duration-200">
+                                            by {story.author} –{" "}
+                                            <span class="text-base text-zinc-500 dark:text-zinc-300">
+                                                {story.date}
+                                            </span>
+                                        </p>
+                                        <p class="text-base text-zinc-800 dark:text-zinc-300 transition-colors duration-200">
+                                            {story.description}
+                                        </p>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</Layout>

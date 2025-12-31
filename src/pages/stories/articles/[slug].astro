@@ -1,0 +1,24 @@
+---
+import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+
+// Dynamically import all stories
+const storyFiles = import.meta.glob('./*.md');
+const slugs = Object.keys(storyFiles)
+  .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
+  .filter(Boolean)
+  .sort();
+
+const { slug } = Astro.params;
+const currentIndex = slugs.indexOf(slug);
+
+const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
+const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
+
+const mod = await storyFiles[`./${slug}.md`]();
+const Content = (mod as any).default;
+const frontmatter = (mod as any).frontmatter;
+---
+
+<ArticleLayout frontmatter={frontmatter} prevSlug={prevSlug} nextSlug={nextSlug}>
+  <Content />
+</ArticleLayout>

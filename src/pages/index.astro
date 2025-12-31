@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout headerTextColor="#ffffff">
+    <div
+        class="flex flex-col justify-end px-16 pb-10 absolute w-full top-0 right-0 z-[-10] bg-[url(/cover.png)] bg-cover bg-bottom bg-no-repeat h-[80vh]"
+    >
+        <p class="text-xl lg:text-2xl font-sans text-white max-w-96">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id
+            ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus,
+            mattis eget ipsum ac, tristique bibendum enim.
+        </p>
+        <a
+            href="#"
+            class="flex items-center justify-center gap-2 text-black bg-white text-2xl font-sans w-max py-2 px-8 rounded-full mt-4 hover:bg-gray-200 transition-colors duration-300"
+            >Read more <span class="material-symbols-outlined">
+            arrow_outward
+            </span></a
+        >
+    </div>
+    <div class="block w-full h-[1500px]"></div>
 </Layout>

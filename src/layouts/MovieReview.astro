@@ -1,0 +1,271 @@
+---
+import Layout from "./Layout.astro";
+import { Icon } from "astro-icon/components";
+import "../styles/global.css";
+
+const { frontmatter, prevSlug, nextSlug, readingTime } = Astro.props;
+
+const title = frontmatter.title || "Unset";
+const author = frontmatter.author || "Mirko & Laura";
+const movieRelease = frontmatter.movieRelease || "2024";
+const popcornScore = frontmatter.popcornScore || 5;
+const movieCategory = frontmatter.movieCategory || "Drama";
+const movieLength = frontmatter.movieLength || "6 seasons";
+const movieCover = frontmatter.movieCover || "https://placehold.co/300x450/png";
+const date = frontmatter.date || "2024-01-01";
+
+const totalPopcorns = 5;
+---
+
+<Layout headerTextColor="000000">
+    <div class="flex flex-row gap-8 items-end justify-center mb-20 mt-5">
+        <img
+            src={movieCover}
+            alt={title}
+            class="w-1/5 h-auto rounded-sm shadow-lg dark:shadow-none"
+        />
+        <div class="flex flex-col gap-4">
+            <h1 class="text-4xl font-normal max-w-128 dark:text-white">{title}</h1>
+            <p class="text-2xl dark:text-zinc-300">
+                by {author} - <small class="text-sm dark:text-zinc-400">{date}</small>
+            </p>
+            <p class="text-sm dark:text-zinc-400">
+                {movieRelease} &#8226; {movieCategory} &#8226; {movieLength}
+            </p>
+
+            <div class="flex items-center justify-center w-max">
+                <div
+                    class="flex items-center gap-1 bg-red-50 dark:bg-red-900/30 px-4 py-1 rounded-full"
+                >
+                    {
+                        Array.from({ length: totalPopcorns }).map((_, i) => (
+                            <span
+                                class={`text-lg ${i < popcornScore ? "opacity-100" : "opacity-20"}`}
+                            >
+                                🍿
+                            </span>
+                        ))
+                    }
+                    <span class="text-red-600 dark:text-red-400 font-medium text-base ml-2"
+                        >{popcornScore}/{totalPopcorns}</span
+                    >
+                </div>
+            </div>
+
+            <div class="flex flex-row gap-2 items-center justify-center w-max">
+                <a
+                    class="flex items-center justify-center rounded-full bg-black text-white p-2 dark:bg-white dark:text-black"
+                >
+                    <Icon name="material-symbols:share" class="text-base dark:text-black" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex w-full items-center justify-center">
+        <div class="flex flex-col w-screen prose dark:prose-invert">
+            <slot />
+        </div>
+    </div>
+
+    <div
+        class="fixed w-full bottom-8 left-0 flex items-center justify-center gap-5"
+    >
+        <div
+            class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden h-full"
+        >
+            <a
+                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition border-r border-r-zinc-200 dark:border-r-zinc-700 ${!prevSlug ? "pointer-events-none opacity-30" : ""}`}
+                href={prevSlug ? `/cinema/reviews/${prevSlug}` : undefined}
+                aria-disabled={!prevSlug}
+                tabindex={!prevSlug ? -1 : undefined}
+            >
+                <Icon name="material-symbols:arrow-back" class="text-2xl dark:text-white" />
+            </a>
+            <a
+                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition ${!nextSlug ? "pointer-events-none opacity-30" : ""}`}
+                href={nextSlug ? `/cinema/reviews/${nextSlug}` : undefined}
+                aria-disabled={!nextSlug}
+                tabindex={!nextSlug ? -1 : undefined}
+            >
+                <Icon name="material-symbols:arrow-forward" class="text-2xl dark:text-white" />
+            </a>
+        </div>
+        <div
+            class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden items-center justify-center py-4 px-8"
+            id="reading-time-container"
+        >
+            <Icon name="material-symbols:schedule-outline" class="text-lg dark:text-white" />
+            <span class="ml-2 text-lg font-normal dark:text-white" id="reading-time-text"
+                >{readingTime} min left</span
+            >
+        </div>
+        <div
+            id="headings-toggle"
+            class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
+            style="cursor:pointer;"
+        >
+            <div
+                id="headings-list-container"
+                class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md rounded-3xl w-72 max-h-96 z-10"
+            >
+                <ul
+                    id="headings-list"
+                    class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 dark:scrollbar-thumb-zinc-500 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-track-zinc-800"
+                >
+                </ul>
+            </div>
+            <div
+                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md rounded-full transition"
+            >
+                <Icon name="material-symbols:text-fields" class="text-2xl dark:text-white" />
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    if (typeof window !== "undefined") {
+        // --- Reading time logic (cleaner) ---
+        const readingTimeText = document.getElementById("reading-time-text");
+        const readingTimeValue = Number(
+            (readingTimeText?.textContent?.match(/\d+/) || [0])[0],
+        );
+
+        const articleEl =
+            document.querySelector("main .prose") ||
+            document.querySelector(".prose");
+        const article = articleEl instanceof HTMLElement ? articleEl : null;
+
+        function updateReadingTime() {
+            if (!article || !readingTimeText) return;
+            const windowHeight = window.innerHeight;
+            const totalHeight = Math.max(
+                0,
+                article.scrollHeight - windowHeight,
+            );
+            const scrolled = window.scrollY - (article.offsetTop || 0);
+            const progress =
+                totalHeight === 0
+                    ? 1
+                    : Math.min(1, Math.max(0, scrolled / totalHeight));
+            const minutesLeft = Math.max(
+                1,
+                Math.round(readingTimeValue * (1 - progress)),
+            );
+            readingTimeText.textContent = `${minutesLeft} min left`;
+        }
+
+        window.addEventListener("scroll", updateReadingTime, { passive: true });
+        window.addEventListener("resize", updateReadingTime);
+        document.addEventListener("DOMContentLoaded", updateReadingTime);
+        updateReadingTime();
+
+        // --- Headings menu morphing logic (simplified) ---
+        const toggle = document.getElementById("headings-toggle");
+        const listContainer = document.getElementById(
+            "headings-list-container",
+        );
+        const list = document.getElementById("headings-list");
+
+        if (toggle && listContainer && list) {
+            const buttonEl = toggle.querySelector(":scope > div:last-child");
+
+            function getHeadings() {
+                const art =
+                    document.querySelector("main .prose") ||
+                    document.querySelector(".prose");
+                if (!art) return [];
+                return Array.from(art.querySelectorAll("h1, h2, h3"));
+            }
+
+            function buildHeadingsMenu() {
+                list.innerHTML = "";
+                const headings = getHeadings();
+                headings.forEach((heading, i) => {
+                    if (!heading.id) heading.id = "heading-" + i;
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.textContent = heading.textContent || "";
+                    a.href = "#" + heading.id;
+                    a.className =
+                        "block px-2 py-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition text-zinc-800 dark:text-zinc-200 font-medium underline" +
+                        (heading.tagName === "H1"
+                            ? " text-base font-bold underline"
+                            : heading.tagName === "H2"
+                              ? " text-sm font-semibold pl-4 underline"
+                              : " text-sm font-normal pl-8 underline");
+                    a.addEventListener("click", (ev) => {
+                        ev.preventDefault();
+                        const target = document.getElementById(heading.id);
+                        if (target)
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        collapseMenu();
+                    });
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+            }
+
+            function expandMenu() {
+                listContainer.classList.remove(
+                    "opacity-0",
+                    "pointer-events-none",
+                );
+                listContainer.classList.add(
+                    "opacity-100",
+                    "pointer-events-auto",
+                );
+                if (buttonEl)
+                    buttonEl.classList.remove(
+                        "bg-white/70",
+                        "backdrop-blur-xs",
+                        "shadow-sm",
+                        "dark:bg-zinc-900/70",
+                        "dark:backdrop-blur-xs",
+                        "dark:shadow-sm",
+                    );
+                buildHeadingsMenu();
+            }
+
+            function collapseMenu() {
+                listContainer.classList.add("opacity-0", "pointer-events-none");
+                listContainer.classList.remove(
+                    "opacity-100",
+                    "pointer-events-auto",
+                );
+                if (buttonEl)
+                    buttonEl.classList.add(
+                        "bg-white/70",
+                        "backdrop-blur-xs",
+                        "shadow-sm",
+                        "dark:bg-zinc-900/70",
+                        "dark:backdrop-blur-xs",
+                        "dark:shadow-sm",
+                    );
+            }
+
+            let expanded = false;
+            toggle.addEventListener("click", (e) => {
+                // If click happens inside the list (e.g. a link), don't toggle here
+                if (listContainer.contains(e.target)) return;
+                expanded ? collapseMenu() : expandMenu();
+                expanded = !expanded;
+            });
+
+            // Hide menu when clicking outside
+            document.addEventListener("click", (e) => {
+                if (expanded && !toggle.contains(e.target)) {
+                    collapseMenu();
+                    expanded = false;
+                }
+            });
+
+            // Start collapsed
+            collapseMenu();
+        }
+    }
+</script>
