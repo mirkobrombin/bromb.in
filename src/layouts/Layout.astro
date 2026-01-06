@@ -1,8 +1,6 @@
 ---
 import Header from "../components/Header.astro";
 import "../styles/global.css";
-
-const headerTextColor = Astro.props.headerTextColor || "#000000";
 ---
 
 <!doctype html>
@@ -15,7 +13,7 @@ const headerTextColor = Astro.props.headerTextColor || "#000000";
 		<title>bromb.in</title>
 	</head>
 	<body class="font-serif dark:bg-zinc-900 dark:text-gray-200 bg-white text-black">
-	    <Header textColor={headerTextColor} />
+	    <Header />
 		<slot />
 	</body>
 </html>
