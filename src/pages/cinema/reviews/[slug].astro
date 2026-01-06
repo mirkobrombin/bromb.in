@@ -1,44 +1,51 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 
-const storyFiles = import.meta.glob('./*.md');
-const storyRawFiles = import.meta.glob('./*.md', { query: '?raw', import: 'default' });
+const storyFiles = import.meta.glob("./*.md");
+const storyRawFiles = import.meta.glob("./*.md", {
+    query: "?raw",
+    import: "default",
+});
 
 const slugs = Object.keys(storyFiles)
-  .map(path => {
-    const parts = path?.split('/');
-    const file = parts?.pop();
-    return file ? file.replace('.md', '') : '';
-  })
-  .sort();
+    .map((path) => {
+        const parts = path?.split("/");
+        const file = parts?.pop();
+        return file ? file.replace(".md", "") : "";
+    })
+    .sort();
 
 const { slug } = Astro.params;
-const currentIndex = slugs.indexOf(slug);
+const currentIndex = slugs.indexOf(slug ?? "");
 
 const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
-const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
+const nextSlug =
+    currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
 
 const loader = storyFiles[`./${slug}.md`];
 const rawLoader = storyRawFiles[`./${slug}.md`];
 const mod = await loader();
 const rawMarkdown = await rawLoader();
-const { default: Content, frontmatter } = mod;
+const { default: Content, frontmatter } = mod as {
+    default: any;
+    frontmatter: any;
+};
 
 const plainText = String(rawMarkdown)
-  .replace(/---[\s\S]*?---/, '') // Remove frontmatter
-  .replace(/[#>*_\-\[\]\(\)`]/g, '')
-  .replace(/\s+/g, ' ')
-  .trim();
-const wordCount = plainText.split(' ').filter(Boolean).length;
+    .replace(/---[\s\S]*?---/, "") // Remove frontmatter
+    .replace(/[#>*_\-\[\]\(\)`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+const wordCount = plainText.split(" ").filter(Boolean).length;
 const wordsPerMinute = 200;
 const readingTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
 ---
 
 <ArticleLayout
-  frontmatter={frontmatter}
-  prevSlug={prevSlug}
-  nextSlug={nextSlug}
-  readingTime={readingTime}
+    frontmatter={frontmatter}
+    prevSlug={prevSlug}
+    nextSlug={nextSlug}
+    readingTime={readingTime}
 >
-  <Content />
+    <Content />
 </ArticleLayout>
