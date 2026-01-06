@@ -8,8 +8,7 @@ const slugs = Object.keys(storyFiles)
   .sort();
 
 const { slug } = Astro.params;
-const currentIndex = slugs.indexOf(slug: string | null);
-
+const currentIndex = slugs.indexOf(slug ?? '');
 const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
 const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
 
