@@ -119,7 +119,7 @@ export let currentPage = null;
 </style>
 
 <script>
-    import Fuse, { type Expression } from "fuse.js";
+    import Fuse, {type Expression} from "fuse.js";
 
     // State
     let headerTextColor: string | null = null;
@@ -312,7 +312,13 @@ export let currentPage = null;
         return {results, count};
     }
 
-    function performSearch(query: string | ({ [key: string]: string; } & { [Symbol.search](string: string): number; }) | ({ $path: ReadonlyArray<string>; $val: string; } & { [Symbol.search](string: string): number; }) | ({ $and?: Expression[]; } & { [Symbol.search](string: string): number; }) | ({ $or?: Expression[]; } & { [Symbol.search](string: string): number; })) {
+    function performSearch(query: string | ({ [key: string]: string; } & {
+        [Symbol.search](string: string): number;
+    }) | ({ $path: ReadonlyArray<string>; $val: string; } & { [Symbol.search](string: string): number; }) | ({
+        $and?: Expression[];
+    } & { [Symbol.search](string: string): number; }) | ({ $or?: Expression[]; } & {
+        [Symbol.search](string: string): number;
+    })) {
         const {results: resultsContainer, count: countEl} = chooseResultsContainer();
         selectedIndex = -1;
         currentResults = [];
