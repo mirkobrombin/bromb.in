@@ -28,7 +28,7 @@ const reviewPosts = await Promise.all(
   })
 );
 const titleToSlug = new Map(reviewPosts.map(p => [p.title.toLowerCase(), p.slug]));
-function resolveManualRef(value) {
+function resolveManualRef(value: any) {
   if (!value) return null;
   const s = String(value).trim();
   if (!s) return null;
@@ -158,7 +158,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         >
             <div
                     id="headings-list-container"
-                    class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md rounded-3xl w-72 max-h-96 z-10"
+                    class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs shadow-sm dark:shadow-md rounded-3xl w-72 max-h-96 z-10"
             >
                 <ul
                         id="headings-list"
@@ -183,11 +183,11 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         (function () {
             let rafScheduled = false;
 
-            function clamp(v, a = 0, b = 1) {
+            function clamp(v: number, a = 0, b = 1) {
                 return Math.min(b, Math.max(a, v));
             }
 
-            function computeReadingTimeMinutes(articleEl, readingTimeEl) {
+            function computeReadingTimeMinutes(articleEl: HTMLElement, readingTimeEl: HTMLElement) {
                 let words = 0;
                 if (articleEl && articleEl.textContent) {
                     const text = articleEl.textContent.replace(/\s+/g, " ").trim();
@@ -356,21 +356,21 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         }
 
         (function () {
-            const navSelector = id => document.getElementById(id);
+            const navSelector = (id: string): HTMLElement | null => document.getElementById(id);
 
-            function navigateToSlug(slug) {
+            function navigateToSlug(slug: any) {
                 if (!slug) return;
                 window.location.assign(`/cinema/reviews/${slug}`);
             }
 
-            function normalizeDataset(val) {
+            function normalizeDataset(val: string | null) {
                 if (val === null) return null;
                 val = String(val).trim();
                 if (!val || val === "null" || val === "undefined") return null;
                 return val;
             }
 
-            function resolveSlugFromGlobal(id, datasetSlug) {
+            function resolveSlugFromGlobal(id: string, datasetSlug: string | null) {
                 const ds = normalizeDataset(datasetSlug);
                 if (ds) return ds;
                 const nav = window.__POST_NAV;
@@ -382,7 +382,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 return null;
             }
 
-            function wireButton(id) {
+            function wireButton(id: string) {
                 const el = navSelector(id);
                 if (!el) return;
 
