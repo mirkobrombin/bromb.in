@@ -67,7 +67,7 @@ export let currentPage = null;
     <!-- Desktop header -->
     <nav id="desktop-header"
          class="absolute left-1/2 transform -translate-x-1/2 top-5 hidden lg:flex flex-row gap-4 items-center justify-between font-sans text-md px-4 py-2 md:gap-12 md:px-8 rounded-full w-max">
-        <div id="desktop-nav-groups" class="flex items-center gap-3">
+        <div id="desktop-nav-groups" class="flex items-center gap-8">
             {navGroups.map(group => (
                     <div class={group.class}>
                         {group.items.map(i => (
@@ -77,20 +77,22 @@ export let currentPage = null;
                     </div>
             ))}
 
-            <button id="search-button" class="hover:underline flex items-center justify-center"
-                    onclick="toggleInlineSearch()" type="button">
-                <span class="material-symbols-outlined text-xl">search</span>
-            </button>
+            <div class="hidden md:flex flex-row gap-4" id="desktop-nav-icons">
+                <button id="search-button" class="hover:underline flex items-center justify-center"
+                        onclick="toggleInlineSearch()" type="button">
+                    <span class="material-symbols-outlined text-xl">search</span>
+                </button>
+            </div>
         </div>
 
         <div id="desktop-inline-search" class="hidden w-full flex flex-col">
             <div class="flex items-center gap-3 relative">
-                <button class="flex items-center justify-between p-2 hover:bg-gray-200 dark:hover:bg-zinc-800 rounded-full"
+                <button class="flex items-center justify-between hover:bg-gray-200 dark:hover:bg-zinc-800 rounded-full"
                         aria-label="Close inline search" onclick="closeInlineSearch()" type="button">
-                    <Icon name="material-symbols:search" class="size-6"/>
+                    <Icon name="material-symbols:search" class="size-5"/>
                 </button>
                 <input id="search-input-inline"
-                       class="w-[615px] h-full bg-transparent outline-none text-sm md:text-lg text-center font-semibold"
+                       class="w-140 h-7 bg-transparent outline-none text-sm md:text-lg text-center font-semibold"
                        placeholder="What are you looking for?" aria-label="Search"/>
                 <div id="search-count-inline" class="text-sm text-gray-500 hidden">0 Results</div>
             </div>
@@ -129,14 +131,12 @@ export let currentPage = null;
     let selectedIndex = -1;
     let currentResults: string | any[] = [];
 
-    // Helpers
     const $ = (sel: string) => document.querySelector(sel);
     const byId = (id: string) => document.getElementById(id);
 
     function setHeaderTextColor() {
         const header = $(".fixed.w-full.z-50");
         if (!header) return;
-        // find nearest [data-theme] section following the header
         let candidate: HTMLElement | undefined = header.parentElement?.nextElementSibling as HTMLElement | undefined;
         while (candidate && !candidate.hasAttribute?.("data-theme")) candidate = candidate.nextElementSibling as HTMLElement | undefined;
         if (!candidate) candidate = Array.from(document.querySelectorAll("[data-theme]")).find(el => header.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) as HTMLElement | undefined;
@@ -167,7 +167,6 @@ export let currentPage = null;
         }
     }
 
-    // mobile menu toggle wiring (keeps previous behavior)
     (() => {
         const menu = byId("mobile-menu");
         const hamburgerBtn = byId("hamburger-menu");
@@ -175,9 +174,30 @@ export let currentPage = null;
         [hamburgerBtn, closeBtn].forEach(btn => btn && btn.addEventListener("click", () => toggleVisibility(menu)));
     })();
 
-    // Desktop header scroll behavior
     (function setupHeaderScroll() {
         const desktopHeader = byId("desktop-header");
+        const navIcons = byId("desktop-nav-icons");
+        // Create the scroll-to-top button
+        let scrollBtn: HTMLButtonElement | null = document.createElement("button");
+        scrollBtn.innerHTML = '<span class="material-symbols-outlined text-2xl">arrow_upward</span>';
+        scrollBtn.setAttribute("aria-label", "Scroll to top");
+        scrollBtn.className = [
+            "scroll-to-top-btn",
+            "hidden",
+            "flex",
+            "items-center",
+            "justify-center",
+            "hover:bg-gray-200",
+            "dark:hover:bg-zinc-700",
+            "transition-all",
+            "duration-200",
+            "cursor-pointer",
+            "z-50"
+        ].join(" ");
+        scrollBtn.addEventListener("click", () => window.scrollTo({top: 0, behavior: "smooth"}));
+        if (navIcons && !navIcons.contains(scrollBtn)) {
+            navIcons.appendChild(scrollBtn);
+        }
         window.addEventListener("scroll", () => {
             if (!desktopHeader) return;
             const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -185,9 +205,11 @@ export let currentPage = null;
             if (window.scrollY === 0) {
                 desktopHeader.classList.remove(...classes);
                 desktopHeader.style.color = headerTextColor ?? (isDarkMode ? "white" : "black");
+                scrollBtn.classList.add("hidden");
             } else {
                 desktopHeader.classList.add(...classes);
                 desktopHeader.style.color = isDarkMode ? "white" : "black";
+                scrollBtn.classList.remove("hidden");
             }
         });
     })();
@@ -208,7 +230,6 @@ export let currentPage = null;
         initSearchHandlers();
     });
 
-    // Debounce util
     function debounce(fn: { (ev: any): void; (arg0: any): void; }, delay: number | undefined) {
         let t: string | number | NodeJS.Timeout | undefined;
         return (...args: any) => {
@@ -217,7 +238,6 @@ export let currentPage = null;
         };
     }
 
-    // Search: load index + Fuse setup
     async function loadSearchIndex() {
         if (searchLoaded) return;
         try {
@@ -407,7 +427,7 @@ export let currentPage = null;
         resetSearchInline();
     }
 
-    // search modal functions (kept for API compatibility)
+    // search modal functions
     function toggleSearchModal() {
         const modal = byId("search-modal");
         if (!modal) return;
@@ -441,7 +461,6 @@ export let currentPage = null;
         applyHeaderState(false);
     }
 
-    // selection navigation
     function moveSelection(delta: number) {
         if (!currentResults || currentResults.length === 0) return;
         let next = selectedIndex + delta;
@@ -451,7 +470,6 @@ export let currentPage = null;
     }
 
     function setSelection(idx: number) {
-        // prefer modal results container if present, otherwise inline
         const container = byId("search-results") || byId("search-results-inline");
         if (!container) return;
         Array.from(container.children).forEach((c, i) => c.classList.toggle("bg-gray-100", i === idx));
@@ -473,7 +491,6 @@ export let currentPage = null;
         }, 120);
     }
 
-    // small utilities
     function escapeHtml(unsafe = "") {
         return String(unsafe).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     }
