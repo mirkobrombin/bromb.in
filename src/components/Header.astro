@@ -73,7 +73,7 @@ export let currentPage = null;
                     <div class={group.class}>
                         {group.items.map(i => (
                                 <a href={navItems[i].href} data-key={navItems[i].key}
-                                   class={`hover:underline ${currentPage === navItems[i].key ? "font-extrabold" : ""}`}>{navItems[i].name}</a>
+                                   class="hover:underline opacity-80">{navItems[i].name}</a>
                         ))}
                     </div>
             ))}
@@ -103,7 +103,7 @@ export let currentPage = null;
 </div>
 
 <div id="desktop-title-bar"
-     class="hidden lg:flex flex-col md:flex-row justify-between items-center md:items-end px-4 md:px-12 pb-2 font-sans w-full pt-8 md:pt-12">
+     class="hidden lg:flex flex-col md:flex-row justify-between items-center md:items-center px-4 md:px-12 pb-2 font-sans w-full pt-8 md:pt-12">
     <h1 class="text-4xl md:text-5xl font-semibold text-center md:text-left">bromb.in</h1>
     <div class="flex flex-col md:flex-row gap-2 mt-4 md:mt-0">
         <div class="flex gap-2 justify-center md:justify-start">
@@ -112,7 +112,7 @@ export let currentPage = null;
             </a>)}
         </div>
         <div class="flex gap-2 justify-center md:justify-start">
-            {footerLinks.map(item => <a href={item.href} class="hover:underline">{item.name}</a>)}
+            {footerLinks.map(item => <a href={item.href} class="hover:underline opacity-80">{item.name}</a>)}
         </div>
     </div>
 </div>
@@ -205,7 +205,7 @@ export let currentPage = null;
         window.addEventListener("scroll", () => {
             if (!desktopHeader) return;
             const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            const classes = ["bg-white/90", "dark:bg-zinc-800/90", "backdrop-blur-md", "shadow-lg", "transition-all", "duration-300", "ease-in-out"];
+            const classes = ["bg-white/90", "dark:bg-zinc-800/90", "backdrop-blur-xs", "shadow-lg", "transition-all", "duration-300", "ease-in-out"];
             if (window.scrollY === 0) {
                 desktopHeader.classList.remove(...classes);
                 desktopHeader.style.color = headerTextColor ?? (isDarkMode ? "white" : "black");
@@ -225,7 +225,7 @@ export let currentPage = null;
         anchors.forEach(a => {
             const href = a.getAttribute('href') || '/';
             const match = href === path || (href !== '/' && path.startsWith(href));
-            a.classList.toggle('font-extrabold', match);
+            a.classList.toggle('opacity-100', match);
         });
     }
 
