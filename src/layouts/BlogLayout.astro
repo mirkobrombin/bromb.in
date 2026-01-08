@@ -37,7 +37,6 @@ const description = frontmatter.description || "No description provided";
             </a>
         </div>
 
-        <!-- Added reading time UI (uses frontmatter.readingTime if present) -->
         <div
             class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8"
             id="reading-time-container"
@@ -79,12 +78,11 @@ const description = frontmatter.description || "No description provided";
 
 <script>
     if (typeof window !== "undefined") {
-        // simple helper for back button
         const $ = id => document.getElementById(id);
         const backBtn = $("blog-back-btn");
         backBtn?.addEventListener("click", e => { e.preventDefault(); window.history.back(); });
 
-        // Reading time: robust client-side computation (word count + RAF batching)
+        // Reading time
         (function () {
             let rafScheduled = false;
 
@@ -143,7 +141,7 @@ const description = frontmatter.description || "No description provided";
             window.addEventListener("scroll", scheduleUpdateReadingTime, { passive: true });
         })();
 
-        // Headings toggle (preserve existing behavior)
+        // Headings toggle
         const toggle = document.getElementById("headings-toggle"),
               listContainer = document.getElementById("headings-list-container"),
               list = document.getElementById("headings-list"),

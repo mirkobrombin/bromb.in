@@ -10,6 +10,32 @@ const author = frontmatter.author || "Mirko & Laura";
 const date = frontmatter.date || "2024-01-01";
 const description = frontmatter.description || "No description available.";
 const cover = frontmatter.cover || "https://placehold.co/300x450/png";
+
+const articleFiles = import.meta.glob("../pages/stories/articles/*.md");
+const articleEntries = Object.entries(articleFiles);
+const articlePosts = await Promise.all(
+  articleEntries.map(async ([path, loader]) => {
+    const mod = await loader();
+    const file = path.split("/").pop() || "";
+    const slugFromFile = file.replace(".md", "");
+    const titleFromFile = String(mod?.frontmatter?.title ?? slugFromFile).trim();
+    return { slug: slugFromFile, title: titleFromFile };
+  })
+);
+const titleToSlug = new Map(articlePosts.map(p => [p.title.toLowerCase(), p.slug]));
+function resolveManualRef(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (!s) return null;
+  const byTitle = titleToSlug.get(s.toLowerCase());
+  if (byTitle) return byTitle;
+  if (articlePosts.find(p => p.slug === s)) return s;
+  return null;
+}
+const fmPrevResolved = resolveManualRef(frontmatter?.prev);
+const fmNextResolved = resolveManualRef(frontmatter?.next);
+const effectivePrevSlug = prevSlug ?? fmPrevResolved ?? null;
+const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 ---
 
 <Layout>
@@ -49,18 +75,22 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
             class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-900/80 dark:shadow-zinc-900/30"
         >
             <a
-                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-r-zinc-800 ${!prevSlug ? "pointer-events-none opacity-30" : ""}`}
-                href={prevSlug ? `/stories/articles/${prevSlug}` : undefined}
-                aria-disabled={!prevSlug}
-                tabindex={!prevSlug ? -1 : undefined}
+                id="prev-article-btn"
+                data-slug={effectivePrevSlug}
+                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-zinc-800 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
+                href={effectivePrevSlug ? `/stories/articles/${effectivePrevSlug}` : undefined}
+                aria-disabled={!effectivePrevSlug}
+                tabindex={!effectivePrevSlug ? -1 : undefined}
             >
                 <Icon name="material-symbols:arrow-back" class="text-2xl" />
             </a>
             <a
-                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!nextSlug ? "pointer-events-none opacity-30" : ""}`}
-                href={nextSlug ? `/stories/articles/${nextSlug}` : undefined}
-                aria-disabled={!nextSlug}
-                tabindex={!nextSlug ? -1 : undefined}
+                id="next-article-btn"
+                data-slug={effectiveNextSlug}
+                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
+                href={effectiveNextSlug ? `/stories/articles/${effectiveNextSlug}` : undefined}
+                aria-disabled={!effectiveNextSlug}
+                tabindex={!effectiveNextSlug ? -1 : undefined}
             >
                 <Icon name="material-symbols:arrow-forward" class="text-2xl" />
             </a>
@@ -103,7 +133,6 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
 
 <script>
     if (typeof window !== "undefined") {
-        // Replace old implementation with robust, DOM-driven reading time calculation
         (function () {
             let rafScheduled = false;
 
@@ -279,5 +308,67 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
 
             collapseMenu();
         }
+
+        (function () {
+            const navSelector = id => document.getElementById(id);
+
+            function navigateToSlug(slug) {
+                if (!slug) return;
+                window.location.assign(`/stories/articles/${slug}`);
+            }
+
+            function normalizeDataset(val) {
+                if (val === null) return null;
+                val = String(val).trim();
+                if (!val || val === "null" || val === "undefined") return null;
+                return val;
+            }
+
+            function wireButton(id) {
+                const el = navSelector(id);
+                if (!el) return;
+
+                const original = el.getAttribute("data-slug");
+                const slug = normalizeDataset(original);
+
+                if (!slug) {
+                    el.setAttribute("aria-disabled", "true");
+                    el.setAttribute("tabindex", "-1");
+                    el.classList.add("pointer-events-none", "opacity-30");
+                    el.removeAttribute("href");
+                    el.removeAttribute("data-slug");
+                } else {
+                    el.setAttribute("data-slug", slug);
+                    el.setAttribute("href", `/stories/articles/${slug}`);
+                    el.setAttribute("aria-disabled", "false");
+                    el.removeAttribute("tabindex");
+                    el.classList.remove("pointer-events-none", "opacity-30");
+                }
+
+                el.addEventListener("click", (ev) => {
+                    if (!slug) {
+                        ev.preventDefault();
+                        return;
+                    }
+                    ev.preventDefault();
+                    navigateToSlug(slug);
+                });
+
+                el.addEventListener("keydown", (ev) => {
+                    if (!slug) return;
+                    if (ev.key === "Enter" || ev.key === " ") {
+                        ev.preventDefault();
+                        navigateToSlug(slug);
+                    }
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                wireButton("prev-article-btn");
+                wireButton("next-article-btn");
+            });
+            wireButton("prev-article-btn");
+            wireButton("next-article-btn");
+        })();
     }
 </script>

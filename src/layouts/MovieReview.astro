@@ -16,7 +16,6 @@ const date = frontmatter.date || "2024-01-01";
 
 const totalPopcorns = 5;
 
-// --- new: resolve manual prev/next (by title or slug) server-side so layout works when markdown sets its own layout ---
 const reviewFiles = import.meta.glob("../pages/cinema/reviews/*.md");
 const reviewEntries = Object.entries(reviewFiles);
 const reviewPosts = await Promise.all(
@@ -35,13 +34,12 @@ function resolveManualRef(value) {
   if (!s) return null;
   const byTitle = titleToSlug.get(s.toLowerCase());
   if (byTitle) return byTitle;
-  // fallback: if value is already a slug present in the folder
+  // fallback
   if (reviewPosts.find(p => p.slug === s)) return s;
   return null;
 }
 const fmPrevResolved = resolveManualRef(frontmatter?.prev);
 const fmNextResolved = resolveManualRef(frontmatter?.next);
-// prefer props passed from page wrapper, then manual frontmatter, else null
 const effectivePrevSlug = prevSlug ?? fmPrevResolved ?? null;
 const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 ---
@@ -182,8 +180,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 
 <script>
     if (typeof window !== "undefined") {
-        // Remove early DOM caches; query inside the updater so it works
-        // Replace prior reading-time logic: compute reading time from rendered article DOM
         (function () {
             let rafScheduled = false;
 
@@ -191,15 +187,12 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 return Math.min(b, Math.max(a, v));
             }
 
-            // Count words in the article element; fallback to data-reading-time attribute when DOM text is empty
             function computeReadingTimeMinutes(articleEl, readingTimeEl) {
                 let words = 0;
                 if (articleEl && articleEl.textContent) {
-                    // collapse whitespace and split
                     const text = articleEl.textContent.replace(/\s+/g, " ").trim();
                     words = text ? text.split(" ").filter(Boolean).length : 0;
                 }
-                // fallback to server-provided attribute if client-side word count is 0
                 if (!words && readingTimeEl) {
                     const attr = readingTimeEl.getAttribute("data-reading-time");
                     const n = Number(attr);
@@ -211,7 +204,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 
             function updateReadingTimeImpl() {
                 const readingTimeEl = document.getElementById("reading-time-text");
-                // find the article/prose element dynamically
                 const articleEl =
                     document.querySelector("main .prose") ||
                     document.querySelector(".prose");
@@ -227,7 +219,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 const scrolled = clamp(window.scrollY - articleTop, 0, totalHeight);
                 const progress = totalHeight === 0 ? 1 : scrolled / totalHeight;
 
-                // Use ceil so the displayed minutes don't drop too early, ensure >= 1
                 const minutesLeft = Math.max(
                     1,
                     Math.ceil(readingTimeValue * (1 - progress))
@@ -354,7 +345,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 expanded = !expanded;
             });
 
-            // Hide menu when clicking outside the little button or whatever you can call it
             document.addEventListener("click", (e) => {
                 if (expanded && !toggle.contains(e.target)) {
                     collapseMenu();
@@ -365,7 +355,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             collapseMenu();
         }
 
-        // Navigation handlers for prev/next anchors: robust client-side navigation and keyboard support
         (function () {
             const navSelector = id => document.getElementById(id);
 
@@ -374,7 +363,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 window.location.assign(`/cinema/reviews/${slug}`);
             }
 
-            // treat "null"/"undefined" or empty strings as absent
             function normalizeDataset(val) {
                 if (val === null) return null;
                 val = String(val).trim();
@@ -402,7 +390,6 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 const resolved = resolveSlugFromGlobal(id, original);
                 const slug = resolved || null;
 
-                // Update DOM attributes/UI based on resolved slug
                 if (!slug) {
                     el.setAttribute("aria-disabled", "true");
                     el.setAttribute("tabindex", "-1");

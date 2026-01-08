@@ -1,21 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.css";
-import { Icon } from "astro-icon/components";
+import {Icon} from "astro-icon/components";
 
 const reviewFiles = import.meta.glob("./reviews/*.md");
-const moviePromises = Object.entries(reviewFiles).map(
-    async ([path, resolver]) => {
+const movies = await Promise.all(
+    Object.entries(reviewFiles).map(async ([path, resolver]) => {
         const mod = await (resolver as () => Promise<any>)();
-        const frontmatter = mod?.frontmatter ?? {};
-        const filename = path.split("/").pop() ?? "";
-        const slug = filename.replace(/\.md$/, "");
-        return { ...frontmatter, slug };
-    },
+        const {frontmatter = {}} = mod || {};
+        const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
+        return {...frontmatter, slug};
+    })
 );
-const movies = await Promise.all(moviePromises);
 
 const totalPopcorns = 5;
+const movieMetaFields = [
+    {key: "movieRelease", label: ""},
+    {key: "movieCategory", label: ""},
+    {key: "movieLength", label: ""},
+];
 ---
 
 <Layout>
@@ -24,71 +27,68 @@ const totalPopcorns = 5;
         <p class="text-2xl mt-4 mb-10 max-w-2xl text-center px-4">
             What's your next favorite TV series/Film?
         </p>
-        <hr class="w-128 border-t-2 border-zinc-400 mb-10" />
+        <hr class="w-128 border-t-2 border-zinc-400 mb-10"/>
     </div>
     <div class="flex w-full items-center justify-center">
         <div class="flex flex-col max-w-3xl">
             <div class="flex flex-col gap-24 items-center">
                 {
                     movies.map((movie) => (
-                        <div class="flex flex-row gap-8 items-center justify-center mb-20 mt-5">
-                            <div
-                                class="w-1/2 rounded-sm overflow-hidden shadow-lg"
-                                style="aspect-ratio: 2 / 3;"
-                            >
-                                <a href={`/cinema/reviews/${movie.slug}`}>
-                                    <img
-                                        src={movie.movieCover}
-                                        alt={movie.title}
-                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                    />
-                                </a>
-                            </div>
-                            <div class="flex flex-col gap-4">
-                                <h1 class="text-4xl font-normal max-w-128">
-                                    {movie.title}
-                                </h1>
-                                <p class="text-2xl">
-                                    by {movie.author} -{" "}
-                                    <small class="text-sm">{movie.date}</small>
-                                </p>
-                                <p class="text-sm">
-                                    {movie.movieRelease} &#8226;{" "}
-                                    {movie.movieCategory} &#8226;{" "}
-                                    {movie.movieLength}
-                                </p>
-
-                                <p class="text-sm text-zinc-600 max-w-prose">
-                                    {movie.excerpt}
-                                </p>
-
-                                <div class="flex items-center justify-center w-max">
-                                    <div class="flex items-center gap-1 bg-red-50 px-4 py-1 rounded-full">
-                                        {Array.from({
-                                            length: totalPopcorns,
-                                        }).map((_, i) => (
-                                            <span
-                                                class={`text-lg ${i < movie.popcornScore ? "opacity-100" : "opacity-20"}`}
-                                            >
-                                                🍿
-                                            </span>
-                                        ))}
-                                        <span class="text-red-600 font-medium text-base ml-2">
-                                            {movie.popcornScore}/{totalPopcorns}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-row gap-2 items-center justify-center w-max">
-                                    <a class="flex items-center justify-center rounded-full bg-black text-white p-2">
-                                        <Icon
-                                            name="material-symbols:share"
-                                            class="text-base"
+                            <div class="flex flex-row gap-8 items-center justify-center mb-20 mt-5">
+                                <div
+                                        class="w-1/2 rounded-sm overflow-hidden shadow-lg"
+                                        style="aspect-ratio: 2 / 3;"
+                                >
+                                    <a href={`/cinema/reviews/${movie.slug}`}>
+                                        <img
+                                                src={movie.movieCover}
+                                                alt={movie.title}
+                                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                                         />
                                     </a>
                                 </div>
+                                <div class="flex flex-col gap-4">
+                                    <h1 class="text-4xl font-normal max-w-128">
+                                        {movie.title}
+                                    </h1>
+                                    <p class="text-2xl">
+                                        by {movie.author} - <small class="text-sm">{movie.date}</small>
+                                    </p>
+                                    <p class="text-sm">
+                                        {movieMetaFields.map(({key}, idx) => (
+                                                <>
+                                                    {movie[key]}
+                                                    {idx < movieMetaFields.length - 1 && " \u2022 "}
+                                                </>
+                                        ))}
+                                    </p>
+                                    <p class="text-sm text-zinc-600 max-w-prose">
+                                        {movie.excerpt}
+                                    </p>
+                                    <div class="flex items-center justify-center w-max">
+                                        <div class="flex items-center gap-1 bg-red-50 px-4 py-1 rounded-full">
+                                            {Array.from({length: totalPopcorns}).map((_, i) => (
+                                                    <span
+                                                            class={`text-lg ${i < movie.popcornScore ? "opacity-100" : "opacity-20"}`}
+                                                    >
+                        🍿
+                      </span>
+                                            ))}
+                                            <span class="text-red-600 font-medium text-base ml-2">
+                      {movie.popcornScore}/{totalPopcorns}
+                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-row gap-2 items-center justify-center w-max">
+                                        <a class="flex items-center justify-center rounded-full bg-black text-white p-2">
+                                            <Icon
+                                                    name="material-symbols:share"
+                                                    class="text-base"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     ))
                 }
             </div>
