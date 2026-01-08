@@ -14,7 +14,7 @@ const navItems = [
 const navGroups = [
     {items: [0], class: "flex flex-row gap-4 md:gap-8 justify-center items-center"}, // main
     {items: [1, 2, 3, 4], class: "hidden md:flex flex-row gap-4"}, // secondary
-    {items: [5, 6], class: "hidden md:flex flex-row gap-4"}, // tertiary
+    {items: [5, 6], class: "hidden <md:flex></md:flex> flex-row gap-4"}, // tertiary
 ];
 
 const socialLinks = [
@@ -45,6 +45,7 @@ export let currentPage = null;
         <button class="absolute top-5 right-4 material-symbols-outlined text-3xl"
                 onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">close
         </button>
+
         <nav class="flex flex-col gap-4 text-lg font-medium font-sans">
             {navItems.map(item => (
                     <a href={item.href} data-key={item.key}
@@ -105,12 +106,14 @@ export let currentPage = null;
      class="hidden lg:flex flex-col md:flex-row justify-between items-center md:items-end px-4 md:px-12 pb-2 font-sans w-full pt-8 md:pt-12">
     <h1 class="text-4xl md:text-5xl font-semibold text-center md:text-left">bromb.in</h1>
     <div class="flex flex-col md:flex-row gap-2 mt-4 md:mt-0">
-        <div class="flex gap-2 justify-center md:justify-start">{socialLinks.map(icon => <a href={icon.href}
-                                                                                            class="hover:opacity-75">
-            <Icon name={icon.name}/>
-        </a>)}</div>
-        <div class="flex gap-2 justify-center md:justify-start">{footerLinks.map(item => <a href={item.href}
-                                                                                            class="hover:underline">{item.name}</a>)}</div>
+        <div class="flex gap-2 justify-center md:justify-start">
+            {socialLinks.map(icon => <a href={icon.href} class="hover:opacity-75">
+                <Icon name={icon.name}/>
+            </a>)}
+        </div>
+        <div class="flex gap-2 justify-center md:justify-start">
+            {footerLinks.map(item => <a href={item.href} class="hover:underline">{item.name}</a>)}
+        </div>
     </div>
 </div>
 
@@ -123,7 +126,6 @@ export let currentPage = null;
 <script>
     import Fuse, {type Expression} from "fuse.js";
 
-    // State
     let headerTextColor: string | null = null;
     let searchIndex = [];
     let fuse: string | Fuse<unknown> | null = null;
@@ -132,28 +134,31 @@ export let currentPage = null;
     let currentResults: string | any[] = [];
 
     const $ = (sel: string) => document.querySelector(sel);
-    const byId = (id: string) => document.getElementById(id);
+    const $id = (id: string) => document.getElementById(id);
+    const on = (target: {
+        addEventListener: (arg0: any, arg1: any) => any;
+    }, ev: any, fn: any) => target && target.addEventListener(ev, fn);
 
     function setHeaderTextColor() {
-        const header = $(".fixed.w-full.z-50");
-        if (!header) return;
-        let candidate: HTMLElement | undefined = header.parentElement?.nextElementSibling as HTMLElement | undefined;
-        while (candidate && !candidate.hasAttribute?.("data-theme")) candidate = candidate.nextElementSibling as HTMLElement | undefined;
-        if (!candidate) candidate = Array.from(document.querySelectorAll("[data-theme]")).find(el => header.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) as HTMLElement | undefined;
-        const sectionTheme = candidate?.dataset?.theme;
+        const headerRoot = $(".fixed.w-full.z-50");
+        if (!headerRoot) return;
+        let candidate = headerRoot.parentElement?.nextElementSibling;
+        while (candidate && !candidate.hasAttribute?.("data-theme")) candidate = candidate.nextElementSibling;
+        if (!candidate) {
+            candidate = Array.from(document.querySelectorAll("[data-theme]")).find(el => headerRoot.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING);
+        }
+        const sectionTheme = (candidate as HTMLElement)?.dataset?.theme;
         const isDark = sectionTheme ? sectionTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
         headerTextColor = isDark ? "#fff" : "#000";
         ["mobile-header", "desktop-header", "desktop-title-bar"].forEach(id => {
-            const el = byId(id);
-            if (el) if (headerTextColor != null) {
-                el.style.color = headerTextColor;
-            }
+            const el = $id(id);
+            if (el && headerTextColor != null) el.style.color = headerTextColor;
         });
     }
 
-    ["DOMContentLoaded", "resize", "scroll"].forEach(evt =>
-        (evt === "DOMContentLoaded" ? document : window).addEventListener(evt, setHeaderTextColor)
-    );
+    ["DOMContentLoaded", "resize", "scroll"].forEach(evt => {
+        (evt === "DOMContentLoaded" ? document : window).addEventListener(evt, setHeaderTextColor);
+    });
 
     function toggleVisibility(el: HTMLElement | null) {
         if (!el) return;
@@ -167,18 +172,18 @@ export let currentPage = null;
         }
     }
 
-    (() => {
-        const menu = byId("mobile-menu");
-        const hamburgerBtn = byId("hamburger-menu");
+    (function bindMobileMenu() {
+        const menu = $id("mobile-menu");
+        const hamburger = $id("hamburger-menu");
         const closeBtn = document.querySelector("#mobile-menu .material-symbols-outlined");
-        [hamburgerBtn, closeBtn].forEach(btn => btn && btn.addEventListener("click", () => toggleVisibility(menu)));
+        [hamburger, closeBtn].forEach(btn => btn && btn.addEventListener("click", () => toggleVisibility(menu)));
     })();
 
     (function setupHeaderScroll() {
-        const desktopHeader = byId("desktop-header");
-        const navIcons = byId("desktop-nav-icons");
-        // Create the scroll-to-top button
-        let scrollBtn: HTMLButtonElement | null = document.createElement("button");
+        const desktopHeader = $id("desktop-header");
+        const navIcons = $id("desktop-nav-icons");
+
+        const scrollBtn = document.createElement("button");
         scrollBtn.innerHTML = '<span class="material-symbols-outlined text-2xl">arrow_upward</span>';
         scrollBtn.setAttribute("aria-label", "Scroll to top");
         scrollBtn.className = [
@@ -195,9 +200,8 @@ export let currentPage = null;
             "z-50"
         ].join(" ");
         scrollBtn.addEventListener("click", () => window.scrollTo({top: 0, behavior: "smooth"}));
-        if (navIcons && !navIcons.contains(scrollBtn)) {
-            navIcons.appendChild(scrollBtn);
-        }
+        if (navIcons && !navIcons.contains(scrollBtn)) navIcons.appendChild(scrollBtn);
+
         window.addEventListener("scroll", () => {
             if (!desktopHeader) return;
             const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -214,6 +218,7 @@ export let currentPage = null;
         });
     })();
 
+    // highlight current page anchors with data-key
     function highlightCurrentPage() {
         const anchors = document.querySelectorAll('a[data-key]');
         const path = window.location.pathname || '/';
@@ -230,11 +235,11 @@ export let currentPage = null;
         initSearchHandlers();
     });
 
-    function debounce(fn: { (ev: any): void; (arg0: any): void; }, delay: number | undefined) {
+    function debounce(fn: { (ev: any): void; apply?: any; }, delay: number | undefined) {
         let t: string | number | NodeJS.Timeout | undefined;
         return (...args: any) => {
             clearTimeout(t);
-            t = setTimeout(() => fn.apply(null, args as [any]), delay);
+            t = setTimeout(() => fn.apply(null, args), delay);
         };
     }
 
@@ -252,43 +257,39 @@ export let currentPage = null;
                     name: 'content',
                     weight: 0.2
                 }],
-                includeScore: true, threshold: 0.3, ignoreLocation: true
+                includeScore: true,
+                threshold: 0.3,
+                ignoreLocation: true
             });
             searchLoaded = true;
             console.log('Search index loaded, items:', searchIndex.length);
         } catch (err) {
             console.warn('Could not load search index, using fallback', err);
-            searchIndex = [{
-                title: "Home",
-                description: "Welcome to the homepage",
-                href: "/",
-                content: ""
-            }, {title: "Stories", description: "Explore our stories", href: "/stories", content: ""}];
+            searchIndex = [
+                {title: "Home", description: "Welcome to the homepage", href: "/", content: ""},
+                {title: "Stories", description: "Explore our stories", href: "/stories", content: ""}
+            ];
             fuse = new Fuse(searchIndex, {keys: ['title', 'description', 'content'], threshold: 0.4});
             searchLoaded = true;
         }
     }
 
     function initSearchHandlers() {
-        const inlineInput = byId("search-input-inline");
+        const inlineInput = $id("search-input-inline");
+        const modalInput = $id("search-input");
         const debounced = debounce((ev) => performSearch(ev.target.value), 180);
-        if (inlineInput) {
-            inlineInput.addEventListener("input", debounced);
-            inlineInput.addEventListener("input", (ev: Event) => toggleHeaderByInput((ev.target as HTMLInputElement)?.value ?? ""));
-            addKeyHandlers(inlineInput);
-        }
-        // modal input (if enabled in future)
-        const modalInput = byId("search-input");
-        if (modalInput) {
-            modalInput.addEventListener("input", debounced);
-            modalInput.addEventListener("input", (ev: Event) => toggleHeaderByInput((ev.target as HTMLInputElement)?.value ?? ""));
-            addKeyHandlers(modalInput);
-        }
+
+        [inlineInput, modalInput].forEach(input => {
+            if (!input) return;
+            input.addEventListener("input", debounced);
+            input.addEventListener("input", (ev) => toggleHeaderByInput((ev.target as HTMLInputElement)?.value || ""));
+            addKeyHandlers(input);
+        });
     }
 
     function addKeyHandlers(el: HTMLElement) {
         if (!el) return;
-        el.addEventListener("keydown", (ev) => {
+        el.addEventListener("keydown", (ev: { key: string; preventDefault: () => void; }) => {
             if (ev.key === "ArrowDown") {
                 ev.preventDefault();
                 moveSelection(1);
@@ -306,12 +307,11 @@ export let currentPage = null;
     }
 
     function toggleHeaderByInput(value: string) {
-        const active = value && value.trim() !== "";
-        applyHeaderState(active);
+        applyHeaderState(value && value.trim() !== "");
     }
 
-    function applyHeaderState(active: string | boolean | undefined) {
-        const hdr = byId("desktop-header");
+    function applyHeaderState(active: string | boolean) {
+        const hdr = $id("desktop-header");
         if (!hdr) return;
         hdr.setAttribute("data-search-active", active ? "true" : "false");
         hdr.style.transition = hdr.style.transition || "border-radius 120ms cubic-bezier(.2,.9,.3,1), padding 120ms cubic-bezier(.2,.9,.3,1)";
@@ -319,12 +319,11 @@ export let currentPage = null;
         hdr.classList.toggle("rounded-full", !active);
     }
 
-    // Search UI helpers
     function chooseResultsContainer() {
-        let results = byId("search-results");
-        let count = byId("search-count");
-        const inlineResults = byId("search-results-inline");
-        const inlineCount = byId("search-count-inline");
+        let results = $id("search-results");
+        let count = $id("search-count");
+        const inlineResults = $id("search-results-inline");
+        const inlineCount = $id("search-count-inline");
         if ((!results || results.classList.contains('hidden')) && inlineResults) {
             results = inlineResults;
             count = inlineCount;
@@ -332,13 +331,7 @@ export let currentPage = null;
         return {results, count};
     }
 
-    function performSearch(query: string | ({ [key: string]: string; } & {
-        [Symbol.search](string: string): number;
-    }) | ({ $path: ReadonlyArray<string>; $val: string; } & { [Symbol.search](string: string): number; }) | ({
-        $and?: Expression[];
-    } & { [Symbol.search](string: string): number; }) | ({ $or?: Expression[]; } & {
-        [Symbol.search](string: string): number;
-    })) {
+    function performSearch(query: (string | Expression) & (string | RegExp)) {
         const {results: resultsContainer, count: countEl} = chooseResultsContainer();
         selectedIndex = -1;
         currentResults = [];
@@ -355,14 +348,15 @@ export let currentPage = null;
             applyHeaderState(false);
             return;
         }
+
         const raw = Array.isArray(fuse.search(query, {limit: 50})) ? fuse.search(query, {limit: 50}) : [];
-        const results = Array.isArray(raw) ? raw.map((r: any) => r.item ? r.item : r) : [];
+        const results = Array.isArray(raw) ? raw.map(r => r.item ? r.item : r) : [];
         currentResults = results;
         applyHeaderState(results.length > 0);
         countEl.textContent = `${results.length} Result${results.length === 1 ? "" : "s"}`;
         countEl.classList.remove("hidden");
 
-        results.forEach((res: { title: string | undefined; href: string | undefined; description: any; }, idx: any) => {
+        results.forEach((res, idx) => {
             const el = document.createElement("div");
             el.className = "flex items-start gap-3 p-3 rounded-md hover:bg-gray-100 dark:hover:bg-zinc-800 cursor-pointer";
             el.setAttribute("role", "option");
@@ -371,21 +365,23 @@ export let currentPage = null;
         <span class="material-symbols-outlined text-2xl text-gray-600 dark:text-gray-400">article</span>
         <div class="flex-1 min-w-0">
           <div class="flex justify-between items-center">
-            <h3 class="text-sm font-semibold truncate">${escapeHtml(res.title)}</h3>
-            <span class="text-xs text-gray-400 ml-3">${truncatePath(res.href)}</span>
+            <h3 class="text-sm font-semibold truncate">${escapeHtml((res as { title?: string }).title ?? "")}</h3>
+            <span class="text-xs text-gray-400 ml-3">${truncatePath((res as { href?: string }).href ?? "")}</span>
           </div>
-          <p class="text-xs text-gray-500 dark:text-gray-400 truncate">${escapeHtml(res.description || "")}</p>
-        </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 truncate">${escapeHtml((res as {
+                description?: string
+            }).description || "")}</p>        
+          </div>
       `;
-            el.addEventListener("click", () => navigateTo(res.href));
+            el.addEventListener("click", () => navigateTo((res as { href?: string }).href));
             el.addEventListener("mousemove", () => setSelection(idx));
             resultsContainer.appendChild(el);
         });
     }
 
     function toggleInlineSearch() {
-        const nav = byId("desktop-nav-groups");
-        const inline = byId("desktop-inline-search");
+        const nav = $id("desktop-nav-groups");
+        const inline = $id("desktop-inline-search");
         if (!nav || !inline) return;
         const showing = !inline.classList.contains("hidden");
         if (showing) {
@@ -398,7 +394,7 @@ export let currentPage = null;
             loadSearchIndex().catch(() => {
             });
             setTimeout(() => {
-                const input = byId("search-input-inline") as HTMLInputElement | null;
+                const input = $id("search-input-inline") as HTMLInputElement | null;
                 if (input) {
                     input.value = "";
                     input.focus();
@@ -411,25 +407,25 @@ export let currentPage = null;
     function resetSearchInline() {
         selectedIndex = -1;
         currentResults = [];
-        const r = byId("search-results-inline");
-        const c = byId("search-count-inline");
+        const r = $id("search-results-inline");
+        const c = $id("search-count-inline");
         if (r) r.innerHTML = "";
         if (c) c.classList.add("hidden");
         applyHeaderState(false);
     }
 
     function closeInlineSearch() {
-        const inline = byId("desktop-inline-search");
-        const nav = byId("desktop-nav-groups");
+        const inline = $id("desktop-inline-search");
+        const nav = $id("desktop-nav-groups");
         if (!inline || !nav) return;
         inline.classList.add("hidden");
         nav.classList.remove("hidden");
         resetSearchInline();
     }
 
-    // search modal functions
+    // modal functions (kept for parity)
     function toggleSearchModal() {
-        const modal = byId("search-modal");
+        const modal = $id("search-modal");
         if (!modal) return;
         const wasHidden = modal.classList.contains("hidden");
         toggleVisibility(modal);
@@ -437,7 +433,7 @@ export let currentPage = null;
             loadSearchIndex().catch(() => {
             });
             setTimeout(() => {
-                const input = byId("search-input") as HTMLInputElement | null;
+                const input = $id("search-input") as HTMLInputElement | null;
                 if (input) {
                     input.value = "";
                     input.focus();
@@ -448,13 +444,13 @@ export let currentPage = null;
     }
 
     function closeSearchModal() {
-        const modal = byId("search-modal");
+        const modal = $id("search-modal");
         if (!modal) return;
         modal.classList.add("opacity-0", "scale-95");
         modal.addEventListener("transitionend", () => modal.classList.add("hidden"), {once: true});
-        const results = byId("search-results");
+        const results = $id("search-results");
         if (results) results.innerHTML = "";
-        const count = byId("search-count");
+        const count = $id("search-count");
         if (count) count.classList.add("hidden");
         selectedIndex = -1;
         currentResults = [];
@@ -470,7 +466,7 @@ export let currentPage = null;
     }
 
     function setSelection(idx: number) {
-        const container = byId("search-results") || byId("search-results-inline");
+        const container = $id("search-results") || $id("search-results-inline");
         if (!container) return;
         Array.from(container.children).forEach((c, i) => c.classList.toggle("bg-gray-100", i === idx));
         selectedIndex = idx;
@@ -482,12 +478,10 @@ export let currentPage = null;
         else if (currentResults.length > 0) navigateTo(currentResults[0].href);
     }
 
-    function navigateTo(href: string | undefined) {
+    function navigateTo(href: string | null | undefined) {
         closeSearchModal();
         setTimeout(() => {
-            if (href != null) {
-                window.location.href = href;
-            }
+            if (href != null) window.location.href = href;
         }, 120);
     }
 
