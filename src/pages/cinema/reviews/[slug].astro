@@ -7,20 +7,47 @@ const storyRawFiles = import.meta.glob("./*.md", {
     import: "default",
 });
 
-const slugs = Object.keys(storyFiles)
-    .map((path) => {
-        const parts = path?.split("/");
-        const file = parts?.pop();
-        return file ? file.replace(".md", "") : "";
-    })
-    .sort();
+// Build posts with parsed date (time) and title
+const entries = Object.entries(storyFiles);
+const posts = await Promise.all(
+  entries.map(async ([path, loaderFn]) => {
+    const mod = await (loaderFn as any)();
+    const file = path.split("/").pop() || "";
+    const slugFromFile = file.replace(".md", "");
+    const fm = mod?.frontmatter || {};
+    const parsed = Date.parse(String(fm.date ?? ""));
+    const time = Number.isFinite(parsed) ? parsed : 0;
+    const title = String(fm.title ?? slugFromFile);
+    return { slug: slugFromFile, time, title };
+  }),
+);
 
+// sort by time ascending, tie-break by slug for deterministic order
+posts.sort((a, b) => (a.time === b.time ? a.slug.localeCompare(b.slug) : a.time - b.time));
+const slugs = posts.map(p => p.slug);
 const { slug } = Astro.params;
-const currentIndex = slugs.indexOf(slug ?? "");
+const currentPost = posts.find(p => p.slug === slug) || { slug, time: 0, title: slug };
+const currentTime = currentPost.time;
 
-const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
-const nextSlug =
-    currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
+// compute prev = largest time < currentTime
+let prevSlug = null;
+{
+  const older = posts.filter(p => p.slug !== slug && p.time < currentTime);
+  if (older.length) {
+    older.sort((a, b) => b.time - a.time || a.slug.localeCompare(b.slug));
+    prevSlug = older[0].slug;
+  }
+}
+
+// compute next = smallest time > currentTime
+let nextSlug = null;
+{
+  const newer = posts.filter(p => p.slug !== slug && p.time > currentTime);
+  if (newer.length) {
+    newer.sort((a, b) => a.time - b.time || a.slug.localeCompare(b.slug));
+    nextSlug = newer[0].slug;
+  }
+}
 
 const loader = storyFiles[`./${slug}.md`];
 const rawLoader = storyRawFiles[`./${slug}.md`];
@@ -31,6 +58,29 @@ const { default: Content, frontmatter } = mod as {
     frontmatter: any;
 };
 
+// If the author provides manual prev/next in frontmatter (by title or slug), prefer that.
+// Build a lookup from normalized title -> slug
+const titleToSlug = new Map(posts.map(p => [String(p.title || "").trim().toLowerCase(), p.slug]));
+
+// helper to resolve a frontmatter value (title or slug) to a slug
+function resolveManualReference(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (!s) return null;
+  // try title match (case-insensitive)
+  const byTitle = titleToSlug.get(s.toLowerCase());
+  if (byTitle) return byTitle;
+  // fallback: if value already matches a slug in the list, use it
+  if (slugs.includes(s)) return s;
+  return null;
+}
+
+// override prev/next if frontmatter explicitly sets them
+const fmPrevResolved = resolveManualReference(frontmatter?.prev);
+if (fmPrevResolved) prevSlug = fmPrevResolved;
+const fmNextResolved = resolveManualReference(frontmatter?.next);
+if (fmNextResolved) nextSlug = fmNextResolved;
+
 const plainText = String(rawMarkdown)
     .replace(/---[\s\S]*?---/, "") // Remove frontmatter
     .replace(/[#>*_\-\[\]\(\)`]/g, "")
@@ -39,13 +89,28 @@ const plainText = String(rawMarkdown)
 const wordCount = plainText.split(" ").filter(Boolean).length;
 const wordsPerMinute = 200;
 const readingTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
----
 
+// export a safe JSON payload for client fallback (stringified server-side)
+const __navPayload = JSON.stringify({ slugs, current: slug });
+---
 <ArticleLayout
     frontmatter={frontmatter}
     prevSlug={prevSlug}
     nextSlug={nextSlug}
     readingTime={readingTime}
 >
-    <Content />
+    <!-- Pass navigation props into the compiled Content component so layouts inside the MD can use them -->
+    <Content
+        frontmatter={frontmatter}
+        prevSlug={prevSlug}
+        nextSlug={nextSlug}
+        readingTime={readingTime}
+    />
 </ArticleLayout>
+
+<!-- expose nav data for client-side scripts (fallback when layout frontmatter causes wrapper props to be ignored) -->
+<script>
+  // filepath: /Users/gabs/Documents/Projects/bromb.in/src/pages/cinema/reviews/[slug].astro (inline payload)
+  // emit a valid JSON payload string server-side and parse it client-side
+  window.__POST_NAV = JSON.parse('{__navPayload}');
+</script>

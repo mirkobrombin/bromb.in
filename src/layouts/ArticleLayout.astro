@@ -72,6 +72,7 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
         >
             <Icon name="material-symbols:schedule-outline" class="text-lg" />
             <span class="ml-2 text-lg font-normal" id="reading-time-text"
+                data-reading-time={readingTime}
                 >{readingTime} min left</span
             >
         </div>
@@ -102,39 +103,64 @@ const cover = frontmatter.cover || "https://placehold.co/300x450/png";
 
 <script>
     if (typeof window !== "undefined") {
-        const readingTimeText = document.getElementById("reading-time-text");
-        const readingTimeValue = Number(
-            (readingTimeText?.textContent?.match(/\d+/) || [0])[0],
-        );
+        // Replace old implementation with robust, DOM-driven reading time calculation
+        (function () {
+            let rafScheduled = false;
 
-        const articleEl =
-            document.querySelector("main .prose") ||
-            document.querySelector(".prose");
-        const article = articleEl instanceof HTMLElement ? articleEl : null;
+            function clamp(v, a = 0, b = 1) {
+                return Math.min(b, Math.max(a, v));
+            }
 
-        function updateReadingTime() {
-            if (!article || !readingTimeText) return;
-            const windowHeight = window.innerHeight;
-            const totalHeight = Math.max(
-                0,
-                article.scrollHeight - windowHeight,
-            );
-            const scrolled = window.scrollY - (article.offsetTop || 0);
-            const progress =
-                totalHeight === 0
-                    ? 1
-                    : Math.min(1, Math.max(0, scrolled / totalHeight));
-            const minutesLeft = Math.max(
-                1,
-                Math.round(readingTimeValue * (1 - progress)),
-            );
-            readingTimeText.textContent = `${minutesLeft} min left`;
-        }
+            function computeReadingTimeMinutes(articleEl, readingTimeEl) {
+                let words = 0;
+                if (articleEl && articleEl.textContent) {
+                    const text = articleEl.textContent.replace(/\s+/g, " ").trim();
+                    words = text ? text.split(" ").filter(Boolean).length : 0;
+                }
+                if (!words && readingTimeEl) {
+                    const attr = readingTimeEl.getAttribute("data-reading-time");
+                    const n = Number(attr);
+                    if (Number.isFinite(n) && n > 0) return Math.max(1, Math.round(n));
+                }
+                const wordsPerMinute = 200;
+                return Math.max(1, Math.round(words / wordsPerMinute));
+            }
 
-        window.addEventListener("scroll", updateReadingTime, { passive: true });
-        window.addEventListener("resize", updateReadingTime);
-        document.addEventListener("DOMContentLoaded", updateReadingTime);
-        updateReadingTime();
+            function updateReadingTimeImpl() {
+                const readingTimeEl = document.getElementById("reading-time-text");
+                const articleEl =
+                    document.querySelector("main .prose") ||
+                    document.querySelector(".prose");
+                const article = articleEl instanceof HTMLElement ? articleEl : null;
+
+                if (!article || !readingTimeEl) return;
+
+                const readingTimeValue = computeReadingTimeMinutes(article, readingTimeEl);
+
+                const windowHeight = window.innerHeight;
+                const articleTop = article.getBoundingClientRect().top + window.scrollY;
+                const totalHeight = Math.max(0, article.scrollHeight - windowHeight);
+                const scrolled = clamp(window.scrollY - articleTop, 0, totalHeight);
+                const progress = totalHeight === 0 ? 1 : scrolled / totalHeight;
+
+                const minutesLeft = Math.max(1, Math.ceil(readingTimeValue * (1 - progress)));
+                readingTimeEl.textContent = `${minutesLeft} min left`;
+            }
+
+            function scheduleUpdateReadingTime() {
+                if (rafScheduled) return;
+                rafScheduled = true;
+                requestAnimationFrame(() => {
+                    rafScheduled = false;
+                    updateReadingTimeImpl();
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", updateReadingTimeImpl);
+            updateReadingTimeImpl();
+            window.addEventListener("resize", scheduleUpdateReadingTime);
+            window.addEventListener("scroll", scheduleUpdateReadingTime, { passive: true });
+        })();
 
         const toggle = document.getElementById("headings-toggle");
         const listContainer = document.getElementById(

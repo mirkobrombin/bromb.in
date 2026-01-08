@@ -37,6 +37,19 @@ const description = frontmatter.description || "No description provided";
             </a>
         </div>
 
+        <!-- Added reading time UI (uses frontmatter.readingTime if present) -->
+        <div
+            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8"
+            id="reading-time-container"
+        >
+            <Icon name="material-symbols:schedule-outline" class="text-lg dark:text-white" />
+            <span
+                id="reading-time-text"
+                class="ml-2 text-lg font-normal"
+                data-reading-time={frontmatter.readingTime}
+            >{frontmatter.readingTime ? `${frontmatter.readingTime} min left` : "1 min left"}</span>
+        </div>
+
         <div
             id="headings-toggle"
             class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
@@ -66,13 +79,74 @@ const description = frontmatter.description || "No description provided";
 
 <script>
     if (typeof window !== "undefined") {
-      const $ = (id: string) => document.getElementById(id);
+        // simple helper for back button
+        const $ = id => document.getElementById(id);
         const backBtn = $("blog-back-btn");
         backBtn?.addEventListener("click", e => { e.preventDefault(); window.history.back(); });
 
-        const toggle = $("headings-toggle"),
-              listContainer = $("headings-list-container"),
-              list = $("headings-list"),
+        // Reading time: robust client-side computation (word count + RAF batching)
+        (function () {
+            let rafScheduled = false;
+
+            function clamp(v, a = 0, b = 1) {
+                return Math.min(b, Math.max(a, v));
+            }
+
+            function computeReadingTimeMinutes(articleEl, readingTimeEl) {
+                let words = 0;
+                if (articleEl && articleEl.textContent) {
+                    const text = articleEl.textContent.replace(/\s+/g, " ").trim();
+                    words = text ? text.split(" ").filter(Boolean).length : 0;
+                }
+                if (!words && readingTimeEl) {
+                    const attr = readingTimeEl.getAttribute("data-reading-time");
+                    const n = Number(attr);
+                    if (Number.isFinite(n) && n > 0) return Math.max(1, Math.round(n));
+                }
+                const wordsPerMinute = 200;
+                return Math.max(1, Math.round(words / wordsPerMinute));
+            }
+
+            function updateReadingTimeImpl() {
+                const readingTimeEl = document.getElementById("reading-time-text");
+                const articleEl =
+                    document.querySelector("main .prose") ||
+                    document.querySelector(".prose");
+                const article = articleEl instanceof HTMLElement ? articleEl : null;
+
+                if (!article || !readingTimeEl) return;
+
+                const readingTimeValue = computeReadingTimeMinutes(article, readingTimeEl);
+
+                const windowHeight = window.innerHeight;
+                const articleTop = article.getBoundingClientRect().top + window.scrollY;
+                const totalHeight = Math.max(0, article.scrollHeight - windowHeight);
+                const scrolled = clamp(window.scrollY - articleTop, 0, totalHeight);
+                const progress = totalHeight === 0 ? 1 : scrolled / totalHeight;
+
+                const minutesLeft = Math.max(1, Math.ceil(readingTimeValue * (1 - progress)));
+                readingTimeEl.textContent = `${minutesLeft} min left`;
+            }
+
+            function scheduleUpdateReadingTime() {
+                if (rafScheduled) return;
+                rafScheduled = true;
+                requestAnimationFrame(() => {
+                    rafScheduled = false;
+                    updateReadingTimeImpl();
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", updateReadingTimeImpl);
+            updateReadingTimeImpl();
+            window.addEventListener("resize", scheduleUpdateReadingTime);
+            window.addEventListener("scroll", scheduleUpdateReadingTime, { passive: true });
+        })();
+
+        // Headings toggle (preserve existing behavior)
+        const toggle = document.getElementById("headings-toggle"),
+              listContainer = document.getElementById("headings-list-container"),
+              list = document.getElementById("headings-list"),
               btnEl = toggle?.querySelector(":scope > div:last-child");
 
         if (toggle && listContainer && list) {
@@ -82,7 +156,7 @@ const description = frontmatter.description || "No description provided";
                 H3: " text-sm font-normal pl-8 underline"
             };
 
-            const toggleClass = (el: HTMLElement | null, add: boolean, ...cls: string[]) => el && el.classList[add ? "add" : "remove"](...cls);
+            const toggleClass = (el, add, ...cls) => el && el.classList[add ? "add" : "remove"](...cls);
 
             const getHeadings = () =>
                 Array.from((document.querySelector("main .prose") || document.querySelector(".prose") || {querySelectorAll:()=>[]}).querySelectorAll("h1, h2, h3"));
@@ -94,7 +168,7 @@ const description = frontmatter.description || "No description provided";
                     const a = Object.assign(document.createElement("a"), {
                         textContent: heading.textContent || "",
                         href: "#" + heading.id,
-                        className: "block px-2 py-1 rounded hover:bg-zinc-100 transition text-zinc-800 font-medium underline" + ((tagStyles as Record<string, string>)[heading.tagName] || "")
+                        className: "block px-2 py-1 rounded hover:bg-zinc-100 transition text-zinc-800 font-medium underline" + ((tagStyles)[heading.tagName] || "")
                     });
                     a.onclick = ev => {
                         ev.preventDefault();
@@ -110,14 +184,14 @@ const description = frontmatter.description || "No description provided";
             const expandMenu = () => {
                 toggleClass(listContainer, false, "opacity-0", "pointer-events-none");
                 toggleClass(listContainer, true, "opacity-100", "pointer-events-auto");
-                toggleClass(btnEl as HTMLElement | null, false, "bg-white/70", "shadow-sm");
+                toggleClass(btnEl, false, "bg-white/70", "shadow-sm");
                 buildHeadingsMenu();
             };
 
             const collapseMenu = () => {
                 toggleClass(listContainer, true, "opacity-0", "pointer-events-none");
                 toggleClass(listContainer, false, "opacity-100", "pointer-events-auto");
-                toggleClass(btnEl as HTMLElement | null, true, "bg-white/70", "shadow-sm");
+                toggleClass(btnEl, true, "bg-white/70", "shadow-sm");
             };
 
             let expanded = false;
