@@ -45,18 +45,18 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 ---
 
 <Layout>
-    <div class="flex flex-row gap-8 items-end justify-center mb-20 mt-5">
+    <div class="flex flex-row gap-8 items-end mb-20 mt-5">
         <img
                 src={movieCover}
                 alt={title}
-                class="w-1/5 h-auto rounded-sm shadow-lg dark:shadow-none"
+                class="w-2/5 h-auto rounded-sm shadow-lg dark:shadow-none"
         />
         <div class="flex flex-col gap-4">
-            <h1 class="text-4xl font-normal max-w-128 dark:text-white">
+            <h1 class="text-6xl font-normal max-w-100 dark:text-white">
                 {title}
             </h1>
-            <p class="text-2xl dark:text-zinc-300">
-                by {author} - <small class="text-sm dark:text-zinc-400"
+            <p class="text-4xl dark:text-zinc-300">
+                by {author} - <small class="text-lg dark:text-zinc-400"
             >{date}</small
             >
             </p>
@@ -98,7 +98,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
     </div>
 
     <div class="flex w-full items-center justify-center">
-        <div class="flex flex-col w-screen prose dark:prose-invert">
+        <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
             <slot/>
         </div>
     </div>

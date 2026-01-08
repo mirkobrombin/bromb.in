@@ -3,7 +3,24 @@ import Layout from "./Layout.astro";
 import { Icon } from "astro-icon/components";
 import "../styles/global.css";
 
-const { frontmatter, prevSlug, nextSlug, readingTime } = Astro.props;
+interface ArticleFrontmatter {
+    title?: string;
+    author?: string;
+    date?: string;
+    description?: string;
+    cover?: string;
+    prev?: string;
+    next?: string;
+}
+
+interface ArticleLayoutProps {
+    frontmatter: ArticleFrontmatter;
+    prevSlug?: string;
+    nextSlug?: string;
+    readingTime?: number;
+}
+
+const { frontmatter, prevSlug, nextSlug, readingTime } = Astro.props as ArticleLayoutProps;
 
 const title = frontmatter.title || "Unset";
 const author = frontmatter.author || "Mirko & Laura";
@@ -23,7 +40,7 @@ const articlePosts = await Promise.all(
   })
 );
 const titleToSlug = new Map(articlePosts.map(p => [p.title.toLowerCase(), p.slug]));
-function resolveManualRef(value) {
+function resolveManualRef(value: any) {
   if (!value) return null;
   const s = String(value).trim();
   if (!s) return null;
@@ -40,15 +57,15 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 
 <Layout>
     <div
-        class="flex flex-row gap-8 items-end justify-between mb-20 mt-5 lg:mx-52 lg:px-20 lg:py-12 h-128 text-white rounded-lg"
+        class="flex flex-row gap-8 items-end justify-between mb-20 mt-5 lg:px-20 lg:py-12 h-128 lg:h-178 text-white rounded-lg bg-cover bg-center bg-no-repeat"
         style={`background-image: url('${cover}')`}
     >
-        <div class="flex flex-col gap-4 max-w-1/2">
-            <h1 class="text-6xl font-normal max-w-128">{title}</h1>
+        <div class="flex flex-col gap-4 max-w-2/5">
+            <h1 class="text-5xl font-normal max-w-128">{title}</h1>
             <p class="text-4xl">
                 by {author} - <small class="text-xl">{date}</small>
             </p>
-            <p class="text-xl max-w-3xl">
+            <p class="text-lg max-w-lg">
                 {description}
             </p>
         </div>
@@ -63,7 +80,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
     </div>
 
     <div class="flex w-full items-center justify-center">
-        <div class="flex flex-col w-screen prose dark:prose-invert">
+        <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
             <slot />
         </div>
     </div>
@@ -136,11 +153,11 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         (function () {
             let rafScheduled = false;
 
-            function clamp(v, a = 0, b = 1) {
+            function clamp(v: number, a = 0, b = 1) {
                 return Math.min(b, Math.max(a, v));
             }
 
-            function computeReadingTimeMinutes(articleEl, readingTimeEl) {
+            function computeReadingTimeMinutes(articleEl: HTMLElement, readingTimeEl: HTMLElement) {
                 let words = 0;
                 if (articleEl && articleEl.textContent) {
                     const text = articleEl.textContent.replace(/\s+/g, " ").trim();
@@ -310,22 +327,22 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         }
 
         (function () {
-            const navSelector = id => document.getElementById(id);
+            const navSelector = (id: string): HTMLElement | null => document.getElementById(id);
 
-            function navigateToSlug(slug) {
+            function navigateToSlug(slug: any) {
                 if (!slug) return;
                 window.location.assign(`/stories/articles/${slug}`);
             }
 
-            function normalizeDataset(val) {
+            function normalizeDataset(val: string | null) {
                 if (val === null) return null;
                 val = String(val).trim();
                 if (!val || val === "null" || val === "undefined") return null;
                 return val;
             }
 
-            function wireButton(id) {
-                const el = navSelector(id);
+            function wireButton(id: string) {
+                const el = navSelector(id) as unknown as HTMLElement | null;
                 if (!el) return;
 
                 const original = el.getAttribute("data-slug");
@@ -345,7 +362,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                     el.classList.remove("pointer-events-none", "opacity-30");
                 }
 
-                el.addEventListener("click", (ev) => {
+                el.addEventListener("click", (ev: { preventDefault: () => void; }) => {
                     if (!slug) {
                         ev.preventDefault();
                         return;

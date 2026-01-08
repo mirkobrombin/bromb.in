@@ -1,8 +1,9 @@
 ---
-title: "RFW - the movie"
+title: "Lorem Ipsum Dolor sit Amet"
 author: "Mirko"
-description: "Lorem impsum dolor sit amet, consectetur adipiscing elit.q"
-cover: "https://placehold.co/300x450/png"
+date: 01-06-2024
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus, mattis eget ipsum ac, tristique bibendum enim."
+cover: "/cover.png"
 layout: "../../../layouts/ArticleLayout.astro"
 ---
 

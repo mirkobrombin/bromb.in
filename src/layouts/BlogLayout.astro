@@ -11,65 +11,63 @@ const description = frontmatter.description || "No description provided";
 
 <Layout>
     <div class="flex flex-col items-center justify-center">
-        <h1 class="text-4xl font-normal mt-10">{title}</h1>
-        <p class="text-xl mt-4 mb-10 max-w-2xl text-center px-4">
+        <h1 class="text-4xl lg:text-5xl font-normal mt-10 dark:text-white">{title}</h1>
+        <p class="text-xl lg:text-2xl mt-4 mb-10 max-w-2xl text-center px-4 dark:text-zinc-300">
             {description}
         </p>
-        <hr class="w-128 border-t-2 border-zinc-400 mb-10" />
+        <hr class="w-full border-t-2 border-zinc-400 dark:border-zinc-600 mb-10" />
     </div>
-    <div class="flex w-full items-center justify-center">
-        <div class="flex flex-col w-screen prose">
+        <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
             <slot />
         </div>
-    </div>
     <div
-        class="fixed w-full bottom-8 left-0 flex items-center justify-center gap-5 z-50"
+            class="fixed w-full bottom-2 sm:bottom-8 left-0 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 z-50 px-2"
     >
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full"
+                class="flex rounded-full bg-white/70 dark:bg-zinc-800/80 backdrop-blur-xs shadow-sm overflow-hidden h-full"
         >
             <a
-                id="blog-back-btn"
-                class="flex items-center justify-center p-4 hover:bg-gray-200 transition"
-                href="#"
+                    id="blog-back-btn"
+                    class="flex items-center justify-center p-3 sm:p-4 hover:bg-gray-200 dark:hover:bg-zinc-800 transition"
+                    href="#"
             >
-                <Icon name="material-symbols:arrow-back" class="text-2xl" />
+                <Icon name="material-symbols:arrow-back" class="text-2xl dark:text-white" />
             </a>
         </div>
 
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8"
-            id="reading-time-container"
+                class="flex rounded-full bg-white/70 dark:bg-zinc-800/80 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-3 sm:py-4 px-5 sm:px-8"
+                id="reading-time-container"
         >
             <Icon name="material-symbols:schedule-outline" class="text-lg dark:text-white" />
             <span
-                id="reading-time-text"
-                class="ml-2 text-lg font-normal"
-                data-reading-time={frontmatter.readingTime}
+                    id="reading-time-text"
+                    class="ml-2 text-lg font-normal dark:text-white"
+                    data-reading-time={frontmatter.readingTime}
             >{frontmatter.readingTime ? `${frontmatter.readingTime} min left` : "1 min left"}</span>
         </div>
 
         <div
-            id="headings-toggle"
-            class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
-            style="cursor:pointer;"
+                id="headings-toggle"
+                class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-12 h-12 sm:w-14 sm:h-14 rounded-full group overflow-visible"
+                style="cursor:pointer;"
         >
             <div
-                id="headings-list-container"
-                class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10"
+                    id="headings-list-container"
+                    class="absolute -left-1 bottom-0 ml-2 px-2 sm:px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-800/80 shadow-sm rounded-3xl w-64 sm:w-72 max-h-80 sm:max-h-96 z-10"
             >
                 <ul
-                    id="headings-list"
-                    class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-rounded-full scrollbar-track-zinc-100"
+                        id="headings-list"
+                        class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 dark:scrollbar-thumb-zinc-600 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-track-zinc-800"
                 >
                 </ul>
             </div>
             <div
-                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition"
+                    class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 z-99 bg-white/70 dark:bg-zinc-800/80 shadow-sm rounded-full transition"
             >
                 <Icon
-                    name="material-symbols:text-fields"
-                    class="text-2xl dark:text-white"
+                        name="material-symbols:text-fields"
+                        class="text-2xl dark:text-white"
                 />
             </div>
         </div>
@@ -78,7 +76,7 @@ const description = frontmatter.description || "No description provided";
 
 <script>
     if (typeof window !== "undefined") {
-        const $ = id => document.getElementById(id);
+        const $ = (id: string): HTMLElement | null => document.getElementById(id);
         const backBtn = $("blog-back-btn");
         backBtn?.addEventListener("click", e => { e.preventDefault(); window.history.back(); });
 
@@ -86,11 +84,11 @@ const description = frontmatter.description || "No description provided";
         (function () {
             let rafScheduled = false;
 
-            function clamp(v, a = 0, b = 1) {
+            function clamp(v: number, a = 0, b = 1) {
                 return Math.min(b, Math.max(a, v));
             }
 
-            function computeReadingTimeMinutes(articleEl, readingTimeEl) {
+            function computeReadingTimeMinutes(articleEl: HTMLElement, readingTimeEl: HTMLElement) {
                 let words = 0;
                 if (articleEl && articleEl.textContent) {
                     const text = articleEl.textContent.replace(/\s+/g, " ").trim();
@@ -154,7 +152,7 @@ const description = frontmatter.description || "No description provided";
                 H3: " text-sm font-normal pl-8 underline"
             };
 
-            const toggleClass = (el, add, ...cls) => el && el.classList[add ? "add" : "remove"](...cls);
+            const toggleClass = (el: Element | null | undefined, add: boolean, ...cls: string[]) => el && el.classList[add ? "add" : "remove"](...cls);
 
             const getHeadings = () =>
                 Array.from((document.querySelector("main .prose") || document.querySelector(".prose") || {querySelectorAll:()=>[]}).querySelectorAll("h1, h2, h3"));
@@ -166,8 +164,7 @@ const description = frontmatter.description || "No description provided";
                     const a = Object.assign(document.createElement("a"), {
                         textContent: heading.textContent || "",
                         href: "#" + heading.id,
-                        className: "block px-2 py-1 rounded hover:bg-zinc-100 transition text-zinc-800 font-medium underline" + ((tagStyles)[heading.tagName] || "")
-                    });
+                        className: "block px-2 py-1 rounded hover:bg-zinc-100 transition text-zinc-800 font-medium underline" + (tagStyles[heading.tagName as keyof typeof tagStyles] || "")                    });
                     a.onclick = ev => {
                         ev.preventDefault();
                         document.getElementById(heading.id)?.scrollIntoView({behavior:"smooth",block:"start"});
