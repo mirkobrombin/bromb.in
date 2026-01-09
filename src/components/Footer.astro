@@ -19,23 +19,23 @@ const internal = [
 ---
 
 <div class="w-full">
-    <footer class="w-full bg-white border-t border-black/8 to-[#3e342f]/10 backdrop-blur-sm">
+    <footer class="w-full bg-white dark:bg-zinc-900 border-t border-black/8 dark:border-white/10 to-[#3e342f]/10 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-6 py-12 md:py-20">
             <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
                 <div class="flex-1">
-                    <h1 class="text-3xl md:text-5xl font-semibold font-sans text-[#3e342f]">bromb.in</h1>
-                    <p class="mt-3 text-xl font-sans text-black/65 max-w-lg">Lorem ipsum dolor sit amet, consectetur
+                    <h1 class="text-3xl md:text-5xl font-semibold font-sans text-[#3e342f] dark:text-white">bromb.in</h1>
+                    <p class="mt-3 text-xl font-sans text-black/65 dark:text-white/70 max-w-lg">Lorem ipsum dolor sit amet, consectetur
                         adipiscing elit. Duis id ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus, mattis
                         eget ipsum ac, tristique bibendum enim. </p>
 
                     <div class="mt-6 flex items-center gap-4">
                         <a href="https://github.com/mirkobrombin/bromb.in"
-                           class="inline-flex items-center justify-center gap-2 text font-sans text-xl font-medium text-[#3e342f] underline">
+                           class="inline-flex items-center justify-center gap-2 text font-sans text-xl font-medium text-[#3e342f] dark:text-white underline">
                             <Icon name="material-symbols:code" class="size-6"/>
                             Source
                         </a>
                         <a href="/privacy"
-                           class="text-xl font-sans inline-flex items-center justify-center gap-2 text-black/70 underline">
+                           class="text-xl font-sans inline-flex items-center justify-center gap-2 text-black/70 dark:text-white/70 underline">
                             <Icon name="material-symbols:privacy-tip-outline" class="size-6 inline-block"/>
                             Privacy
                         </a>
@@ -43,60 +43,62 @@ const internal = [
                 </div>
 
                 <div class="flex-1 md:flex-[0.9] grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                    <div class="bg-white/90 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 transition">
-                        <p class="text-xl font-sans font-semibold mb-3">External</p>
+                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">
+                        <p class="text-xl font-sans font-semibold mb-3 dark:text-white">External</p>
                         <ul class="space-y-2">
                             {external.map(item => (
-                                <li>
-                                    <a class="flex items-center gap-3 text-base hover:text-[#3e342f] transition underline-offset-2 underline"
-                                       href={item.href}>
+                                    <li>
+                                        <a class="flex items-center gap-3 text-base hover:text-[#3e342f] dark:hover:text-white transition underline-offset-2 underline"
+                                           href={item.href}>
                                         <span class="inline-flex items-center justify-center w-7 h-7 rounded-full"
                                               style={`background: ${item.bg}; color: ${item.fg}`}>
                                             <Icon name={item.icon} class="size-4"/>
                                         </span>
-                                        {item.title}
-                                    </a>
-                                </li>
+                                            {item.title}
+                                        </a>
+                                    </li>
                             ))}
                         </ul>
                     </div>
 
-                    <div class="bg-white/90 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 transition">
-                        <p class="text-xl font-sans font-semibold mb-3">Internal</p>
+                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">
+                        <p class="text-xl font-sans font-semibold mb-3 dark:text-white">Internal</p>
                         <ul class="space-y-2">
                             {internal.map(item => (
-                                <li>
-                                    <a class="flex items-center gap-3 text-base hover:text-[#3e342f] transition"
-                                       href={item.href}>
+                                    <li>
+                                        <a class="flex items-center gap-3 text-base hover:text-[#3e342f] dark:hover:text-white transition"
+                                           href={item.href}>
                                         <span class="inline-flex items-center justify-center w-7 h-7 rounded-full"
                                               style={`background: ${item.bg}; color: ${item.fg}`}>
                                             {item.label}
                                         </span>
-                                        <span class="underline underline-offset-2"> {item.title}</span>
-                                    </a>
-                                </li>
+                                            <span class="underline underline-offset-2 dark:text-white"> {item.title}</span>
+                                        </a>
+                                    </li>
                             ))}
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 border-t border-black/8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-md font-sans text-black/60">Copyright © 2019-2025 bromb.in (Mirko B.). All Rights
+            <div class="mt-8 border-t border-black/8 dark:border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-md font-sans text-black/60 dark:text-white/60">Copyright © 2019-2025 bromb.in (Mirko B.). All Rights
                     Reserved.</p>
 
                 <div class="flex items-center gap-4">
                     <div class="flex flex-row items-center justify-center gap-2">
-                        <p class="text-md font-sans text-black/60">Designed by</p>
-                        <p class="text-md font-sans font-semibold underline">Mirko Brombin</p>
+                        <p class="text-md font-sans text-black/60 dark:text-white/60">Designed by</p>
+                        <p class="text-md font-sans font-semibold underline dark:text-white">Mirko Brombin</p>
                     </div>
-                    <p class="text-md font-sans text-black/60">•</p>
+                    <p class="text-md font-sans text-black/60 dark:text-white/60">•</p>
 
                     <div class="flex flex-row items-center justify-center gap-2">
 
-                        <p class="text-md font-sans text-black/60">Developed by</p>
-                        <p class="text-md font-sans font-semibold underline">Gabriel Cozma</p>
+                        <p class="text-md font-sans text-black/60 dark:text-white/60">Developed by</p>
+                        <p class="text-md font-sans font-semibold underline dark:text-white">Gabriel Cozma</p>
                     </div>
                 </div>
+            </div>
+        </div>
     </footer>
 </div>
