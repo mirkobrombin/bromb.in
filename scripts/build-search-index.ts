@@ -1,4 +1,4 @@
-//   deno run --RW scripts/build-search-index.ts
+//   deno run -RW scripts/build-search-index.ts
 // - Produces `public/search-index.json` containing: title, description, href, content (excerpt).
 // - Adjust `PAGES_GLOB` or excerpt length as needed.
 
