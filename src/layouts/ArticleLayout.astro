@@ -79,7 +79,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         </div>
     </div>
 
-    <div class="flex w-full items-center justify-center">
+    <div class="flex w-full items-center justify-center pb-12">
         <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
             <slot />
         </div>
@@ -89,7 +89,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         class="sticky w-full bottom-8 left-0 flex items-center justify-center gap-5"
     >
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-900/80 dark:shadow-zinc-900/30"
+            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
         >
             <a
                 id="prev-article-btn"
@@ -114,7 +114,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         </div>
 
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8 dark:bg-zinc-900/80 dark:shadow-zinc-900/30"
+            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8 dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
             id="reading-time-container"
         >
             <Icon name="material-symbols:schedule-outline" class="text-lg" />
@@ -140,7 +140,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 </ul>
             </div>
             <div
-                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition dark:bg-zinc-900/80 dark:shadow-zinc-900/30 backdrop-blur-xs"
+                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition dark:bg-zinc-800/80 dark:shadow-zinc-900/30 backdrop-blur-xs"
             >
                 <Icon name="material-symbols:text-fields" class="text-2xl" />
             </div>
@@ -275,7 +275,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                     buttonEl.classList.remove(
                         "bg-white/70",
                         "shadow-sm",
-                        "dark:bg-zinc-900/80",
+                        "dark:bg-zinc-800/80",
                         "dark:shadow-zinc-900/30",
                         "backdrop-blur-xs",
                     );
@@ -297,7 +297,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                     buttonEl.classList.add(
                         "bg-white/70",
                         "shadow-sm",
-                        "dark:bg-zinc-900/80",
+                        "dark:bg-zinc-800/80",
                         "dark:shadow-zinc-900/30",
                         "backdrop-blur-xs",
                     );
