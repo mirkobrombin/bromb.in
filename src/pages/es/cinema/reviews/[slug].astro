@@ -1,5 +1,5 @@
 ---
-import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
 
 const files = import.meta.glob("./*.md");
 const rawFiles = import.meta.glob("./*.md", { query: "?raw", import: "default" });

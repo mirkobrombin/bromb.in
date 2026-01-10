@@ -1,0 +1,89 @@
+---
+/*
+  Shared Cinema index UI.
+  Props:
+    - movies: Array<{ title, author, date, movieCover, popcornScore, excerpt, slug, url, movieRelease?, movieCategory?, movieLength? }>
+    - currentLang: string
+    - t: (key: string) => string
+*/
+const { movies = [], currentLang = 'en', t = (k: string) => k } = Astro.props;
+
+const totalPopcorns = 5;
+const movieMetaFields = [
+  { key: "movieRelease", label: "" },
+  { key: "movieCategory", label: "" },
+  { key: "movieLength", label: "" },
+];
+---
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-4xl font-normal mt-10">{t('cinema.title')}</h1>
+  <p class="text-2xl mt-4 mb-10 max-w-2xl text-center px-4">
+    {t('cinema.subtitle')}
+  </p>
+  <hr class="w-128 border-t-2 border-zinc-400 mb-10"/>
+</div>
+
+<div class="flex w-full items-center justify-center">
+  <div class="flex flex-col max-w-3xl">
+    <div class="flex flex-col gap-24 items-center">
+      {
+        movies.map((movie) => (
+          <div class="flex flex-row gap-8 items-center justify-center mb-20 mt-5">
+            <div
+              class="w-1/2 rounded-sm overflow-hidden shadow-lg"
+              style="aspect-ratio: 2 / 3;"
+            >
+              <a href={movie.url}>
+                <img
+                  src={movie.movieCover}
+                  alt={movie.title}
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </a>
+            </div>
+            <div class="flex flex-col gap-4">
+              <h1 class="text-4xl font-normal max-w-128">
+                {movie.title}
+              </h1>
+              <p class="text-2xl">
+                {t('cinema.by')} {movie.author} - <small class="text-sm">{movie.date}</small>
+              </p>
+              <p class="text-sm">
+                {movieMetaFields.map(({key}, idx) => (
+                  <>
+                    {movie[key]}
+                    {idx < movieMetaFields.length - 1 && " \u2022 "}
+                  </>
+                ))}
+              </p>
+              <p class="text-sm text-zinc-600 max-w-prose">
+                {movie.excerpt}
+              </p>
+              <div class="flex items-center justify-center w-max">
+                <div class="flex items-center gap-1 bg-red-50 px-4 py-1 rounded-full">
+                  {Array.from({length: totalPopcorns}).map((_, i) => (
+                    <span class={`text-lg ${i < movie.popcornScore ? "opacity-100" : "opacity-20"}`}>
+                      🍿
+                    </span>
+                  ))}
+                  <span class="text-red-600 font-medium text-base ml-2">
+                    {movie.popcornScore}/{totalPopcorns}
+                  </span>
+                </div>
+              </div>
+              <div class="flex flex-row gap-2 items-center justify-center w-max">
+                <a class="flex items-center justify-center rounded-full bg-black text-white p-2">
+                  <slot name="share-icon">
+                    <!-- fallback icon -->
+                    <span class="material-symbols-outlined text-base">share</span>
+                  </slot>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+

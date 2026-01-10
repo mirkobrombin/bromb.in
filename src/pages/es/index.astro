@@ -1,10 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import IndexView from "../views/IndexView.astro";
+import Layout from "../../layouts/Layout.astro";
+import IndexView from "../../views/IndexView.astro";
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations } from '../../i18n/utils';
 
-const currentLang = Astro.currentLocale || 'en';
+const currentLang = Astro.currentLocale || 'es';
 const t = useTranslations(currentLang as any);
 const homeUrl = getRelativeLocaleUrl(currentLang, '');
 ---

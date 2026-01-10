@@ -1,7 +1,7 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import "../../styles/global.css";
-import StoriesList from "../../views/StoriesList.astro";
+import Layout from "../../../layouts/Layout.astro";
+import "../../../styles/global.css";
+import StoriesList from "../../../views/StoriesList.astro";
 
 const storyFiles = import.meta.glob('./articles/*.md');
 const storyPromises = Object.entries(storyFiles).map(async ([path, resolver]) => {

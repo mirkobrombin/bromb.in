@@ -11,4 +11,8 @@ export default defineConfig({
   },
 
   integrations: [icon()],
+  i18n: {
+    locales: ["es", "en", "it"],
+    defaultLocale: "en",
+  }
 });

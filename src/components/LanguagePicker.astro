@@ -1,0 +1,22 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { languages } from '../i18n/ui';
+
+function getPathWithoutLocale(url: URL) {
+  const path = url?.pathname ?? '';
+  const localePattern = new RegExp(`^/(${Object.keys(languages).join('|')})`);
+  return path.replace(localePattern, '') || '';
+}
+
+const currentPath = getPathWithoutLocale(Astro.url).replace(/^\//, '');
+---
+<ul class="flex flex-col">
+  {Object.entries(languages).map(([lang, label]) => (
+    <li>
+      <a class="px-2 py-1 block hover:bg-gray-100 dark:hover:bg-zinc-700 rounded" href={getRelativeLocaleUrl(lang, currentPath)}>
+        {label}
+      </a>
+    </li>
+  ))}
+</ul>
+

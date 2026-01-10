@@ -1,0 +1,17 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import "../../../styles/global.css";
+import StoriesList from "../../../views/StoriesList.astro";
+
+const storyFiles = import.meta.glob('./articles/*.md');
+const storyPromises = Object.entries(storyFiles).map(async ([path, resolver]) => {
+    const mod = await (resolver as () => Promise<any>)();
+    const frontmatter = (mod as { frontmatter: any }).frontmatter;
+    const slug = path?.split('/')?.pop()?.replace('.md', '') ?? '';
+    return { ...frontmatter, slug };
+});
+const stories = await Promise.all(storyPromises);
+---
+<Layout>
+    <StoriesList stories={stories} />
+</Layout>
