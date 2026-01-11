@@ -8,6 +8,7 @@
     "build:search": "node scripts/build-search-index.js",
     "build:all": "npm run build && npm run build:search",
     "preview": "astro preview",
+    "format": "prettier --write .",
     "astro": "astro"
   },
   "dependencies": {
