@@ -19,6 +19,16 @@ const movieMetaFields = [
     {key: "movieCategory", label: ""},
     {key: "movieLength", label: ""},
 ];
+
+function formatDate(iso?: string) {
+    if (!iso) return '';
+    try {
+        const d = new Date(iso);
+        return d.toLocaleDateString(currentLang, {year: 'numeric', month: 'long', day: 'numeric'});
+    } catch {
+        return iso;
+    }
+}
 ---
 <div class="overflow-x-hidden">
     <div class="flex flex-col items-center justify-center px-4">
