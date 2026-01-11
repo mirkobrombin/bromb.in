@@ -13,12 +13,12 @@ const { description = '', cta = '', homeUrl = '#' } = Astro.props;
     class="flex flex-col justify-end px-12 lg:px-[18%] pb-14 absolute w-full top-0 right-0 z-[-10] bg-[url(/cover.png)] bg-cover bg-bottom bg-no-repeat h-[80vh]"
     data-theme="dark"
 >
-    <p class="text-xl lg:text-2xl font-sans text-white max-w-96">
+    <p class="text-lg lg:text-2xl font-sans text-white max-w-96">
         {description}
     </p>
     <a
         href={homeUrl}
-        class="flex items-center justify-center gap-2 text-black bg-white text-2xl font-sans w-max py-4 px-6 rounded-full mt-4 hover:bg-gray-200 transition-colors duration-300"
+        class="flex items-center justify-center gap-2 text-black bg-white text-lg lg:text-2xl font-sans w-max py-4 px-6 rounded-full mt-4 hover:bg-gray-200 transition-colors duration-300"
     >
         {cta}
         <span class="material-symbols-outlined">arrow_outward</span>

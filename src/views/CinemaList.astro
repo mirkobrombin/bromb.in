@@ -5,10 +5,10 @@ import {useTranslations} from '../i18n/utils';
 interface Props {
     title: string;
     subtitle: string;
-    movies: any[]; // Or define a proper Movie interface
+    movies: any[];
 }
 
-const {movies, title, subtitle} = Astro.props;
+const {movies, title} = Astro.props;
 
 const currentLang = Astro.currentLocale || 'en';
 const t = useTranslations(currentLang as any);
@@ -20,76 +20,77 @@ const movieMetaFields = [
     {key: "movieLength", label: ""},
 ];
 ---
+<div class="overflow-x-hidden">
+    <div class="flex flex-col items-center justify-center px-4">
+        <h1 class="text-3xl md:text-4xl font-normal mt-10 text-center">{t('cinema.title')}</h1>
+        <p class="text-base md:text-2xl mt-4 mb-6 max-w-2xl text-center px-2">
+            {t('cinema.subtitle')}
+        </p>
+        <hr class="w-full max-w-xs border-t-2 border-zinc-400 mb-6"/>
+    </div>
 
-<div class="flex flex-col items-center justify-center">
-    <h1 class="text-4xl font-normal mt-10">{t('cinema.title')}</h1>
-    <p class="text-2xl mt-4 mb-10 max-w-2xl text-center px-4">
-        {t('cinema.subtitle')}
-    </p>
-    <hr class="w-128 border-t-2 border-zinc-400 mb-10"/>
-</div>
-<div class="flex w-full items-center justify-center">
-    <div class="flex flex-col max-w-3xl">
-        <div class="flex flex-col gap-24 items-center">
-            {
-                movies.map((movie) => (
-                        <div class="flex flex-row gap-8 items-center justify-center mb-20 mt-5">
-                            <div
-                                    class="w-1/2 rounded-sm overflow-hidden shadow-lg"
-                                    style="aspect-ratio: 2 / 3;"
-                            >
-                                <a href={`./reviews/${movie.slug}`}>
-                                    <img
-                                            src={movie.movieCover}
-                                            alt={movie.title}
-                                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                    />
-                                </a>
-                            </div>
-                            <div class="flex flex-col gap-4">
-                                <h1 class="text-4xl font-normal max-w-128">
-                                    {movie.title}
-                                </h1>
-                                <p class="text-2xl">
-                                    {t('cinema.by')} {movie.author} - <small class="text-sm">{movie.date}</small>
-                                </p>
-                                <p class="text-sm">
-                                    {movieMetaFields.map(({key}, idx) => (
-                                            <>
-                                                {movie[key]}
-                                                {idx < movieMetaFields.length - 1 && " \u2022 "}
-                                            </>
-                                    ))}
-                                </p>
-                                <p class="text-sm text-zinc-600 max-w-prose">
-                                    {movie.excerpt}
-                                </p>
-                                <div class="flex items-center justify-center w-max">
-                                    <div class="flex items-center gap-1 bg-red-50 px-4 py-1 rounded-full">
-                                        {Array.from({length: totalPopcorns}).map((_, i) => (
-                                                <span
-                                                        class={`text-lg ${i < movie.popcornScore ? "opacity-100" : "opacity-20"}`}
-                                                >
-                        🍿
-                      </span>
-                                        ))}
-                                        <span class="text-red-600 font-medium text-base ml-2">
-                      {movie.popcornScore}/{totalPopcorns}
-                    </span>
-                                    </div>
-                                </div>
-                                <div class="flex flex-row gap-2 items-center justify-center w-max">
-                                    <a class="flex items-center justify-center rounded-full bg-black text-white p-2">
-                                        <Icon
-                                                name="material-symbols:share"
-                                                class="text-base"
+    <div class="flex w-full items-center justify-center px-4">
+        <div class="flex flex-col max-w-3xl w-full">
+            <div class="flex flex-col gap-12">
+                {
+                    movies.map((movie) => (
+                            <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-center w-full border-b border-zinc-200 dark:border-zinc-700 pb-6">
+                                <div class="w-full md:w-1/2 rounded-sm overflow-hidden shadow-lg flex-shrink-0">
+                                    <a href={`./reviews/${movie.slug}`} class="block w-full h-full">
+                                        <img
+                                                src={movie.movieCover}
+                                                alt={movie.title}
+                                                loading="lazy"
+                                                class="w-full h-56 md:h-auto object-cover transform hover:scale-105 transition-transform duration-300"
                                         />
                                     </a>
                                 </div>
+
+                                <div class="flex flex-col gap-3 w-full">
+                                    <h2 class="text-2xl md:text-4xl font-normal leading-tight text-zinc-900 dark:text-zinc-100">
+                                        <a href={`./reviews/${movie.slug}`} class="inline-block">
+                                            {movie.title}
+                                        </a>
+                                    </h2>
+                                    <p class="text-sm md:text-base text-zinc-600 dark:text-zinc-400">
+                                        {t('cinema.by')} {movie.author} · <span
+                                            class="text-xs md:text-sm text-zinc-500">{formatDate(movie.date)}</span>
+                                    </p>
+
+                                    <p class="text-xs md:text-sm text-zinc-500 flex flex-wrap gap-2">
+                                        {movieMetaFields.map(({key}, idx) => (
+                                                <>
+                                                    <span>{movie[key]}</span>
+                                                    {idx < movieMetaFields.length - 1 &&
+                                                            <span class="text-zinc-300">•</span>}
+                                                </>
+                                        ))}
+                                    </p>
+
+                                    <p class="text-sm text-zinc-700 dark:text-zinc-300 max-w-prose">
+                                        {movie.excerpt}
+                                    </p>
+
+                                    <div class="flex items-center gap-3 mt-2">
+                                        <div class="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-full text-sm">
+                                            {Array.from({length: totalPopcorns}).map((_, i) => (
+                                                    <span class={`text-base ${i < movie.popcornScore ? "opacity-100" : "opacity-20"}`}>🍿</span>
+                                            ))}
+                                            <span class="text-red-600 dark:text-red-400 font-medium text-sm ml-1">
+                                            {movie.popcornScore}/{totalPopcorns}
+                                        </span>
+                                        </div>
+
+                                        <a class="flex items-center justify-center rounded-full bg-black text-white p-2 text-sm"
+                                           aria-label="share">
+                                            <Icon name="material-symbols:share" class="text-base"/>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                ))
-            }
+                    ))
+                }
+            </div>
         </div>
     </div>
 </div>
