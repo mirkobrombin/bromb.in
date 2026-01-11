@@ -19,24 +19,23 @@ const totalPopcorns = 5;
 const reviewFiles = import.meta.glob("../pages/cinema/reviews/*.md");
 const reviewEntries = Object.entries(reviewFiles);
 const reviewPosts = await Promise.all(
-  reviewEntries.map(async ([path, loader]) => {
-    const mod = await loader();
-    const file = path.split("/").pop() || "";
-    const slugFromFile = file.replace(".md", "");
-    const titleFromFile = String(mod?.frontmatter?.title ?? slugFromFile).trim();
-    return { slug: slugFromFile, title: titleFromFile };
-  })
+    reviewEntries.map(async ([path, loader]) => {
+        const mod = await loader();
+        const file = path.split("/").pop() || "";
+        const slugFromFile = file.replace(".md", "");
+        const titleFromFile = String(mod?.frontmatter?.title ?? slugFromFile).trim();
+        return {slug: slugFromFile, title: titleFromFile};
+    })
 );
 const titleToSlug = new Map(reviewPosts.map(p => [p.title.toLowerCase(), p.slug]));
 function resolveManualRef(value: any) {
-  if (!value) return null;
-  const s = String(value).trim();
-  if (!s) return null;
-  const byTitle = titleToSlug.get(s.toLowerCase());
-  if (byTitle) return byTitle;
-  // fallback
-  if (reviewPosts.find(p => p.slug === s)) return s;
-  return null;
+    if (!value) return null;
+    const s = String(value).trim();
+    if (!s) return null;
+    const byTitle = titleToSlug.get(s.toLowerCase());
+    if (byTitle) return byTitle;
+    if (reviewPosts.find(p => p.slug === s)) return s;
+    return null;
 }
 const fmPrevResolved = resolveManualRef(frontmatter?.prev);
 const fmNextResolved = resolveManualRef(frontmatter?.next);
@@ -45,134 +44,83 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 ---
 
 <Layout>
-    <div class="flex flex-row gap-8 items-end mb-20 mt-5">
-        <img
+    <div class="overflow-x-hidden">
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-start md:items-end mb-12 mt-5">
+            <img
                 src={movieCover}
                 alt={title}
-                class="w-2/5 h-auto rounded-sm shadow-lg dark:shadow-none"
-        />
-        <div class="flex flex-col gap-4">
-            <h1 class="text-6xl font-normal max-w-100 dark:text-white">
-                {title}
-            </h1>
-            <p class="text-4xl dark:text-zinc-300">
-                by {author} - <small class="text-lg dark:text-zinc-400"
-            >{date}</small
-            >
-            </p>
-            <p class="text-sm dark:text-zinc-400">
-                {movieRelease} &#8226; {movieCategory} &#8226; {movieLength}
-            </p>
+                class="w-full md:w-2/5 h-56 md:h-auto object-cover rounded-sm shadow-lg dark:shadow-none"
+            />
+            <div class="flex flex-col gap-3 w-full">
+                <h1 class="text-3xl md:text-6xl font-normal max-w-full dark:text-white leading-tight">
+                    {title}
+                </h1>
+                <p class="text-sm md:text-2xl text-zinc-500 dark:text-zinc-300 mt-1">
+                    by {author} · <span class="text-xs md:text-base text-zinc-400">{date}</span>
+                </p>
+                <p class="text-xs md:text-sm text-zinc-400 mt-1">
+                    {movieRelease} &#8226; {movieCategory} &#8226; {movieLength}
+                </p>
 
-            <div class="flex items-center justify-center w-max">
-                <div
-                        class="flex items-center gap-1 bg-red-50 dark:bg-red-900/30 px-4 py-1 rounded-full"
-                >
-                    {
-                        Array.from({length: totalPopcorns}).map((_, i) => (
-                                <span
-                                        class={`text-lg ${i < popcornScore ? "opacity-100" : "opacity-20"}`}
-                                >
-                                🍿
-                            </span>
-                        ))
-                    }
-                    <span
-                            class="text-red-600 dark:text-red-400 font-medium text-base ml-2"
-                    >{popcornScore}/{totalPopcorns}</span
-                    >
+                <div class="flex items-center gap-2 mt-2">
+                    <div class="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-full text-sm">
+                        {
+                            Array.from({length: totalPopcorns}).map((_, i) => (
+                                <span class={`text-base ${i < popcornScore ? "opacity-100" : "opacity-20"}`}>🍿</span>
+                            ))
+                        }
+                        <span class="text-red-600 dark:text-red-400 font-medium text-sm ml-1">{popcornScore}/{totalPopcorns}</span>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <a class="inline-flex items-center justify-center rounded-full bg-black text-white p-2 dark:bg-white dark:text-black text-sm">
+                        <Icon name="material-symbols:share" class="text-base dark:text-black" />
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <div class="flex flex-row gap-2 items-center justify-center w-max">
-                <a
-                        class="flex items-center justify-center rounded-full bg-black text-white p-2 dark:bg-white dark:text-black"
-                >
-                    <Icon
-                            name="material-symbols:share"
-                            class="text-base dark:text-black"
-                    />
-                </a>
+        <div class="flex w-full items-center justify-center pb-12">
+            <div class="flex flex-col prose dark:prose-invert w-full max-w-full lg:prose-md lg:prose-p:text-xl px-4">
+                <slot/>
             </div>
         </div>
-    </div>
 
-    <div class="flex w-full items-center justify-center">
-        <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
-            <slot/>
-        </div>
-    </div>
-
-    <div
-            class="sticky w-full bottom-8 left-0 flex items-center justify-center gap-5"
-    >
-        <div
-                class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden h-full"
-        >
-            <a
+        <div class="sticky w-full bottom-4 left-0 flex flex-wrap items-center justify-center gap-3 px-4">
+            <div class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden">
+                <a
                     id="prev-article-btn"
                     data-slug={effectivePrevSlug}
-                    class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition border-r border-r-zinc-200 dark:border-r-zinc-700 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
+                    class={`flex items-center justify-center py-2 px-3 md:py-4 md:px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition border-r border-r-zinc-200 dark:border-r-zinc-700 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
                     href={effectivePrevSlug ? `/cinema/reviews/${effectivePrevSlug}` : undefined}
                     aria-disabled={!effectivePrevSlug}
                     tabindex={!effectivePrevSlug ? -1 : undefined}
-            >
-                <Icon
-                        name="material-symbols:arrow-back"
-                        class="text-2xl dark:text-white"
-                />
-            </a>
-            <a
+                >
+                    <Icon name="material-symbols:arrow-back" class="text-lg md:text-2xl dark:text-white" />
+                </a>
+                <a
                     id="next-article-btn"
                     data-slug={effectiveNextSlug}
-                    class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
+                    class={`flex items-center justify-center py-2 px-3 md:py-4 md:px-6 hover:bg-gray-200 dark:hover:bg-zinc-800 transition ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
                     href={effectiveNextSlug ? `/cinema/reviews/${effectiveNextSlug}` : undefined}
                     aria-disabled={!effectiveNextSlug}
                     tabindex={!effectiveNextSlug ? -1 : undefined}
-            >
-                <Icon
-                        name="material-symbols:arrow-forward"
-                        class="text-2xl dark:text-white"
-                />
-            </a>
-        </div>
-        <div
-                class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden items-center justify-center py-4 px-8"
-                id="reading-time-container"
-        >
-            <Icon
-                    name="material-symbols:schedule-outline"
-                    class="text-lg dark:text-white"
-            />
-            <span
-                    class="ml-2 text-lg font-normal dark:text-white"
-                    id="reading-time-text"
-                    data-reading-time={readingTime}
-            >{readingTime} min left</span
-            >
-        </div>
-        <div
-                id="headings-toggle"
-                class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
-                style="cursor:pointer;"
-        >
-            <div
-                    id="headings-list-container"
-                    class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs shadow-sm dark:shadow-md rounded-3xl w-72 max-h-96 z-10"
-            >
-                <ul
-                        id="headings-list"
-                        class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 dark:scrollbar-thumb-zinc-500 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-track-zinc-800"
                 >
-                </ul>
+                    <Icon name="material-symbols:arrow-forward" class="text-lg md:text-2xl dark:text-white" />
+                </a>
             </div>
-            <div
-                    class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md rounded-full transition"
-            >
-                <Icon
-                        name="material-symbols:text-fields"
-                        class="text-2xl dark:text-white"
-                />
+            <div class="flex rounded-full bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs shadow-sm dark:shadow-md overflow-hidden items-center justify-center py-2 px-4 md:py-3 md:px-6" id="reading-time-container">
+                <Icon name="material-symbols:schedule-outline" class="text-base md:text-lg dark:text-white" />
+                <span class="ml-2 text-sm md:text-lg font-normal dark:text-white" id="reading-time-text" data-reading-time={readingTime}>{readingTime} min left</span>
+            </div>
+            <div id="headings-toggle" class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-12 h-12 md:w-14 md:h-14 rounded-full group overflow-visible" style="cursor:pointer;">
+                <div id="headings-list-container" class="absolute left-1/2 -translate-x-1/2 bottom-0 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs shadow-sm dark:shadow-md rounded-3xl w-72 max-h-96 z-10">
+                    <ul id="headings-list" class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 dark:scrollbar-thumb-zinc-500 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-track-zinc-800"></ul>
+                </div>
+                <div class="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xs dark:backdrop-blur-xs shadow-sm dark:shadow-md rounded-full transition">
+                    <Icon name="material-symbols:text-fields" class="text-xl md:text-2xl dark:text-white" />
+                </div>
             </div>
         </div>
     </div>
@@ -185,28 +133,28 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 
             function clamp(v: number, a = 0, b = 1) {
                 return Math.min(b, Math.max(a, v));
-            }
+                }
 
             function computeReadingTimeMinutes(articleEl: HTMLElement, readingTimeEl: HTMLElement) {
                 let words = 0;
                 if (articleEl && articleEl.textContent) {
                     const text = articleEl.textContent.replace(/\s+/g, " ").trim();
                     words = text ? text.split(" ").filter(Boolean).length : 0;
-                }
+                    }
                 if (!words && readingTimeEl) {
                     const attr = readingTimeEl.getAttribute("data-reading-time");
                     const n = Number(attr);
                     if (Number.isFinite(n) && n > 0) return Math.max(1, Math.round(n));
-                }
+                    }
                 const wordsPerMinute = 200;
                 return Math.max(1, Math.round(words / wordsPerMinute));
-            }
+                }
 
             function updateReadingTimeImpl() {
                 const readingTimeEl = document.getElementById("reading-time-text");
                 const articleEl =
                     document.querySelector("main .prose") ||
-                    document.querySelector(".prose");
+                        document.querySelector(".prose");
                 const article = articleEl instanceof HTMLElement ? articleEl : null;
 
                 if (!article || !readingTimeEl) return;
@@ -222,9 +170,9 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 const minutesLeft = Math.max(
                     1,
                     Math.ceil(readingTimeValue * (1 - progress))
-                );
+                    );
                 readingTimeEl.textContent = `${minutesLeft} min left`;
-            }
+                }
 
             function scheduleUpdateReadingTime() {
                 if (rafScheduled) return;
@@ -232,19 +180,19 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 requestAnimationFrame(() => {
                     rafScheduled = false;
                     updateReadingTimeImpl();
-                });
-            }
+                    });
+                }
 
             document.addEventListener("DOMContentLoaded", updateReadingTimeImpl);
             updateReadingTimeImpl();
             window.addEventListener("resize", scheduleUpdateReadingTime);
             window.addEventListener("scroll", scheduleUpdateReadingTime, {passive: true});
-        })();
+            })();
 
         const toggle = document.getElementById("headings-toggle");
         const listContainer = document.getElementById(
             "headings-list-container",
-        );
+            );
         const list = document.getElementById("headings-list");
 
         if (toggle && listContainer && list) {
@@ -253,15 +201,15 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             function getHeadings() {
                 const art =
                     document.querySelector("main .prose") ||
-                    document.querySelector(".prose");
+                        document.querySelector(".prose");
                 if (!art) return [];
                 return Array.from(art.querySelectorAll("h1, h2, h3"));
-            }
+                }
 
             function buildHeadingsMenu() {
                 if (list) {
                     list.innerHTML = "";
-                }
+                    }
                 const headings = getHeadings();
                 headings.forEach((heading, i) => {
                     if (!heading.id) heading.id = "heading-" + i;
@@ -271,9 +219,9 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                     a.href = "#" + heading.id;
                     a.className =
                         "block px-2 py-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 transition text-zinc-800 dark:text-zinc-200 font-medium underline" +
-                        (heading.tagName === "H1"
-                            ? " text-base font-bold underline"
-                            : heading.tagName === "H2"
+                            (heading.tagName === "H1"
+                                ? " text-base font-bold underline"
+                                : heading.tagName === "H2"
                                 ? " text-sm font-semibold pl-4 underline"
                                 : " text-sm font-normal pl-8 underline");
                     a.addEventListener("click", (ev) => {
@@ -283,26 +231,26 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                             target.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start",
-                            });
+                                });
                         collapseMenu();
-                    });
+                        });
                     li.appendChild(a);
                     if (list) {
                         list.appendChild(li);
-                    }
-                });
-            }
+                        }
+                    });
+                }
 
             function expandMenu() {
                 if (listContainer) {
                     listContainer.classList.remove(
                         "opacity-0",
                         "pointer-events-none",
-                    );
+                        );
                     listContainer.classList.add(
                         "opacity-100",
                         "pointer-events-auto",
-                    );
+                        );
                     if (buttonEl)
                         buttonEl.classList.remove(
                             "bg-white/70",
@@ -311,22 +259,22 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                             "dark:bg-zinc-900/70",
                             "dark:backdrop-blur-xs",
                             "dark:shadow-sm",
-                        );
+                            );
                     buildHeadingsMenu();
+                    }
                 }
-            }
 
             function collapseMenu() {
                 if (listContainer) {
                     listContainer.classList.add(
                         "opacity-0",
                         "pointer-events-none",
-                    );
+                        );
                     listContainer.classList.remove(
                         "opacity-100",
                         "pointer-events-auto",
-                    );
-                }
+                        );
+                    }
                 if (buttonEl)
                     buttonEl.classList.add(
                         "bg-white/70",
@@ -335,25 +283,25 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                         "dark:bg-zinc-900/70",
                         "dark:backdrop-blur-xs",
                         "dark:shadow-sm",
-                    );
-            }
+                        );
+                }
 
             let expanded = false;
             toggle.addEventListener("click", (e) => {
                 if (listContainer.contains(e.target)) return;
                 expanded ? collapseMenu() : expandMenu();
                 expanded = !expanded;
-            });
+                });
 
             document.addEventListener("click", (e) => {
                 if (expanded && !toggle.contains(e.target)) {
                     collapseMenu();
                     expanded = false;
-                }
-            });
+                    }
+                });
 
             collapseMenu();
-        }
+            }
 
         (function () {
             const navSelector = (id: string): HTMLElement | null => document.getElementById(id);
@@ -361,14 +309,14 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             function navigateToSlug(slug: any) {
                 if (!slug) return;
                 window.location.assign(`/cinema/reviews/${slug}`);
-            }
+                }
 
             function normalizeDataset(val: string | null) {
                 if (val === null) return null;
                 val = String(val).trim();
                 if (!val || val === "null" || val === "undefined") return null;
                 return val;
-            }
+                }
 
             function resolveSlugFromGlobal(id: string, datasetSlug: string | null) {
                 const ds = normalizeDataset(datasetSlug);
@@ -380,7 +328,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                 if (id === "prev-article-btn") return idx > 0 ? nav.slugs[idx - 1] : null;
                 if (id === "next-article-btn") return idx < nav.slugs.length - 1 ? nav.slugs[idx + 1] : null;
                 return null;
-            }
+                }
 
             function wireButton(id: string) {
                 const el = navSelector(id);
@@ -396,38 +344,38 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
                     el.classList.add("pointer-events-none", "opacity-30");
                     el.removeAttribute("href");
                     el.removeAttribute("data-slug");
-                } else {
+                    } else {
                     el.setAttribute("data-slug", slug);
                     el.setAttribute("href", `/cinema/reviews/${slug}`);
                     el.setAttribute("aria-disabled", "false");
                     el.removeAttribute("tabindex");
                     el.classList.remove("pointer-events-none", "opacity-30");
-                }
+                    }
 
                 el.addEventListener("click", (ev) => {
                     if (!slug) {
                         ev.preventDefault();
                         return;
-                    }
+                        }
                     ev.preventDefault();
                     navigateToSlug(slug);
-                });
+                    });
 
                 el.addEventListener("keydown", (ev) => {
                     if (!slug) return;
                     if (ev.key === "Enter" || ev.key === " ") {
                         ev.preventDefault();
                         navigateToSlug(slug);
-                    }
-                });
-            }
+                        }
+                    });
+                }
 
             document.addEventListener("DOMContentLoaded", () => {
                 wireButton("prev-article-btn");
                 wireButton("next-article-btn");
-            });
+                });
             wireButton("prev-article-btn");
             wireButton("next-article-btn");
-        })();
-    }
+            })();
+        }
 </script>
