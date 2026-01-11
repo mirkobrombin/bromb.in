@@ -56,23 +56,26 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
 ---
 
 <Layout>
+  <div class="overflow-x-hidden">
     <div
-        class="flex flex-row gap-8 items-end justify-between mb-20 mt-5 lg:px-20 lg:py-12 h-128 lg:h-178 text-white rounded-lg bg-cover bg-center bg-no-repeat"
-        style={`background-image: url('${cover}')`}
+        class="flex flex-col md:flex-row gap-6 items-start md:items-end justify-between mb-8 mt-5 lg:px-20 lg:py-12 w-full text-white rounded-lg bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={`background-image: url('${cover}'); min-height: 18rem;`}
     >
-        <div class="flex flex-col gap-4 max-w-2/5">
-            <h1 class="text-5xl font-normal max-w-128">{title}</h1>
-            <p class="text-4xl">
-                by {author} - <small class="text-xl">{date}</small>
+        <div class="w-full md:max-w-2/5 px-4 md:px-0 py-6 md:py-0">
+            <h1 class="text-3xl md:text-5xl font-normal leading-tight">{title}</h1>
+            <p class="mt-2 text-sm md:text-4xl flex flex-col md:flex-row md:items-center gap-2 text-zinc-100">
+                <span class="text-base md:text-xl">by {author}</span>
+                <span class="text-xs md:text-xl text-zinc-200">- {date}</span>
             </p>
-            <p class="text-lg max-w-lg">
+            <p class="mt-3 text-sm md:text-lg max-w-lg text-zinc-100">
                 {description}
             </p>
         </div>
 
-        <div class="flex flex-row gap-2 items-center justify-center w-max">
+        <div class="flex flex-row gap-2 items-center justify-center w-max px-4 md:px-0 py-3">
             <a
                 class="flex items-center justify-center rounded-full bg-white text-black p-2 dark:bg-zinc-900 dark:text-white"
+                aria-label="Share"
             >
                 <Icon name="material-symbols:share" class="text-base" />
             </a>
@@ -80,13 +83,13 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
     </div>
 
     <div class="flex w-full items-center justify-center pb-12">
-        <div class="flex flex-col prose dark:prose-invert min-w-full lg:prose-md lg:prose-p:text-xl">
+        <div class="flex flex-col prose dark:prose-invert w-full max-w-full lg:prose-md lg:prose-p:text-xl">
             <slot />
         </div>
     </div>
 
     <div
-        class="sticky w-full bottom-8 left-0 flex items-center justify-center gap-5"
+        class="sticky w-full bottom-4 left-0 flex flex-wrap items-center justify-center gap-3 px-4 md:gap-5 md:px-0"
     >
         <div
             class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
@@ -94,7 +97,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             <a
                 id="prev-article-btn"
                 data-slug={effectivePrevSlug}
-                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-zinc-800 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
+                class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-zinc-800 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
                 href={effectivePrevSlug ? `/stories/articles/${effectivePrevSlug}` : undefined}
                 aria-disabled={!effectivePrevSlug}
                 tabindex={!effectivePrevSlug ? -1 : undefined}
@@ -104,7 +107,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             <a
                 id="next-article-btn"
                 data-slug={effectiveNextSlug}
-                class={`flex items-center justify-center py-4 px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
+                class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
                 href={effectiveNextSlug ? `/stories/articles/${effectiveNextSlug}` : undefined}
                 aria-disabled={!effectiveNextSlug}
                 tabindex={!effectiveNextSlug ? -1 : undefined}
@@ -114,11 +117,11 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         </div>
 
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-4 px-8 dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
+            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-2 px-4 md:py-4 md:px-8 dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
             id="reading-time-container"
         >
             <Icon name="material-symbols:schedule-outline" class="text-lg" />
-            <span class="ml-2 text-lg font-normal" id="reading-time-text"
+            <span class="ml-2 text-sm md:text-lg font-normal" id="reading-time-text"
                 data-reading-time={readingTime}
                 >{readingTime} min left</span
             >
@@ -131,7 +134,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
         >
             <div
                 id="headings-list-container"
-                class="absolute -left-1 bottom-0 ml-2 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10 dark:bg-zinc-900/90 dark:shadow-zinc-900/30 backdrop-blur-xs"
+                class="absolute left-1/2 -translate-x-1/2 bottom-0 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10 dark:bg-zinc-900/90 dark:shadow-zinc-900/30 backdrop-blur-xs"
             >
                 <ul
                     id="headings-list"
@@ -146,6 +149,7 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             </div>
         </div>
     </div>
+  </div>
 </Layout>
 
 <script>
