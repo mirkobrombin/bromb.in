@@ -24,9 +24,25 @@ const { frontmatter, prevSlug, nextSlug, readingTime } = Astro.props as ArticleL
 
 const title = frontmatter.title || "Unset";
 const author = frontmatter.author || "Mirko & Laura";
-const date = frontmatter.date || "2024-01-01";
+const rawDate = frontmatter.date ?? null;
 const description = frontmatter.description || "No description available.";
 const cover = frontmatter.cover || "https://placehold.co/300x450/png";
+
+const locale = (Astro.currentLocale || "en");
+function formatDate(iso?: string | null) {
+    if (!iso) return "";
+    try {
+        const d = new Date(iso);
+        return d.toLocaleDateString(locale, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+    } catch {
+        return String(iso);
+    }
+}
+const date = formatDate(rawDate);
 
 const articleFiles = import.meta.glob("../pages/stories/articles/*.md");
 const articleEntries = Object.entries(articleFiles);

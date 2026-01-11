@@ -12,7 +12,19 @@ const popcornScore = frontmatter.popcornScore || 5;
 const movieCategory = frontmatter.movieCategory || "Drama";
 const movieLength = frontmatter.movieLength || "6 seasons";
 const movieCover = frontmatter.movieCover || "https://placehold.co/300x450/png";
-const date = frontmatter.date || "2024-01-01";
+const rawDate = frontmatter.date ?? null;
+
+const locale = Astro.currentLocale || "en";
+function formatDate(iso) {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+  } catch {
+    return String(iso);
+  }
+}
+const date = formatDate(rawDate);
 
 const totalPopcorns = 5;
 
