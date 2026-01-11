@@ -1,6 +1,7 @@
 {
   "name": "bromb.in",
   "type": "module",
+  "packageManager": "pnpm@10.27.0",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
