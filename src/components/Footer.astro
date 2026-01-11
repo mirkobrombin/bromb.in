@@ -32,11 +32,11 @@ const internal = internalTemplates.map(item => ({
     <footer class="w-full bg-white dark:bg-zinc-900 border-t border-black/8 dark:border-white/10 to-[#3e342f]/10 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-6 py-12 md:py-20">
             <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
-                <div class="flex-1">
+                <div class="flex-1 flex flex-col items-start gap-2 md:gap-4">
                     <h1 class="text-3xl md:text-5xl font-semibold font-sans text-[#3e342f] dark:text-white">bromb.in</h1>
-                    <p class="mt-3 text-xl font-sans text-black/65 dark:text-white/70 max-w-lg">{t('home.description')}</p>
+                    <p class="text-xl font-sans text-black/65 dark:text-white/70 max-w-lg">{t('home.description')}</p>
 
-                    <div class="mt-6 flex items-center gap-4">
+                    <div class="flex items-center gap-4">
                         <a href="https://github.com/mirkobrombin/bromb.in"
                            class="inline-flex items-center justify-center gap-2 text font-sans text-xl font-medium text-[#3e342f] dark:text-white underline">
                             <Icon name="material-symbols:code" class="size-6"/>
@@ -51,7 +51,7 @@ const internal = internalTemplates.map(item => ({
                 </div>
 
                 <div class="flex-1 md:flex-[0.9] grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">
+                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 transition">
                         <p class="text-xl font-sans font-semibold mb-3 dark:text-white">{t('footer.external')}</p>
                         <ul class="space-y-2">
                             {external.map(item => (
@@ -69,7 +69,7 @@ const internal = internalTemplates.map(item => ({
                         </ul>
                     </div>
 
-                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition">
+                    <div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 transition">
                         <p class="text-xl font-sans font-semibold mb-3 dark:text-white">{t('footer.internal')}</p>
                         <ul class="space-y-2">
                             {internal.map(item => (

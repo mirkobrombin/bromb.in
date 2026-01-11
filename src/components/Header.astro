@@ -1,7 +1,7 @@
 ---
 import {Icon} from "astro-icon/components";
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import { useTranslations } from '../i18n/utils';
+import {getRelativeLocaleUrl} from 'astro:i18n';
+import {useTranslations} from '../i18n/utils';
 import LanguagePicker from './LanguagePicker.astro';
 
 const navItems = [
@@ -20,10 +20,6 @@ const navGroups = [
     {items: [5, 6], class: "hidden md:flex flex-row gap-4"}, // tertiary
 ];
 
-const footerLinks = [
-    {name: "ABOUT", href: "/about"},
-];
-
 export let currentPage = null;
 
 // i18n bootstrap for this component
@@ -35,28 +31,32 @@ const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
 
 <div class="flex items-center justify-between px-4 h-18 md:h-16 lg:hidden" id="mobile-header">
     <h1 class="text-3xl font-semibold font-sans">bromb.in</h1>
-    <button id="hamburger-menu" class="material-symbols-outlined text-4xl"
-            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">menu
-    </button>
+    <button id="hamburger-menu" class="material-symbols-outlined text-4xl">menu</button>
 </div>
 
 <div class="fixed w-full z-50">
     <div id="mobile-menu"
          class="hidden font-sans fixed top-0 left-0 w-full h-full bg-primary/80 backdrop-blur-md flex flex-col items-center justify-center text-black transition-all duration-300 opacity-0 transform scale-95">
-        <button class="absolute top-5 right-4 material-symbols-outlined text-3xl"
-                onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">close
-        </button>
+        <button id="mobile-menu-close" class="absolute top-5 right-4 material-symbols-outlined text-3xl">close</button>
 
-        <nav class="flex flex-col gap-4 text-lg font-medium font-sans">
-            {navItems.map(item => (
-                    <a href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)} data-key={item.key}
-                       class={`hover:underline ${currentPage === item.key ? "font-extrabold" : ""}`}>{t('nav.' + item.trans)}</a>
-            ))}
-        </nav>
+        <div class="w-[90vw] md:w-[70vw] mx-auto flex flex-col items-center justify-center gap-6">
+            <nav class="flex flex-col gap-4 text-lg font-medium font-sans w-full text-center">
+                {navItems.map(item => (
+                        <a href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)}
+                           data-key={item.key}
+                           class={`hover:underline ${currentPage === item.key ? "font-extrabold" : ""}`}>{t('nav.' + item.trans)}</a>
+                ))}
+            </nav>
 
-        <div class="flex flex-col items-center gap-4 mt-8">
-            <div class="flex gap-2 justify-center md:justify-start">
-                <a href={aboutUrl} class="hover:underline">{t('nav.about')}</a>
+            <div class="flex flex-col items-center gap-4 mt-2 w-full">
+                <div class="flex gap-4 justify-center items-center">
+                    <div class="relative">
+                        <div class="bg-white/80 dark:bg-zinc-800/90 backdrop-blur-xs text-black dark:text-white rounded-2xl py-2 px-4">
+                            <LanguagePicker/>
+                        </div>
+                    </div>
+                    <a href={aboutUrl} class="hover:underline">{t('nav.about')}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -68,7 +68,8 @@ const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
             {navGroups.map(group => (
                     <div class={group.class}>
                         {group.items.map(i => (
-                                <a href={getRelativeLocaleUrl(currentLang, navItems[i].key === 'home' ? '' : navItems[i].key)} data-key={navItems[i].key}
+                                <a href={getRelativeLocaleUrl(currentLang, navItems[i].key === 'home' ? '' : navItems[i].key)}
+                                   data-key={navItems[i].key}
                                    class="hover:underline opacity-80">{t('nav.' + navItems[i].trans)}</a>
                         ))}
                     </div>
@@ -104,13 +105,16 @@ const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
     <div class="flex flex-col md:flex-row items-center justify-center gap-2 mt-4 md:mt-0">
         <div class="flex gap-6 justify-center items-center">
             <div class="relative group">
-                <button id="lang-btn" class="bg-white/80 dark:bg-zinc-800/90 backdrop-blur-xs text-black dark:text-white rounded-full py-2 px-5 hover:bg-gray-200 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-3">
-                    <Icon name="material-symbols:language" class="size-5 inline-block"/> <span>{currentLang.toUpperCase()}</span>
+                <button id="lang-btn"
+                        class="bg-white/80 dark:bg-zinc-800/90 backdrop-blur-xs text-black dark:text-white rounded-full py-2 px-5 hover:bg-gray-200 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-3">
+                    <Icon name="material-symbols:language" class="size-5 inline-block"/>
+                    <span>{currentLang.toUpperCase()}</span>
                 </button>
-                <div id="lang-popup" class="absolute text-black dark:text-white left-0 mt-2 min-w-22.705 bg-white/90 dark:bg-zinc-800/95 backdrop-blur-xs rounded-xl shadow-lg border border-gray-200 dark:border-zinc-700 py-2 px-3 flex flex-col gap-1 z-50 hidden">
-                    <LanguagePicker />
+                <div id="lang-popup"
+                     class="absolute text-black dark:text-white left-0 mt-2 min-w-22.705 bg-white/90 dark:bg-zinc-800/95 backdrop-blur-xs rounded-xl shadow-lg border border-gray-200 dark:border-zinc-700 py-2 px-3 flex flex-col gap-1 z-50 hidden">
+                    <LanguagePicker/>
                 </div>
-             </div>
+            </div>
             <a href={aboutUrl} class="hover:underline opacity-80 h-max">{t('nav.about')}</a>
         </div>
     </div>
@@ -139,6 +143,16 @@ const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
         transition: opacity 180ms linear, transform 180ms cubic-bezier(.2, .9, .3, 1);
         opacity: 0;
         pointer-events: none;
+    }
+
+    @media (min-width: 1024px) and (max-width: 1280px) {
+        #desktop-title-bar {
+            margin-top: 1.5rem;
+        }
+
+        #desktop-header {
+            top: -0.5rem !important;
+        }
     }
 </style>
 
@@ -246,7 +260,8 @@ const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
     (function bindMobileMenu() {
         const menu = id("mobile-menu");
         const hamburger = id("hamburger-menu");
-        const closeBtn = q("#mobile-menu .material-symbols-outlined");
+        // use explicit id to avoid accidental selection of other icons
+        const closeBtn = id("mobile-menu-close");
         [hamburger, closeBtn].forEach(btn => btn && btn.addEventListener("click", () => toggleVisibility(menu)));
     })();
 
