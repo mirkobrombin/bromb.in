@@ -1,6 +1,12 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 
+export async function getStaticPaths() {
+    const files = import.meta.glob("./*.md");
+    const slugs = Object.keys(files).map(path => path.split("/").pop()?.replace(".md", "") || "");
+    return slugs.map(slug => ({ params: { slug } }));
+}
+
 const files = import.meta.glob("./*.md");
 const rawFiles = import.meta.glob("./*.md", { query: "?raw", import: "default" });
 

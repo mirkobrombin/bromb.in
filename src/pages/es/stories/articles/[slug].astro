@@ -1,23 +1,17 @@
 ---
 import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
 
-const storyFiles = import.meta.glob('./*.md');
-
-let slugs: string[] = [];
-
-if (import.meta.env.SSR) {
-  slugs = Object.keys(import.meta.glob('./*.md'))
-      .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
-      .filter(Boolean)
-      .sort();
-}
-
 export async function getStaticPaths() {
-  let slugs: string[] = [];
-  return slugs.map(slug => ({
-    params: { slug }
-  }));
+  const files = import.meta.glob("./*.md");
+  const slugs = Object.keys(files).map(path => path.split("/").pop()?.replace(".md", "") || "");
+  return slugs.map(slug => ({ params: { slug } }));
 }
+
+const storyFiles = import.meta.glob('./*.md');
+const slugs = Object.keys(storyFiles)
+    .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
+    .filter(Boolean)
+    .sort();
 
 const { slug } = Astro.params;
 const currentIndex = slugs.indexOf(slug ?? '');
