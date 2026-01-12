@@ -11,9 +11,9 @@ cover: /pattern.png
 layout: ../../../../layouts/ArticleLayout.astro
 ---
 
-Recientemente me encontré con el artículo ["Por qué no podemos tener un buen software"] (https://andrewkelley.me/post/why-we-cant-have-nice-software.html) de Andrew Kelley; Esta es una visión muy crítica del mundo del software y la innovación tecnológica, pero parece, en mi opinión, demasiado superficial, centrándose exclusivamente en la perspectiva del consumidor o desarrollador. Algunas de las críticas son ciertamente válidas, pero carecen de una comprensión más profunda de las muchas variables que influyen en las decisiones comerciales en el desarrollo de la tecnología.
+Recientemente me encontré con el artículo ["Por qué no podemos tener un buen software"](https://andrewkelley.me/post/why-we-cant-have-nice-software.html) de Andrew Kelley; Esta es una visión muy crítica del mundo del software y la innovación tecnológica, pero parece, en mi opinión, demasiado superficial, centrándose exclusivamente en la perspectiva del consumidor o desarrollador. Algunas de las críticas son ciertamente válidas, pero carecen de una comprensión más profunda de las muchas variables que influyen en las decisiones comerciales en el desarrollo de la tecnología.
 
-> Antes de continuar, es esencial leer [su artículo] (https://andrewkelley.me/post/why-we-cant-have-nice-software.html). Independientemente de los puntos, que son válidos para mí, que plantea, ofrece un buen punto de partida para una reflexión más amplia, como lo propone este artículo.
+> Antes de continuar, es esencial leer [su artículo](https://andrewkelley.me/post/why-we-cant-have-nice-software.html). Independientemente de los puntos, que son válidos para mí, que plantea, ofrece un buen punto de partida para una reflexión más amplia, como lo propone este artículo.
 >
 > También me gustaría señalar que mi artículo no pretende ser una crítica al artículo de Kelley, mi objetivo es traer más variables para poder abordar la discusión desde un punto de vista más amplio.
 
