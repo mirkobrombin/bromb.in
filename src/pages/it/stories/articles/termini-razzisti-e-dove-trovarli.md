@@ -14,7 +14,7 @@ Il razzismo è un problema che ha afflitto le persone per molti anni, oserei dir
 
 Tuttavia, è ironico leggere di persone che si trovano contro il razzismo ... vedere il razzismo ovunque. Più ci penso, più rido, più rido, più piango. Voglio dire, sul serio.
 
-! [] (https://media1.giphy.com/media/ywygekquxkjq/giphy.gif?cid=ecf05e47726f659c5e9e226b65f1d952e4fc3fb029cb34b3&rid=gifhy.gif)
+![](https://media1.giphy.com/media/ywygekquxkjq/giphy.gif?cid=ecf05e47726f659c5e9e226b65f1d952e4fc3fb029cb34b3&rid=gifhy.gif)
 
 A volte mi fermo a pensare: posso ordinare un negroni da un barista nero? Ma allora, cosa significa "di colore"? Siamo "bianchi" incolori? Quindi dovrei sentirmi offeso, come se volessi anche essere "di colore" ... ma per quanto riguarda il Negroni?
 
@@ -26,7 +26,7 @@ Ok, questo è stato un po 'esagerato. Là fuori, la situazione non è poi così 
 * La lista nera e la whitelist sono considerate razziste
 * Negli scacchi, il bianco si muove per primo, quindi gli scacchi sono razzisti
 
-No, seriamente X.x mi spara ora, questo mondo è un disastro. Alcune persone hanno neuroni che si combattono costantemente, sicuramente nessuno agirà ... [Twitter: stiamo iniziando con una serie di parole che vogliamo allontanarci dall'usare a favore di un linguaggio più inclusivo] (https://twitter.com/twittersg/status/12787333333333333333305190342656 Termini] (https://fstoppers.com/gear/canon-has- ufficialmente-dropped-slave-terms-497389) ..
+No, seriamente X.x mi spara ora, questo mondo è un disastro. Alcune persone hanno neuroni che si combattono costantemente, sicuramente nessuno agirà ... [Twitter: stiamo iniziando con una serie di parole che vogliamo allontanarci dall'usare a favore di un linguaggio più inclusivo](https://twitter.com/TwitterEng/status/1278733305190342656?s=09) .... [Canon ha ufficialmente abbandonato i termini 'Master' e 'Slave'](https://fstoppers.com/gear/canon-has-officially-dropped-master-and-slave-terms-497389) ..
 
 E questo è tutto, Covid non è l'unica pandemia dell'anno, c'è una tempesta di neuroni in arrivo.
 

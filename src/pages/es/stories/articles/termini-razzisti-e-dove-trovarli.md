@@ -14,7 +14,7 @@ El racismo es un problema que ha afectado a las personas durante muchos años, m
 
 Sin embargo, es irónico leer sobre personas que se enfrentan al racismo ... ver el racismo en todas partes. Cuanto más pienso en eso, más me río, más me río, más lloro. Quiero decir, en serio.
 
-! [] (https://media1.giphy.com/media/ywwygekquxkjq/giphy.gif?cid=ecf05e47726f659c5e9e226b65f1d952e4fc3fb029cb34b3&rid=giphy.gif)
+![](https://media1.giphy.com/media/ywwygekquxkjq/giphy.gif?cid=ecf05e47726f659c5e9e226b65f1d952e4fc3fb029cb34b3&rid=giphy.gif)
 
 A veces me detengo a pensar: ¿Puedo pedir un Negroni a un camarero negro? Pero entonces, ¿qué significa "de color"? ¿Somos "blancos" incoloros? Entonces, ¿debería sentirme ofendido, como también quiero ser "de color" ... pero qué pasa con el Negroni?
 
@@ -26,7 +26,7 @@ De acuerdo, este fue un ejemplo exagerado. Por ahí, la situación no es tan mal
 * La lista negra y la lista blanca se consideran racistas
 * En el ajedrez, los movimientos blancos primero, por lo que el ajedrez es racista
 
-No, en serio x.x solo dispararme ahora, este mundo es un desastre. Algunas personas tienen neuronas constantemente luchando entre sí, sin duda nadie tomará medidas ... [Twitter: estamos comenzando con un conjunto de palabras que queremos alejarnos de usar a favor de un lenguaje más inclusivo] (https://twitter.com/twittereng/status/1278733333333190342656?s=09) .... [CANON ha sido oficialmente ' Términos] (https://fstoppers.com/gear/canon-hasoficialy-dropped-master-and-slave-terms-497389) ..
+No, en serio x.x solo dispararme ahora, este mundo es un desastre. Algunas personas tienen neuronas constantemente luchando entre sí, sin duda nadie tomará medidas ... [Twitter: estamos comenzando con un conjunto de palabras que queremos alejarnos de usar a favor de un lenguaje más inclusivo](https://twitter.com/twittereng/status/1278733333333190342656?s=09) .... [CANON ha sido oficialmente ' Términos](https://fstoppers.com/gear/canon-hasoficialy-dropped-master-and-slave-terms-497389) ..
 
 Y eso es todo, Covid no es la única pandemia del año, hay una tormenta de neuronas.
 

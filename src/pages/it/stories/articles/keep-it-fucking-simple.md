@@ -15,7 +15,7 @@ Inizialmente (e sto parlando molti anni fa), i siti Web erano limitati dalla man
 
 Con il passare degli anni, gli strumenti a nostra disposizione aumentarono, HTML e CSS divennero lingue adeguate a sé stanti, permettendoci oggi di creare interfacce funzionali e complesse.
 
-! [] (https://media0.giphy.com/media/10rjcb79m16ary/giphy.gif?cid=790b761110ab7d3263e17e79a1d6613a81f1f1f90e12e4e8b4&rid=gifhy.gif)
+![](https://media0.giphy.com/media/10rjcb79m16ary/giphy.gif?cid=790b761110ab7d3263e17e79a1d6613a81f1f1f90e12e4e8b4&rid=gifhy.gif)
 
 Tuttavia, questo è un esempio in cui <MARK> il progresso si evolve più velocemente degli sviluppatori/designer </MARK>, portandoli a non sfruttare completamente le risorse, con conseguenti risultati di bassa qualità e scarsi prestazioni.
 
@@ -27,7 +27,7 @@ In poche parole, utilizzando solo le risorse veramente essenziali e evitando cos
 
 Per dare un esempio pratico citando il codice sorgente ** Navbar ** offerto da Bootstrap:
 
-`` `html
+```html
 <nav class = "navbar navbar-expand-lg navbar-light bg-light">>
 <a class = "navbar-brand" href = "#"> navbar </a>
 <pulsante class = "navbar-toggler" type = "pulsante" data-toggle = "crolla" data-target = "#navbarsupportadContent" aria-confrols = "navbarsupportadContent" aria-expanded = "false" aria-label = "toggle navigation">
@@ -45,7 +45,7 @@ Per dare un esempio pratico citando il codice sorgente ** Navbar ** offerto da B
 </ul>
 </div>
 </nav>
-`` `
+```
 
 Ciò che si distingue immediatamente è:
 
@@ -55,7 +55,7 @@ Ciò che si distingue immediatamente è:
 
 Tutto può essere semplificato con una struttura minima usando elementi HTML di base, come nell'esempio seguente:
 
-`` `html
+```html
 <header>
 <a href = "#">
 <h1> marchio </h1>
@@ -68,35 +68,35 @@ Tutto può essere semplificato con una struttura minima usando elementi HTML di 
 </ul>
 </nav>
 </header>
-`` `
+```
 
 Bootstrap, come molti altri framework CSS, utilizza diverse classi per la gestione degli eventi e l'identificazione degli elementi negli script JavaScript, ad esempio nell'apertura/chiusura del menu mobile.
 
-! [] (https://media1.giphy.com/media/13xw2mje0xcom0/giphy.gif?cid=790b7611d6b872db885ff15e635a83fe915441b166232cf4&rid=gifhy.gif)
+![](https://media1.giphy.com/media/13xw2mje0xcom0/giphy.gif?cid=790b7611d6b872db885ff15e635a83fe915441b166232cf4&rid=gifhy.gif)
 
 L'uso delle classi non è necessario se abbiamo una chiara idea della struttura del progetto che vogliamo creare. Nell'esempio sopra menzionato, abbiamo una semplice intestazione con un logo, un pulsante e un menu di navigazione.
 
 Il nostro obiettivo è mostrare il pulsante solo sui dispositivi mobili, ad esempio su schermate inferiori a 720px, quindi nasconderemo questo pulsante (che non ha una classe in quanto è l'unico presente nell'intestazione):
 
-`` `CSS
+```css
 header> pulsante {
 Display: nessuno
 }
-`` `
+```
 
 Quindi, per farlo apparire di nuovo su dispositivi inferiori a 720px:
 
-`` `CSS
+```css
 @media Screen e (massimo-larghezza: 719px) {
 header> pulsante {
 Visualizza: blocco
 }
 }
-`` `
+```
 
 Per quanto riguarda la gestione dell'evento menu aperto/chiusura sui dispositivi mobili, possiamo optare per uno script JavaScript utilizzando lo stesso elemento `` heater> pulsante 'per l'interazione. Altrimenti, poiché i dispositivi mobili hanno touch screen, possiamo usare la loro percezione di pseudo _: hover_ per ricreare l'evento stampa:
 
-`` `CSS
+```css
 @media Screen e (massimo-larghezza: 719px) {
 header> nav {
 visualizzazione: nessuno;
@@ -105,7 +105,7 @@ Testa> Pulsante: Hover> nav {
 Visualizza: blocco;
 }
 }
-`` `
+```
 
 Ciò raggiungerà lo stesso risultato poiché lo pseudo _: hover_ su touch i dispositivi viene interpretato come un clic senza rilascio, facendo così clic all'esterno dell'elemento otterrà l'effetto opposto rimuovendo la messa a fuoco. La stessa procedura può essere applicata ai menu contestuali.
 

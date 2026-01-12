@@ -15,7 +15,7 @@ Inicialmente (y estoy hablando hace muchos años), los sitios web estaban limita
 
 A medida que pasaron los años, aumentaron las herramientas a nuestra disposición, HTML y CSS se convirtieron en idiomas adecuados por derecho propio, lo que nos permite hoy crear interfaces funcionales y complejas.
 
-! [] (https://media0.giphy.com/media/10rjcb79m16ary/giphy.gif?cid=790b761110ab7d3263e17e79a1d6613a81f1f90e12e4e8b4&rid=giphy.gif)
+![](https://media0.giphy.com/media/10rjcb79m16ary/giphy.gif?cid=790b761110ab7d3263e17e79a1d6613a81f1f90e12e4e8b4&rid=giphy.gif)
 
 Sin embargo, este es un ejemplo en el que el progreso <Mark> evoluciona más rápido que los desarrolladores/diseñadores </sk>, lo que los lleva a no explotar completamente los recursos, lo que resulta en una baja calidad y malos resultados de rendimiento.
 
@@ -27,7 +27,7 @@ En pocas palabras, utilizando solo los recursos verdaderamente esenciales y, por
 
 Para dar un ejemplo práctico citando el código fuente ** Navbar ** ofrecido por Bootstrap:
 
-`` `HTML
+```html
 <Nav class = "Navbar Navbar-Expand-Lg Navbar-Light BG-Light">
 <a class = "Navbar Brand" href = "#"> Navbar </a>
 <Botton class = "Navbar-Toggler" type = "Button" data-toggle = "colapse" data-target = "#NavbarsupportedContent" aria-confuntrols = "navarsupportedContent" aria-expandy = "false" aria-label = "alternar">>>
@@ -45,7 +45,7 @@ Para dar un ejemplo práctico citando el código fuente ** Navbar ** ofrecido po
 </ul>
 </div>
 </am>
-`` `` ``
+```
 
 Lo que se destaca de inmediato es:
 
@@ -55,7 +55,7 @@ Lo que se destaca de inmediato es:
 
 Todo se puede simplificar con una estructura mínima utilizando elementos HTML básicos, como en el ejemplo a continuación:
 
-`` `HTML
+```html
 <Header>
 <a href = "#">
 <h1> marca </h1>
@@ -68,35 +68,35 @@ Todo se puede simplificar con una estructura mínima utilizando elementos HTML b
 </ul>
 </am>
 </Header>
-`` `` ``
+```
 
 Bootstrap, como muchos otros marcos CSS, utiliza varias clases para la gestión de eventos y la identificación de elementos en los scripts de JavaScript, por ejemplo, al abrir/cerrar el menú móvil.
 
-! [] (https://media1.giphy.com/media/13xw2mje0xcom0/giphy.gif?cid=790b7611d6b872db885ff15e635a83fe915441b166232cf4&rid=giphy.gif)
+![](https://media1.giphy.com/media/13xw2mje0xcom0/giphy.gif?cid=790b7611d6b872db885ff15e635a83fe915441b166232cf4&rid=giphy.gif)
 
 El uso de clases no es necesario si tenemos una idea clara de la estructura del proyecto que queremos crear. En el ejemplo mencionado anteriormente, tenemos un encabezado simple con un logotipo, un botón y un menú de navegación.
 
 Nuestro objetivo es mostrar el botón solo en dispositivos móviles, por ejemplo, en pantallas más pequeñas que 720px, por lo que ocultaremos este botón (que no tiene clase, ya que es el único presente en el encabezado):
 
-`` `CSS
+```css
 encabezado> botón {
 Pantalla: ninguno
 }
-`` `` ``
+```
 
 Luego, para que aparezca nuevamente en dispositivos más pequeños que 720px:
 
-`` `CSS
+```css
 @Media Screen y (Max-Width: 719px) {
 encabezado> botón {
 Pantalla: bloque
 }
 }
-`` `` ``
+```
 
 Con respecto a la administración del evento de menú Open/Close en dispositivos móviles, podemos optar por un script JavaScript utilizando el mismo elemento 'Header> Button' para la interacción. De lo contrario, como los dispositivos móviles tienen pantallas táctiles, podemos usar su percepción del pseudo _: Hover_ para recrear el evento de prensa:
 
-`` `CSS
+```css
 @Media Screen y (Max-Width: 719px) {
 Encabezado> Nav {
 Pantalla: ninguno;
@@ -105,11 +105,11 @@ Encabezado> Botón: Hover> Nav {
 Pantalla: bloque;
 }
 }
-`` `` ``
+```
 
 Esto logrará el mismo resultado ya que el Pseudo _: Hover_ on Touch Devices se interpreta como un clic sin liberación, lo que hace clic fuera del elemento logrará el efecto opuesto al eliminar el foco. El mismo procedimiento se puede aplicar a los menús contextuales.
 
-! [] (https://media1.giphy.com/media/3ovva11fpuvfyrfjxs/giphy.gif?cid=790b7611f2ed0977755ca7a2d0285f73a616ed1d5649e50b0&rid=giphy.gif)
+![](https://media1.giphy.com/media/3ovva11fpuvfyrfjxs/giphy.gif?cid=790b7611f2ed0977755ca7a2d0285f73a616ed1d5649e50b0&rid=giphy.gif)
 
 Mi objetivo con este artículo no es ilustrar cómo crear una interfaz, sino alentar a cualquiera que quiera probarlo para usar los recursos que tienen disponibles bien, evaluando cuidadosamente los pros y los contras de adoptar un marco.
 
