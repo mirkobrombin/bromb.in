@@ -1,0 +1,48 @@
+---
+export interface Props {
+  external?: any[];
+  internal?: any[];
+  t?: any;
+}
+
+import { Icon } from "astro-icon/components";
+export let external: any[] = [];
+export let internal: any[] = [];
+export let t: any = (k: string) => k;
+---
+
+<div class="flex-1 md:flex-[0.9] grid grid-cols-1 sm:grid-cols-2 gap-4">
+	<div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 transition">
+		<p class="text-xl font-sans font-semibold mb-3 dark:text-white">{t('footer.external')}</p>
+		<ul class="space-y-2">
+			{external.map(item => (
+				<li>
+					<a class="flex items-center gap-3 text-base hover:text-[#3e342f] dark:hover:text-white transition underline-offset-2 underline"
+					   href={item.href}>
+						<span class="inline-center w-7 h-7 rounded-full" style={`background: ${item.bg}; color: ${item.fg}`}>
+							<Icon name={item.icon} class="size-4"/>
+						</span>
+						{item.title}
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<div class="bg-white/90 dark:bg-white/10 backdrop-blur rounded-xl p-4 md:p-6 transition">
+		<p class="text-xl font-sans font-semibold mb-3 dark:text-white">{t('footer.internal')}</p>
+		<ul class="space-y-2">
+			{internal.map(item => (
+				<li>
+					<a class="flex items-center gap-3 text-base hover:text-[#3e342f] dark:hover:text-white transition"
+					   href={item.href}>
+						<span class="inline-center w-7 h-7 rounded-full" style={`background: ${item.bg}; color: ${item.fg}`}>
+							{item.label}
+						</span>
+						<span class="underline underline-offset-2 dark:text-white"> {t(item.titleKey)}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+</div>

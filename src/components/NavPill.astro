@@ -1,0 +1,19 @@
+---
+import { Icon } from "astro-icon/components";
+const { id, slug = null, base = null, href = undefined, has = true, label = "", icon = "material-symbols:arrow-back", iconClass = "icon-lg" } = Astro.props;
+---
+
+<a
+  id={id}
+  data-slug={slug}
+  data-base={base}
+  class={`ui-pill pill-pad ${has ? '' : 'pointer-events-none opacity-30'}`}
+  href={href}
+  aria-disabled={!has}
+  tabindex={!has ? -1 : undefined}
+  aria-label={label}
+  title={label}
+>
+  <Icon name={icon} class={iconClass} />
+  <span class="sr-only">{label}</span>
+</a>

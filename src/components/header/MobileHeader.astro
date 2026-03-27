@@ -1,0 +1,52 @@
+---
+import LanguagePicker from '../LanguagePicker.astro';
+
+export interface Props {
+  navItems: any[];
+  currentPage: string | null;
+  currentLang: string;
+  t: (key: string) => string;
+  getRelativeLocaleUrl: (lang: string, path: string) => string;
+  aboutUrl: string;
+}
+
+const {
+  navItems = [],
+  currentPage = null,
+  currentLang = 'en',
+  t = (k: string) => k,
+  getRelativeLocaleUrl = (_lang: string, path: string) => `/${path}`,
+  aboutUrl = '/about',
+} = Astro.props as Partial<Props>;
+---
+
+<div class="flex items-center justify-between px-4 h-18 md:h-16 lg:hidden" id="mobile-header">
+    <h1 class="text-3xl font-semibold font-sans">bromb.in</h1>
+    <button id="hamburger-menu" class="material-symbols-outlined text-4xl">menu</button>
+</div>
+
+<div id="mobile-menu"
+     class="hidden font-sans fixed top-0 left-0 w-full h-full bg-primary/80 backdrop-blur-md flex-col items-center justify-center text-black transition-all duration-300 opacity-0 transform scale-95">
+    <button id="mobile-menu-close" class="absolute top-5 right-4 material-symbols-outlined text-3xl">close</button>
+
+    <div class="w-[90vw] md:w-[70vw] mx-auto flex flex-col items-center justify-center gap-6">
+        <nav class="flex flex-col gap-4 text-lg font-medium font-sans w-full text-center">
+            {navItems.map(item => (
+                    <a href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)}
+                       data-key={item.key}
+                       class={`hover:underline ${currentPage === item.key ? "font-extrabold" : ""}`}>{t('nav.' + item.trans)}</a>
+            ))}
+        </nav>
+
+        <div class="flex flex-col items-center gap-4 mt-2 w-full">
+            <div class="flex gap-4 justify-center items-center">
+                <div class="relative">
+                    <div class="bg-white/80 dark:bg-zinc-800/90 backdrop-blur-xs text-black dark:text-white rounded-2xl py-2 px-4">
+                        <LanguagePicker/>
+                    </div>
+                </div>
+                <a href={aboutUrl} class="hover:underline">{t('nav.about')}</a>
+            </div>
+        </div>
+    </div>
+</div>

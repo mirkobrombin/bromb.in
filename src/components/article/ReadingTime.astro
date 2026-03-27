@@ -1,0 +1,14 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+  readingTime?: number | null;
+}
+
+const { readingTime = null } = Astro.props;
+---
+
+<div class="ui-pill py-3 sm:py-4 px-5 sm:px-8 items-center justify-center" id="reading-time-container">
+  <Icon name="material-symbols:schedule-outline" class="icon-sm" />
+  <span id="reading-time-text" class="ml-2 text-lg font-normal dark:text-white" data-reading-time={readingTime}>{readingTime ? `${readingTime} min left` : '1 min left'}</span>
+</div>

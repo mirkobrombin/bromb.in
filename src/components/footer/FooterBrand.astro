@@ -1,0 +1,35 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  sourceHref?: string;
+  privacyHref?: string;
+  t?: any;
+}
+
+import { Icon } from "astro-icon/components";
+
+export let title: string = 'bromb.in';
+export let description: string = '';
+export let sourceHref: string = '#';
+export let privacyHref: string = '#';
+export let t: any = (k: string) => k;
+---
+
+<div class="flex-1 flex flex-col items-start gap-2 md:gap-4">
+    <h1 class="text-3xl md:text-5xl font-semibold font-sans text-[#3e342f] dark:text-white">{title}</h1>
+    <p class="text-xl font-sans text-black/65 dark:text-white/70 max-w-lg">{description}</p>
+
+    <div class="flex items-center gap-4">
+        <a href={sourceHref}
+           class="inline-center gap-2 text font-sans text-xl font-medium text-[#3e342f] dark:text-white underline">
+            <Icon name="material-symbols:code" class="size-6"/>
+            {t('footer.source')}
+        </a>
+        <a href={privacyHref}
+           class="text-xl font-sans inline-center gap-2 text-black/70 dark:text-white/70 underline">
+            <Icon name="material-symbols:privacy-tip-outline" class="size-6 inline-block"/>
+            {t('footer.privacy')}
+        </a>
+    </div>
+</div>

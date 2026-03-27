@@ -1,0 +1,20 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {}
+---
+
+<div id="desktop-inline-search" class="hidden w-full">
+    <div class="flex items-center gap-3 relative">
+        <button class="flex items-center justify-between hover:bg-gray-200 dark:hover:bg-zinc-800 rounded-full"
+                onclick="closeInlineSearch()"
+                aria-label="Close inline search" type="button">
+            <Icon name="material-symbols:search" class="size-5"/>
+        </button>
+        <input id="search-input-inline"
+               class="w-140 h-7 bg-transparent outline-none text-sm md:text-lg text-center font-semibold"
+               placeholder="What are you looking for?" aria-label="Search"/>
+        <div id="search-count-inline" class="text-sm text-gray-500 hidden">0 Results</div>
+    </div>
+    <div id="search-results-inline" class="max-h-64 overflow-auto space-y-2" role="listbox" tabindex="-1"></div>
+</div>

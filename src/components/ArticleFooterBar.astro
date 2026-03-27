@@ -1,0 +1,29 @@
+---
+import { Icon } from "astro-icon/components";
+import NavPill from "./NavPill.astro";
+import ReadingTime from './article/ReadingTime.astro';
+import HeadingsToggle from './article/HeadingsToggle.astro';
+import { normalizeSlug, normalizeBase, buildHref } from '../../scripts/article-footer.ts';
+const { readingTime = null, prevSlug = null, nextSlug = null, basePath = null } = Astro.props;
+
+const prev = normalizeSlug(prevSlug);
+const next = normalizeSlug(nextSlug);
+const base = normalizeBase(basePath);
+const prevHref = buildHref(base, prev);
+const nextHref = buildHref(base, next);
+
+const hasPrev = Boolean(prev || prevHref);
+const hasNext = Boolean(next || nextHref);
+
+const prevLabel = hasPrev ? `Previous article` : `No previous article`;
+const nextLabel = hasNext ? `Next article` : `No next article`;
+---
+
+<div class="sticky w-full bottom-2 sm:bottom-8 left-0 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 z-50 px-2">
+    <div class="ui-pill h-full">
+        <NavPill id="prev-article-btn" slug={prev ?? prevSlug} base={base ?? basePath} href={prevHref} has={hasPrev} label={prevLabel} icon="material-symbols:arrow-back" />
+        <NavPill id="next-article-btn" slug={next ?? nextSlug} base={base ?? basePath} href={nextHref} has={hasNext} label={nextLabel} icon="material-symbols:arrow-forward" />
+    </div>
+    <ReadingTime readingTime={readingTime} />
+    <HeadingsToggle />
+</div>
