@@ -1,48 +1,63 @@
-# Astro Starter Kit: Basics
+# bromb.in
 
-```sh
-pnpm create astro@latest -- --template basics
+A personal blog and portfolio built with **Astro v5**, featuring a hybrid static architecture, multi-language support (i18n), and a custom fuzzy search implementation.
+
+## Quick Start
+
+This project uses `pnpm`.
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start local development
+pnpm dev
+
+# Build the site and search index
+pnpm run build && pnpm run build:search
+
+# Preview the production build
+pnpm preview
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Project Architecture
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Framework**: [Astro v5](https://astro.build/) (Hybrid mode)
+- **Styling**: Tailwind CSS with Typography and Scrollbar plugins.
+- **Content**: Markdown-based articles located in `src/pages/stories/articles/`.
+- **Search**: Custom Fuse.js implementation. The index is generated via `scripts/build-search-index.js`.
+- **i18n**: Built-in Astro i18n support for English (`en`), Spanish (`es`), and Italian (`it`).
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## Key Directories
 
-## 🚀 Project Structure
+- `src/pages/`: Contains all route components and Markdown content. Language variants are mirrored in `{es,it}/` subfolders.
+- `src/layouts/`: Core layouts including `ArticleLayout.astro` for blog posts.
+- `src/components/`: Reusable UI components like the `Header` (with search) and `ArticleFooterBar`.
+- `scripts/`: Build-time scripts for generating the search index.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Adding Content
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+To add a new article:
+1. Create a `.md` file in `src/pages/stories/articles/<slug>.md`.
+2. Add the required frontmatter:
+   ```yaml
+   ---
+   title: "My New Article"
+   date: "2024-03-20"
+   description: "A short summary of the post."
+   cover: "/path/to/image.png"
+   author: "Your Name"
+   ---
+   ```
+3. Run `pnpm run build:search` to update the search index.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Commands
 
-## 🧞 Commands
+| Command | Action |
+| :--- | :--- |
+| `pnpm dev` | Starts local dev server |
+| `pnpm build` | Builds the static site to `dist/` |
+| `pnpm run build:search` | Generates `public/search-index.json` |
+| `pnpm run format` | Formats code using Prettier |
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
