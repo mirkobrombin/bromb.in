@@ -20,7 +20,7 @@ export const ui = {
         'cinema.subtitle': "What's your next favorite TV series/Film?",
         'cinema.by': 'by',
         'home.title': 'Welcome to bromb.in',
-        'home.description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus, mattis eget ipsum ac, tristique bibendum enim.',
+        'home.description': 'Explore stories about travel, food, and life. Discover new reviews and personal experiences shared by Mirko and Laura.',
         'home.cta': 'Read more',
         // Footer
         'footer.external': 'External',
@@ -44,7 +44,7 @@ export const ui = {
         'cinema.subtitle': '¿Cuál es tu próxima serie/película favorita?',
         'cinema.by': 'por',
         'home.title': 'Bienvenido a bromb.in',
-        'home.description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus, mattis eget ipsum ac, tristique bibendum enim.',
+        'home.description': 'Explora historias sobre viajes, comida y vida. Descubre nuevas reseñas y experiencias personales compartidas por Mirko y Laura.',
         'home.cta': 'Leer más',
         // Footer
         'footer.external': 'Enlaces externos',
@@ -68,7 +68,7 @@ export const ui = {
         'cinema.subtitle': 'Qual è la tua prossima serie/film preferito?',
         'cinema.by': 'di',
         'home.title': 'Benvenuto su bromb.in',
-        'home.description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ipsum finibus, ornare tellus id, luctus nisi. Duis diam lacus, mattis eget ipsum ac, tristique bibendum enim.',
+        'home.description': 'Esplora storie di viaggi, cibo e vita. Scopri nuove recensioni ed esperienze personali condivise da Mirko e Laura.',
         'home.cta': 'Leggi di più',
         // Footer
         'footer.external': 'Esterni',
