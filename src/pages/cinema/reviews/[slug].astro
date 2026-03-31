@@ -73,8 +73,8 @@ const readingTime = Math.max(1, Math.round(wordCount / 200));
     />
 </ArticleLayout>
 
-<script type="module">
+<script define:vars={{ postNavPayload: JSON.stringify({ slugs, current: slug }) }}>
     import hydratePostNav from '../../../../scripts/hydrate-post-nav.ts';
 
-    hydratePostNav({JSON.stringify(JSON.stringify({ slugs, current: slug }))});
+    hydratePostNav(postNavPayload);
 </script>
