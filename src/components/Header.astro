@@ -5,15 +5,25 @@ import MobileHeader from './header/MobileHeader.astro';
 import DesktopNav from './header/DesktopNav.astro';
 import DesktopTitleBar from './header/DesktopTitleBar.astro';
 
+const TEMPORARILY_DISABLED_NAV_KEYS = new Set([
+    'travels',
+    'food-drinks',
+    'books',
+    'work',
+]);
+
 const navItems = [
-    {key: "home", trans: "home"},
-    {key: "stories", trans: "stories"},
-    {key: "cinema", trans: "cinema"},
-    {key: "travels", trans: "travels"},
-    {key: "food-drinks", trans: "foodanddrinks"},
-    {key: "books", trans: "books"},
-    {key: "work", trans: "work"},
-];
+    { key: 'home', trans: 'home' },
+    { key: 'stories', trans: 'stories' },
+    { key: 'cinema', trans: 'cinema' },
+    { key: 'travels', trans: 'travels' },
+    { key: 'food-drinks', trans: 'foodanddrinks' },
+    { key: 'books', trans: 'books' },
+    { key: 'work', trans: 'work' },
+].map((item) => ({
+    ...item,
+    disabled: TEMPORARILY_DISABLED_NAV_KEYS.has(item.key),
+}));
 
 const navGroups = [
     {items: [0], class: "flex flex-row gap-4 md:gap-8 justify-center items-center"}, // main

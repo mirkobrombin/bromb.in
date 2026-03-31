@@ -2,7 +2,7 @@
 import LanguagePicker from '../LanguagePicker.astro';
 
 export interface Props {
-  navItems: any[];
+  navItems: { key: string; trans: string; disabled?: boolean }[];
   currentPage: string | null;
   currentLang: string;
   t: (key: string) => string;
@@ -31,11 +31,17 @@ const {
 
     <div class="w-[90vw] md:w-[70vw] mx-auto flex flex-col items-center justify-center gap-6">
         <nav class="flex flex-col gap-4 text-lg font-medium font-sans w-full text-center">
-            {navItems.map(item => (
-                    <a href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)}
-                       data-key={item.key}
-                       class={`hover:underline ${currentPage === item.key ? "font-extrabold" : ""}`}>{t('nav.' + item.trans)}</a>
-            ))}
+            {navItems
+              .filter((item) => !item.disabled)
+              .map((item) => (
+                <a
+                  href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)}
+                  data-key={item.key}
+                  class={`hover:underline ${currentPage === item.key ? 'font-extrabold' : ''}`}
+                >
+                  {t('nav.' + item.trans)}
+                </a>
+              ))}
         </nav>
 
         <div class="flex flex-col items-center gap-4 mt-2 w-full">

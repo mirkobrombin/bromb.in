@@ -3,7 +3,7 @@ import SearchBar from './SearchBar.astro';
 
 export interface Props {
   navGroups: { items: number[]; class: string }[];
-  navItems: { key: string; trans: string }[];
+  navItems: { key: string; trans: string; disabled?: boolean }[];
   currentLang: string;
   t: (key: string) => string;
   getRelativeLocaleUrl: (lang: string, path: string) => string;
@@ -24,11 +24,20 @@ const {
     <div id="desktop-nav-groups" class="flex items-center gap-8">
         {navGroups.map(group => (
                 <div class={group.class}>
-                    {group.items.map(i => (
-                            <a href={getRelativeLocaleUrl(currentLang, navItems[i].key === 'home' ? '' : navItems[i].key)}
-                               data-key={navItems[i].key}
-                               class="hover:underline opacity-80">{t('nav.' + navItems[i].trans)}</a>
-                    ))}
+                    {group.items.map((i) => {
+                      const item = navItems[i];
+                      if (!item || item.disabled) return null;
+
+                      return (
+                        <a
+                          href={getRelativeLocaleUrl(currentLang, item.key === 'home' ? '' : item.key)}
+                          data-key={item.key}
+                          class="hover:underline opacity-80"
+                        >
+                          {t('nav.' + item.trans)}
+                        </a>
+                      );
+                    })}
                 </div>
         ))}
 
