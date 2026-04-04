@@ -3,7 +3,7 @@ title: Open Source in the Wrong Way
 author: Mirko
 date: 2023-02-12
 description: 'Why recreate an open source project: motivations and consequences'
-cover: /pattern.png
+cover: /pattern-blue.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

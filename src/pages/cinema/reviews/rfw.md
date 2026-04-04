@@ -6,6 +6,7 @@ movieRelease: "2025"
 movieCategory: "Action, Adventure"
 movieLength: "2h 15m"
 movieCover: "https://i.pinimg.com/474x/5b/45/d1/5b45d12bec28d3a12820f850574d3d6d.jpg"
+themeColor: "#3b82f6"
 popcornScore: 4
 layout: "../../../layouts/MovieReview.astro"
 prev: "LOL - the movie"

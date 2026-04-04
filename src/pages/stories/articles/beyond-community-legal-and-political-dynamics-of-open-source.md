@@ -3,7 +3,7 @@ title: 'Beyond Community: The Legal and Political Dynamics of Open Source'
 author: Mirko
 date: 2024-07-21
 description: A reflection on the legal and political dynamics of open source organizations.
-cover: /pattern.png
+cover: /pattern-red.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

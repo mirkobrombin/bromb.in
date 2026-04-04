@@ -6,7 +6,7 @@ description: >-
   Reflections on technological innovation and an invitation to consider the
   multiple variables that influence decisions, whether business, environmental,
   legal or social, going beyond simplifications and appearances.
-cover: /pattern.png
+cover: /pattern-blue.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

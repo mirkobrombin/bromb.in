@@ -3,7 +3,7 @@ title: Vanilla OS Stable First Thoughts
 author: Mirko
 date: 2022-12-30
 description: My first thoughts a few hours after the release of the Vanilla OS stable.
-cover: /pattern.png
+cover: /pattern-blue.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

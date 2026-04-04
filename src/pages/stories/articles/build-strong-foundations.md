@@ -5,7 +5,7 @@ date: 2023-05-28
 description: >-
   The Power of Communication, Collaboration, and Responsibility in Open Source
   Communities
-cover: /pattern.png
+cover: /pattern-red.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

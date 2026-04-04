@@ -6,7 +6,7 @@ description: >-
   Racism is a problem that has tormented people for many years, I dare say
   forever. Black, yellow, white, blue, Northern League members and so on and so
   forth.
-cover: /pattern.png
+cover: /pattern-red.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

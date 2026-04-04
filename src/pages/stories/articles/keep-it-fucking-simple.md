@@ -5,7 +5,7 @@ date: 2020-03-04
 description: >-
   What I want to talk to you about today is the method with which anyone
   normally develops the interface of a website.
-cover: /pattern.png
+cover: /pattern-blue.svg
 layout: ../../../layouts/ArticleLayout.astro
 ---
 

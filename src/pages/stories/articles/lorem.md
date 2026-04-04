@@ -3,7 +3,7 @@ title: "The Art of Storytelling"
 author: "Mirko"
 date: 2024-06-01
 description: "Exploring how stories connect us and shape our world. A deep dive into the importance of sharing personal experiences and perspectives."
-cover: "/cover.png"
+cover: /pattern-red.svg
 layout: "../../../layouts/ArticleLayout.astro"
 ---
 
