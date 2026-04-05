@@ -4,8 +4,8 @@ import IndexView from "../../views/IndexView.astro";
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../../i18n/utils';
 
-const currentLang = Astro.currentLocale || 'es';
-const t = useTranslations(currentLang as any);
+const currentLang = Astro.currentLocale || 'it';
+const t = useTranslations(currentLang);
 const homeUrl = getRelativeLocaleUrl(currentLang, '');
 ---
 <Layout>

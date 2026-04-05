@@ -1,80 +1,37 @@
 ---
-import ArticleLayout from "../../../layouts/ArticleLayout.astro";
+import MovieReview from "../../../layouts/MovieReview.astro";
+import { createSlugStaticPaths, loadSlugContent } from "../../../lib/resolveGlob.ts";
 
 export async function getStaticPaths() {
-    const files = import.meta.glob("./*.md");
-    const slugs = Object.keys(files).map(path => path.split("/").pop()?.replace(".md", "") || "");
-    return slugs.map(slug => ({ params: { slug } }));
+  const reviewFiles = import.meta.glob('./*.md');
+  return createSlugStaticPaths(reviewFiles);
 }
 
-const files = import.meta.glob("./*.md");
-const rawFiles = import.meta.glob("./*.md", { query: "?raw", import: "default" });
-
-const posts = await Promise.all(
-    Object.entries(files).map(async ([path, loader]) => {
-        const mod = await loader() as { frontmatter?: { date?: string; title?: string } };
-        const file = path.split("/").pop() || "";
-        const slug = file.replace(".md", "");
-        const { date = "", title = slug } = mod.frontmatter || {};
-        const time = Number.isFinite(Date.parse(date)) ? Date.parse(date) : 0;
-        return { slug, time, title: String(title) };
-    })
-);
-
-posts.sort((a, b) => a.time === b.time ? a.slug.localeCompare(b.slug) : a.time - b.time);
-const slugs = posts.map(p => p.slug);
-
+const reviewFiles = import.meta.glob('./*.md');
 const { slug } = Astro.params;
-const current = posts.find(p => p.slug === slug) || { slug, time: 0, title: slug };
-const currentTime = current.time;
+const { Content, frontmatter, prevSlug, nextSlug } = await loadSlugContent(reviewFiles, slug ?? '');
 
-const findClosest = (cmp: { (t: any, c: any): boolean; (t: any, c: any): boolean; (arg0: number, arg1: number): any; }, dir: number) => posts
-    .filter(p => p.slug !== slug && cmp(p.time, currentTime))
-    .sort((a, b) => dir * (a.time - b.time) || a.slug.localeCompare(b.slug))[0]?.slug || null;
-
-let [prevSlug, nextSlug] = [
-    findClosest((t, c) => t < c, -1),
-    findClosest((t, c) => t > c, 1)
-];
-
-const loader = files[`./${slug}.md`];
-const rawLoader = rawFiles[`./${slug}.md`];
-const mod = loader ? await loader() : { default: null, frontmatter: {} };
-const rawMarkdown = rawLoader ? await rawLoader() : "";
-const { default: Content, frontmatter } = mod as { default: any; frontmatter?: { [key: string]: any } };
-
-const titleToSlug = Object.fromEntries(posts.map(p => [String(p.title).trim().toLowerCase(), p.slug]));
-const resolveManualReference = (v: any): any => {
-    const s = String(v ?? "").trim().toLowerCase();
-    return titleToSlug[s] || (slugs.includes(s) ? s : null);
-};
-if (resolveManualReference(frontmatter?.prev)) prevSlug = resolveManualReference(frontmatter?.prev);
-if (resolveManualReference(frontmatter?.next)) nextSlug = resolveManualReference(frontmatter?.next);
-
-const plain = String(rawMarkdown)
-    .replace(/---[\s\S]*?---/, "")
-    .replace(/[#>*_\-[\]`]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-const wordCount = plain ? plain.split(" ").filter(Boolean).length : 0;
-const readingTime = Math.max(1, Math.round(wordCount / 200));
+// Get all slugs for navigation
+const slugs = Object.keys(reviewFiles)
+  .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
+  .filter(Boolean)
+  .sort();
 ---
-<ArticleLayout
-        frontmatter={frontmatter}
-        prevSlug={prevSlug}
-        nextSlug={nextSlug}
-        readingTime={readingTime}
->
-    <Content
-            frontmatter={frontmatter}
-            prevSlug={prevSlug}
-            nextSlug={nextSlug}
-            readingTime={readingTime}
-    />
-</ArticleLayout>
 
-<script define:vars={{ postNavPayload: JSON.stringify({ slugs, current: slug }) }}>
-    import hydratePostNav from '../../../../scripts/hydrate-post-nav.ts';
+<MovieReview frontmatter={frontmatter} prevSlug={prevSlug} nextSlug={nextSlug}>
+  <Content />
+</MovieReview>
 
-    hydratePostNav(postNavPayload);
+<script type="module">
+  import hydratePostNav from '../../../../scripts/hydrate-post-nav.ts';
+  
+  const postNavPayload = JSON.stringify({ 
+    slugs: JSON.parse(document.currentScript?.dataset.slugs || '[]'), 
+    current: document.currentScript?.dataset.current || null 
+  });
+  
+  hydratePostNav(postNavPayload);
 </script>
+
+<script type="application/json" data-slugs={JSON.stringify(slugs)} data-current={slug}></script>
+

@@ -70,6 +70,9 @@ async function build() {
     // Ignore if exists
   }
 
+  // Sort items by href for deterministic output
+  items.sort((a, b) => a.href.localeCompare(b.href));
+
   await fs.writeFile(OUT, JSON.stringify(items, null, 2));
   console.log(`Wrote ${items.length} index entries to ${OUT}`);
 }

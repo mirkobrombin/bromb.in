@@ -35,7 +35,7 @@ export let currentPage = null;
 
 // i18n bootstrap for this component
 const currentLang = Astro.currentLocale || 'en';
-const t = useTranslations(currentLang as any);
+const t = useTranslations(currentLang);
 const aboutUrl = getRelativeLocaleUrl(currentLang, 'about');
 ---
 <MobileHeader

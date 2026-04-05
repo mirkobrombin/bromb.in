@@ -1,8 +1,13 @@
 import { ui, defaultLang } from './ui';
 
-export function useTranslations(lang: string) {
-    return function t(key: string) {
-        const anyUi = ui as any;
-        return (anyUi[lang] && anyUi[lang][key]) ?? (anyUi[defaultLang] && anyUi[defaultLang][key]) ?? key;
+type Language = keyof typeof ui;
+type TranslationKey = keyof typeof ui[typeof defaultLang];
+
+export function useTranslations(lang: Language | string) {
+    return function t(key: TranslationKey | string): string {
+        const safeKey = key as TranslationKey;
+        const safeLang = lang as Language;
+        
+        return ui[safeLang]?.[safeKey] ?? ui[defaultLang][safeKey] ?? key;
     }
 }

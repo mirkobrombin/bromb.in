@@ -21,7 +21,7 @@ const internalTemplates = [
 ];
 
 const currentLang = Astro.currentLocale || 'en';
-const t = useTranslations(currentLang as any);
+const t = useTranslations(currentLang);
 const internal = internalTemplates.map(item => ({
   ...item,
   href: getRelativeLocaleUrl(currentLang, item.key === 'stories' ? 'stories' : item.key)

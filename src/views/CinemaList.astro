@@ -11,7 +11,7 @@ interface Props {
 const {movies, title} = Astro.props;
 
 const currentLang = Astro.currentLocale || 'en';
-const t = useTranslations(currentLang as any);
+const t = useTranslations(currentLang);
 
 const totalPopcorns = 5;
 const movieMetaFields = [

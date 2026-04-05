@@ -2,24 +2,13 @@
 import Layout from "../../../layouts/Layout.astro";
 import CinemaListView from "../../../views/CinemaList.astro";
 import { useTranslations } from '../../../i18n/utils';
+import { loadCinemaFromGlob } from "../../../lib/resolveGlob.ts";
 
 const currentLang = Astro.currentLocale || 'en';
-const t = useTranslations(currentLang as any);
+const t = useTranslations(currentLang);
 
 const reviewFiles = import.meta.glob("./reviews/*.md");
-
-const movies = await Promise.all(
-    Object.entries(reviewFiles).map(async ([path, resolver]) => {
-        const mod = await (resolver as () => Promise<any>)();
-        const { frontmatter = {} } = mod || {};
-        const slug = path.split("/").pop()?.replace(/\.md$/, "") ?? "";
-        return {
-            ...frontmatter,
-            slug,
-            url: `./reviews/${slug}`
-        };
-    })
-);
+const movies = await loadCinemaFromGlob(reviewFiles);
 ---
 
 <Layout>

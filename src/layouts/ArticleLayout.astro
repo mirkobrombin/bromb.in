@@ -103,69 +103,68 @@ const effectiveNextSlug = nextSlug ?? fmNextResolved ?? null;
             <slot />
         </div>
     </div>
-
+  </div>
     <div
-        class="sticky w-full bottom-4 left-0 flex flex-wrap items-center justify-center gap-3 px-4 md:gap-5 md:px-0"
+            class="sticky w-full bottom-2 sm:bottom-8 left-0 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 z-50 px-2"
     >
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
+                class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden h-full dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
         >
             <a
-                id="prev-article-btn"
-                data-slug={effectivePrevSlug}
-                class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-zinc-800 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
-                href={effectivePrevSlug ? `/stories/articles/${effectivePrevSlug}` : undefined}
-                aria-disabled={!effectivePrevSlug}
-                tabindex={!effectivePrevSlug ? -1 : undefined}
+                    id="prev-article-btn"
+                    data-slug={effectivePrevSlug}
+                    class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition border-r border-r-zinc-200 dark:hover:bg-zinc-800 dark:border-zinc-800 ${!effectivePrevSlug ? "pointer-events-none opacity-30" : ""}`}
+                    href={effectivePrevSlug ? `/stories/articles/${effectivePrevSlug}` : undefined}
+                    aria-disabled={!effectivePrevSlug}
+                    tabindex={!effectivePrevSlug ? -1 : undefined}
             >
                 <Icon name="material-symbols:arrow-back" class="text-2xl" />
             </a>
             <a
-                id="next-article-btn"
-                data-slug={effectiveNextSlug}
-                class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
-                href={effectiveNextSlug ? `/stories/articles/${effectiveNextSlug}` : undefined}
-                aria-disabled={!effectiveNextSlug}
-                tabindex={!effectiveNextSlug ? -1 : undefined}
+                    id="next-article-btn"
+                    data-slug={effectiveNextSlug}
+                    class={`flex items-center justify-center py-3 px-4 md:py-4 md:px-6 hover:bg-gray-200 transition dark:hover:bg-zinc-800 ${!effectiveNextSlug ? "pointer-events-none opacity-30" : ""}`}
+                    href={effectiveNextSlug ? `/stories/articles/${effectiveNextSlug}` : undefined}
+                    aria-disabled={!effectiveNextSlug}
+                    tabindex={!effectiveNextSlug ? -1 : undefined}
             >
                 <Icon name="material-symbols:arrow-forward" class="text-2xl" />
             </a>
         </div>
 
         <div
-            class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-2 px-4 md:py-4 md:px-8 dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
-            id="reading-time-container"
+                class="flex rounded-full bg-white/70 backdrop-blur-xs shadow-sm overflow-hidden items-center justify-center py-2 px-4 md:py-4 md:px-8 dark:bg-zinc-800/80 dark:shadow-zinc-900/30"
+                id="reading-time-container"
         >
             <Icon name="material-symbols:schedule-outline" class="text-lg" />
             <span class="ml-2 text-sm md:text-lg font-normal" id="reading-time-text"
-                data-reading-time={readingTime}
-                >{readingTime} min left</span
+                  data-reading-time={readingTime}
+            >{readingTime} min left</span
             >
         </div>
 
         <div
-            id="headings-toggle"
-            class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
-            style="cursor:pointer;"
+                id="headings-toggle"
+                class="relative flex items-end transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] w-14 h-14 rounded-full group overflow-visible"
+                style="cursor:pointer;"
         >
             <div
-                id="headings-list-container"
-                class="absolute left-1/2 -translate-x-1/2 bottom-0 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10 dark:bg-zinc-900/90 dark:shadow-zinc-900/30 backdrop-blur-xs"
+                    id="headings-list-container"
+                    class="absolute left-1/2 -translate-x-1/2 bottom-0 px-4 pt-6 pb-12 opacity-0 pointer-events-none transition-all duration-300 ease-[cubic-bezier(.4,2,.6,1)] flex flex-col items-start bg-white/70 shadow-sm rounded-3xl w-72 max-h-96 z-10 dark:bg-zinc-900/90 dark:shadow-zinc-900/30 backdrop-blur-xs"
             >
                 <ul
-                    id="headings-list"
-                    class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-thumb-zinc-200 dark:scrollbar-track-zinc-900"
+                        id="headings-list"
+                        class="w-full space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-rounded-full scrollbar-track-zinc-100 dark:scrollbar-thumb-zinc-200 dark:scrollbar-track-zinc-900"
                 >
                 </ul>
             </div>
             <div
-                class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition dark:bg-zinc-800/80 dark:shadow-zinc-900/30 backdrop-blur-xs"
+                    class="flex items-center justify-center w-14 h-14 z-99 bg-white/70 shadow-sm rounded-full transition dark:bg-zinc-800/80 dark:shadow-zinc-900/30 backdrop-blur-xs"
             >
                 <Icon name="material-symbols:text-fields" class="text-2xl" />
             </div>
         </div>
     </div>
-  </div>
 </Layout>
 
 <script>

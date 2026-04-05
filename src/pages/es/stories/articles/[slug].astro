@@ -1,28 +1,37 @@
 ---
 import ArticleLayout from "../../../../layouts/ArticleLayout.astro";
+import { createSlugStaticPaths, loadSlugContent } from "../../../../lib/resolveGlob.ts";
 
 export async function getStaticPaths() {
-  const files = import.meta.glob("./*.md");
-  const slugs = Object.keys(files).map(path => path.split("/").pop()?.replace(".md", "") || "");
-  return slugs.map(slug => ({ params: { slug } }));
+  const storyFiles = import.meta.glob('./*.md');
+  return createSlugStaticPaths(storyFiles);
 }
 
 const storyFiles = import.meta.glob('./*.md');
-const slugs = Object.keys(storyFiles)
-    .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
-    .filter(Boolean)
-    .sort();
-
 const { slug } = Astro.params;
-const currentIndex = slugs.indexOf(slug ?? '');
-const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : null;
-const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null;
+const { Content, frontmatter, prevSlug, nextSlug } = await loadSlugContent(storyFiles, slug ?? '');
 
-const mod = await storyFiles[`./${slug}.md`]();
-const Content = (mod as any).default;
-const frontmatter = (mod as any).frontmatter;
+// Get all slugs for navigation
+const slugs = Object.keys(storyFiles)
+  .map(path => path.split('/').pop()?.replace('.md', '') ?? '')
+  .filter(Boolean)
+  .sort();
 ---
 
 <ArticleLayout frontmatter={frontmatter} prevSlug={prevSlug} nextSlug={nextSlug}>
   <Content />
 </ArticleLayout>
+
+<script type="module">
+  import hydratePostNav from '../../../../../scripts/hydrate-post-nav.ts';
+  
+  const postNavPayload = JSON.stringify({ 
+    slugs: JSON.parse(document.currentScript?.dataset.slugs || '[]'), 
+    current: document.currentScript?.dataset.current || null 
+  });
+  
+  hydratePostNav(postNavPayload);
+</script>
+
+<script type="application/json" data-slugs={JSON.stringify(slugs)} data-current={slug}></script>
+

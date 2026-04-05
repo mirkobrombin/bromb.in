@@ -9,7 +9,7 @@ interface Props {
 
 const { stories = [] } = Astro.props;
 const currentLang = Astro.currentLocale || 'en';
-const t = useTranslations(currentLang as any);
+const t = useTranslations(currentLang);
 
 function formatDate(iso?: string) {
   if (!iso) return '';

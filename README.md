@@ -58,6 +58,10 @@ To add a new article:
 | `pnpm dev` | Starts local dev server |
 | `pnpm build` | Builds the static site to `dist/` |
 | `pnpm run build:search` | Generates `public/search-index.json` |
+| `pnpm run build:all` | Builds site and search index |
 | `pnpm run format` | Formats code using Prettier |
+| `pnpm run format:check` | Checks code formatting |
+| `pnpm run typecheck` | Type checks with Astro |
+| `pnpm run lint` | Lints code with Astro check |
 
 ---
