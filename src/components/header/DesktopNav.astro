@@ -20,7 +20,7 @@ const {
 ---
 
 <nav id="desktop-header"
-     class="absolute left-1/2 transform -translate-x-1/2 top-12 hidden lg:flex flex-row gap-4 items-center justify-between font-sans text-md px-4 py-2 md:gap-12 md:px-8 rounded-full w-max">
+     class="absolute left-1/2 transform -translate-x-1/2 top-12 hidden lg:flex flex-row gap-4 items-center justify-between font-sans text-md px-4 py-2 md:gap-12 md:px-8 rounded-full w-max transition-all duration-200">
     <div id="desktop-nav-groups" class="flex items-center gap-8">
         {navGroups.map(group => (
                 <div class={group.class}>
@@ -42,7 +42,7 @@ const {
         ))}
 
         <div class="hidden md:flex flex-row gap-4" id="desktop-nav-icons">
-            <button id="search-button" class="hover:underline flex items-center justify-center"
+            <button id="search-button" class="hover:bg-gray-200/70 dark:hover:bg-zinc-700/80 rounded-full p-1 flex items-center justify-center"
                     onclick="toggleInlineSearch()"
                     type="button">
                 <span class="material-symbols-outlined text-xl">search</span>

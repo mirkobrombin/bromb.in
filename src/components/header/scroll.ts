@@ -72,12 +72,19 @@ export function setupHeaderScroll() {
     const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     const alpha = lerp(0, 0.9, effective);
-    const lightBg = `rgba(255,255,255,${alpha})`;
-    const darkBg = `rgba(24,25,26,${alpha})`;
-    desktopHeader.style.backgroundColor = isDarkMode ? darkBg : lightBg;
-    desktopHeader.style.backdropFilter = `saturate(${1 + effective * 0.2}) blur(${effective * 6}px)`;
-    desktopHeader.style.top = `${lerp(48, 20, effective)}px`;
-    desktopHeader.style.boxShadow = effective > 0 ? `0 6px 18px rgba(0,0,0,${0.12 * effective})` : 'none';
+    if (searchActive) {
+      desktopHeader.style.backgroundColor = isDarkMode ? 'rgba(24,24,27,0.84)' : 'rgba(255,255,255,0.9)';
+      desktopHeader.style.backdropFilter = 'saturate(1.15) blur(10px)';
+      desktopHeader.style.top = '32px';
+      desktopHeader.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+    } else {
+      const lightBg = `rgba(255,255,255,${alpha})`;
+      const darkBg = `rgba(24,25,26,${alpha})`;
+      desktopHeader.style.backgroundColor = isDarkMode ? darkBg : lightBg;
+      desktopHeader.style.backdropFilter = `saturate(${1 + effective * 0.2}) blur(${effective * 6}px)`;
+      desktopHeader.style.top = `${lerp(48, 20, effective)}px`;
+      desktopHeader.style.boxShadow = effective > 0 ? `0 6px 18px rgba(0,0,0,${0.12 * effective})` : 'none';
+    }
     desktopHeader.style.removeProperty('border-radius');
 
     const BG_VISIBLE_THRESHOLD = 0.02;

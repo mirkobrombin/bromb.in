@@ -22,7 +22,39 @@ const {
 
 <div class="flex items-center justify-between px-4 h-18 md:h-16 lg:hidden" id="mobile-header">
     <h1 class="text-3xl font-semibold font-sans">bromb.in</h1>
-    <button id="hamburger-menu" class="material-symbols-outlined text-4xl">menu</button>
+    <div class="flex items-center gap-2">
+        <button id="mobile-search-button" class="material-symbols-outlined text-3xl" type="button" aria-label="Open search">search</button>
+        <button id="hamburger-menu" class="material-symbols-outlined text-4xl" type="button" aria-label="Open menu">menu</button>
+    </div>
+</div>
+
+<div id="mobile-search-overlay" class="hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" onclick="closeMobileSearch()"></div>
+<div id="mobile-inline-search" class="hidden fixed top-18 left-0 right-0 z-50 px-4 lg:hidden">
+    <div class="bg-white/95 dark:bg-zinc-900/95 rounded-2xl shadow-lg p-3">
+        <div class="search-input-row flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-zinc-800 rounded-full">
+            <button
+                    class="flex items-center justify-center hover:bg-gray-200 dark:hover:bg-zinc-700 rounded-full p-1"
+                    onclick="closeMobileSearch()"
+                    aria-label="Close mobile search"
+                    type="button"
+            >
+                <span class="material-symbols-outlined text-xl">search</span>
+            </button>
+            <input
+                    id="search-input-mobile"
+                    class="flex-1 bg-transparent outline-none text-sm text-center font-medium"
+                    placeholder="What are you looking for?"
+                    aria-label="Search"
+            />
+            <span id="search-count-mobile" class="text-sm text-gray-500 dark:text-zinc-300 shrink-0 hidden">0 Results</span>
+        </div>
+        <div
+                id="search-results-mobile"
+                class="hidden mt-2 bg-white dark:bg-zinc-900 rounded-2xl max-h-80 overflow-y-auto"
+                role="listbox"
+                tabindex="-1"
+        ></div>
+    </div>
 </div>
 
 <div id="mobile-menu"

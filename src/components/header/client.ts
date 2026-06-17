@@ -4,9 +4,8 @@
 import { bindMobileMenu, highlightCurrentPage } from './dom.ts';
 import { setupHeaderScroll } from './scroll';
 import { setHeaderTextColor } from './theme.ts';
-import { initSearchHandlers, toggleInlineSearch, toggleSearchModal, closeInlineSearch, closeSearchModal, performSearch } from './search.ts';
+import { initSearchHandlers, toggleInlineSearch, closeInlineSearch, toggleMobileSearch, closeMobileSearch, performSearch } from './search.ts';
 import { bindLanguagePopup } from '../../../scripts/header/language-popup.ts';
-import { id } from './dom.ts';
 
 let initialized = false;
 
@@ -42,31 +41,24 @@ export function initHeaderClient() {
 
   document.addEventListener('keydown', (ev) => {
     if (ev.key !== 'Escape') return;
-    const modal = id('search-modal');
-    const inline = id('desktop-inline-search');
-    if (modal && !modal.classList.contains('hidden')) {
-      closeSearchModal();
-      return;
-    }
-    if (inline && !inline.classList.contains('hidden')) {
-      closeInlineSearch();
-    }
+    closeInlineSearch();
+    closeMobileSearch();
   });
 
-  (window as any).toggleSearchModal = toggleSearchModal;
   (window as any).toggleInlineSearch = toggleInlineSearch;
   (window as any).closeInlineSearch = closeInlineSearch;
-  (window as any).closeSearchModal = closeSearchModal;
+  (window as any).toggleMobileSearch = toggleMobileSearch;
+  (window as any).closeMobileSearch = closeMobileSearch;
   (window as any).performSearch = performSearch;
 }
 
 // Declare window augmentation for TypeScript (keeps previous ambient declarations)
 declare global {
   interface Window {
-    toggleSearchModal: typeof toggleSearchModal;
     toggleInlineSearch: typeof toggleInlineSearch;
     closeInlineSearch: typeof closeInlineSearch;
-    closeSearchModal: typeof closeSearchModal;
+    toggleMobileSearch: typeof toggleMobileSearch;
+    closeMobileSearch: typeof closeMobileSearch;
     performSearch: typeof performSearch;
   }
 }
