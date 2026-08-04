@@ -1,7 +1,7 @@
 ---
 title: "Sì, uso l'intelligenza artificiale"
 description: "Non ho intenzione di negarlo, e credo valga la pena spiegare come."
-published: false
+published: true
 layout: post
 ---
 

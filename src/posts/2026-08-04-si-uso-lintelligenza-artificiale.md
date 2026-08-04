@@ -1,7 +1,7 @@
 ---
 title: "Yes, I use artificial intelligence"
 description: "I have no intention of denying it, and I think it is worth explaining how."
-published: false
+published: true
 layout: post
 ---
 
