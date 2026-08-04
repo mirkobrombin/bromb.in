@@ -8,7 +8,7 @@ import liveServer from 'live-server';
 async function start() {
   await build();
   liveServer.start({ root: 'dist', watch: ['dist'] });
-  watch(['src/**/*', 'assets/**/*', 'uploads/**/*', 'site.yml'])
+  watch(['src/**/*', 'assets/**/*', 'uploads/**/*', 'site.yml', 'projects.yml', 'i18n/**/*'])
     .on('change', async () => {
       try { await build(); } catch (err) { console.error(err); }
     });

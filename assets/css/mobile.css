@@ -1,28 +1,128 @@
-@media screen and (max-width:745px) {
-    header .wrapper {}
+@media screen and (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
 
-    nav {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-about {
+        grid-column: 1 / -1;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .post-item {
+        grid-template-columns: minmax(0, 1fr) 1.75rem;
+        gap: .75rem 1rem;
+        padding-block: 1.35rem;
+    }
+
+    .post-item time {
+        grid-column: 1 / -1;
+        order: -1;
+    }
+}
+
+@media screen and (max-width: 745px) {
+    .brand .brand-path {
         display: none;
     }
 
-    nav ul {
-        flex-direction: column;
+    .menu-toggle {
+        display: inline-grid;
     }
 
-    .button.menu-toggle {
-        display: block;
-    }
-
-    nav.show {
-        display: block;
+    .nav-main {
         position: fixed;
-        top: 84px;
-        left: 10px;
-        right: 10px;
+        top: 4.25rem;
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .35rem;
+        padding: .75rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-.5rem);
+        transition: all var(--speed) var(--ease);
     }
 
-    .cards {
-        display: flex;
+    .nav-main.show {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .nav-main>ul {
         flex-direction: column;
+        align-items: stretch;
+        gap: .1rem;
+    }
+
+    .nav-main a {
+        padding: .65rem .85rem;
+        border-radius: var(--radius);
+        font-size: .95rem;
+    }
+
+    .nav-tools {
+        justify-content: space-between;
+        padding: .5rem 0 0;
+        margin: .35rem 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .dropdown>ul {
+        right: auto;
+        left: 0;
+    }
+
+    .stat-card {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero {
+        padding-block: 2.75rem 2rem;
+    }
+
+    .support-card.is-wide {
+        grid-column: 1 / -1;
+    }
+
+    .support-card.is-wide .fund-list {
+        grid-template-columns: 1fr;
+    }
+
+    .article-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        grid-template-columns: 1fr;
+    }
+
+    .copy-field .copy-value {
+        font-size: .7rem;
     }
 }

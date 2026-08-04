@@ -2,152 +2,198 @@
 layout: default
 ---
 
-<div class="support-page">
-    <h1 class="support-title">{{ 'support.title' | t: page.lang }}</h1>
+<section class="hero" style="padding-bottom: 1.5rem;">
+    <span class="eyebrow">{{ 'support.label' | t: page.lang }}</span>
+    <h1 class="display" style="margin-block: 1rem .75rem;">{{ 'support.title' | t: page.lang }}</h1>
+    <p class="lead" style="max-width: 54ch;">{{ 'support.intro' | t: page.lang }}</p>
+</section>
 
-    <section class="cards">
-        <div class="card">
-            <div class="card-header">
+<section class="section" style="padding-top: 1.5rem;">
+    <div class="section-head">
+        <div>
+            <span class="eyebrow">{{ 'support.direct_label' | t: page.lang }}</span>
+            <h2>{{ 'support.direct_title' | t: page.lang }}</h2>
+        </div>
+    </div>
+
+    <div class="support-grid">
+        <div class="support-card is-highlight">
+            <div class="support-top">
+                <div>
+                    <ion-icon name="logo-github"></ion-icon>
+                    <h3>{{ 'support.github' | t: page.lang }}</h3>
+                </div>
+                <span class="support-tag">{{ 'support.recommended' | t: page.lang }}</span>
+            </div>
+            <p>{{ 'support.github_desc' | t: page.lang }}</p>
+            <a href="https://github.com/sponsors/mirkobrombin" class="button primary">
+                {{ 'support.github_sponsor' | t: page.lang }} <ion-icon name="arrow-forward-outline"></ion-icon>
+            </a>
+        </div>
+
+        <div class="support-card">
+            <div class="support-top">
                 <div>
                     <ion-icon name="logo-paypal"></ion-icon>
                     <h3>{{ 'support.paypal' | t: page.lang }}</h3>
                 </div>
                 <span class="support-tag">{{ 'support.paypal_tag' | t: page.lang }}</span>
             </div>
-            <div class="card-buttons">
-                <a href="https://www.paypal.com/donate?hosted_button_id=HM2VKUH5STU4J" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> {{ 'support.paypal_donate' | t: page.lang }}</a>
-                <a href="https://paypal.me/MirkoBrombin" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> {{ 'support.paypal_old' | t: page.lang }}</a>
-            </div>
+            <p>{{ 'support.paypal_desc' | t: page.lang }}</p>
+            <a href="https://www.paypal.com/donate?hosted_button_id=HM2VKUH5STU4J" class="button secondary">
+                {{ 'support.paypal_donate' | t: page.lang }}
+            </a>
+            <a href="https://paypal.me/MirkoBrombin" class="button link">{{ 'support.paypal_old' | t: page.lang }}</a>
         </div>
 
-        <div class="card">
-            <div class="card-header">
+        <div class="support-card">
+            <div class="support-top">
                 <div>
-                    <ion-icon name="logo-github"></ion-icon>
-                    <h3>{{ 'support.github' | t: page.lang }}</h3>
-                </div>
-                <span class="support-tag">{{ 'support.github_tag' | t: page.lang }}</span>
-            </div>
-            <div class="card-buttons">
-                <a href="https://github.com/sponsors/mirkobrombin" class="button link">{{ 'support.github_sponsor' | t: page.lang }}</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <ion-icon name="heart"></ion-icon>
+                    <ion-icon name="heart-outline"></ion-icon>
                     <h3>{{ 'support.patreon' | t: page.lang }}</h3>
                 </div>
                 <span class="support-tag">{{ 'support.patreon_tag' | t: page.lang }}</span>
             </div>
-            <div class="card-buttons">
-                <a href="https://www.patreon.com/MirkoBrombin" class="button link">
-                    <ion-icon name="link-outline"></ion-icon> {{ 'support.patreon_support' | t: page.lang }}</a>
-            </div>
+            <p>{{ 'support.patreon_desc' | t: page.lang }}</p>
+            <a href="https://www.patreon.com/MirkoBrombin" class="button secondary">
+                {{ 'support.patreon_support' | t: page.lang }}
+            </a>
         </div>
 
-        <div class="card">
-            <div class="card-header">
+        <div class="support-card">
+            <div class="support-top">
                 <div>
-                    <ion-icon name="cash-outline"></ion-icon>
+                    <ion-icon name="card-outline"></ion-icon>
                     <h3>{{ 'support.bank' | t: page.lang }}</h3>
                 </div>
                 <span class="support-tag">{{ 'support.bank_tag' | t: page.lang }}</span>
-                <code><pre>Account Name: Mirko Brombin
-IBAN: LT50 3250 0948 5804 5072
-BIC/SWIFT: REVOLT21</pre></code>
             </div>
+            <p>{{ 'support.bank_desc' | t: page.lang }}</p>
+            <div class="copy-field">
+                <div class="copy-body">
+                    <span class="copy-label">IBAN</span>
+                    <span class="copy-value">LT50 3250 0948 5804 5072</span>
+                </div>
+                <button class="copy-button" data-copy="LT503250094858045072"
+                    aria-label="{{ 'support.copy' | t: page.lang }}">
+                    <ion-icon name="copy-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="copy-field">
+                <div class="copy-body">
+                    <span class="copy-label">BIC / SWIFT</span>
+                    <span class="copy-value">REVOLT21</span>
+                </div>
+                <button class="copy-button" data-copy="REVOLT21" aria-label="{{ 'support.copy' | t: page.lang }}">
+                    <ion-icon name="copy-outline"></ion-icon>
+                </button>
+            </div>
+            <p class="note">{{ 'support.bank_holder' | t: page.lang }} Mirko Brombin</p>
         </div>
 
-        <div class="card">
-            <div class="card-header">
+        <div class="support-card is-wide">
+            <div class="support-top">
                 <div>
                     <ion-icon name="logo-bitcoin"></ion-icon>
                     <h3>{{ 'support.crypto' | t: page.lang }}</h3>
                 </div>
                 <span class="support-tag">{{ 'support.crypto_tag' | t: page.lang }}</span>
-                <code><pre>Ethereum (ETH)
-Network: ERC20
-0xef6a653c63db31403f507bca277f719d2f3d44f8
----
-Bitcoin (BTC)
-Network: BTC(SegWit)
-bc1q2svx64v90hyyd7jt8xamvqm9vc5248l5rgzwpm
----
-Litecoin (LTC)
-Network: LTC
-LWqpd2411CQTuWD15bcPP7bfAw3wmYHScm
----
-Ripple (XRP)
-Network: XRP
-rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV
-The following MEMO is required: 420078619.
-If you can't add the MEMO, coins will be lost.</pre></code>
             </div>
-        </div>
-
-        <div class="card projects-card">
-            <div class="card-header">
+            <div class="fund-list" style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: .5rem;">
                 <div>
-                    <ion-icon name="code-outline"></ion-icon>
-                    <h3>{{ 'support.support_projects' | t: page.lang }}</h3>
+                    <div class="copy-field">
+                        <div class="copy-body">
+                            <span class="copy-label">Bitcoin &middot; BTC (SegWit)</span>
+                            <span class="copy-value">bc1q2svx64v90hyyd7jt8xamvqm9vc5248l5rgzwpm</span>
+                        </div>
+                        <button class="copy-button" data-copy="bc1q2svx64v90hyyd7jt8xamvqm9vc5248l5rgzwpm"
+                            aria-label="{{ 'support.copy' | t: page.lang }}">
+                            <ion-icon name="copy-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="copy-field">
+                        <div class="copy-body">
+                            <span class="copy-label">Ethereum &middot; ERC20</span>
+                            <span class="copy-value">0xef6a653c63db31403f507bca277f719d2f3d44f8</span>
+                        </div>
+                        <button class="copy-button" data-copy="0xef6a653c63db31403f507bca277f719d2f3d44f8"
+                            aria-label="{{ 'support.copy' | t: page.lang }}">
+                            <ion-icon name="copy-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <div class="copy-field">
+                        <div class="copy-body">
+                            <span class="copy-label">Litecoin &middot; LTC</span>
+                            <span class="copy-value">LWqpd2411CQTuWD15bcPP7bfAw3wmYHScm</span>
+                        </div>
+                        <button class="copy-button" data-copy="LWqpd2411CQTuWD15bcPP7bfAw3wmYHScm"
+                            aria-label="{{ 'support.copy' | t: page.lang }}">
+                            <ion-icon name="copy-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="copy-field">
+                        <div class="copy-body">
+                            <span class="copy-label">Ripple &middot; XRP</span>
+                            <span class="copy-value">rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV</span>
+                        </div>
+                        <button class="copy-button" data-copy="rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV"
+                            aria-label="{{ 'support.copy' | t: page.lang }}">
+                            <ion-icon name="copy-outline"></ion-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="rich-list">
-                <div class="rich-list-item">
-                    <img src="https://usebottles.com/uploads/bottles.png" alt="Project 1 Logo"
-                        class="rich-list-item-icon">
-                    <div class="rich-list-item-text">
-                        <h4>Bottles</h4>
-                        <p>{{ 'projects.bottles_desc' | t: page.lang }}</p>
-                    </div>
-                    <a href="https://usebottles.com/funding/" class="rich-list-item-link">
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                    </a>
-                </div>
-                <div class="rich-list-item">
-                    <img src="https://vanillaos.org/assets/images/brand/vanillaos-logo-icon.svg" alt="Project 1 Logo"
-                        class="rich-list-item-icon">
-                    <div class="rich-list-item-text">
-                        <h4>Vanilla OS</h4>
-                        <p>{{ 'projects.vanilla_desc' | t: page.lang }}</p>
-                    </div>
-                    <a href="https://vanillaos.org/get-involved/funding" class="rich-list-item-link">
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                    </a>
-                </div>
-
-                <br />
-                <h5>{{ 'support.emerging_projects' | t: page.lang }}</h5>
-                <br />
-
-                <div class="rich-list-item">
-                    <img src="https://avatars.githubusercontent.com/u/197488840?s=200&v=4" alt="Project 1 Logo"
-                        class="rich-list-item-icon">
-                    <div class="rich-list-item-text">
-                        <h4>GoUp!</h4>
-                        <p>{{ 'projects.goup_desc' | t: page.lang }}</p>
-                    </div>
-                    <a href="https://github.com/sponsors/tryGoUp" class="rich-list-item-link">
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                    </a>
-                </div>
-                <div class="rich-list-item">
-                    <img src="https://avatars.githubusercontent.com/u/144563190?s=200&v=4" alt="Project 1 Logo"
-                        class="rich-list-item-icon">
-                    <div class="rich-list-item-text">
-                        <h4>Containerpak</h4>
-                        <p>{{ 'projects.containerpak_desc' | t: page.lang }}</p>
-                    </div>
-                    <a href="https://github.com/sponsors/Containerpak" class="rich-list-item-link">
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                    </a>
-                </div>
-            </div>
-            <a href="https://github.com/mirkobrombin" class="button link">{{ 'support.all_projects' | t: page.lang }}</a>
+            <p class="note">{{ 'support.xrp_memo' | t: page.lang }}</p>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div>
+            <span class="eyebrow">{{ 'support.projects_label' | t: page.lang }}</span>
+            <h2>{{ 'support.support_projects' | t: page.lang }}</h2>
+            <p>{{ 'support.projects_desc' | t: page.lang }}</p>
+        </div>
+        <a class="button secondary" href="https://github.com/mirkobrombin">
+            <ion-icon name="logo-github"></ion-icon> {{ 'support.all_projects' | t: page.lang }}
+        </a>
+    </div>
+
+    <div class="fund-list">
+        <a class="fund-item" href="https://usebottles.com/funding/">
+            <img src="https://usebottles.com/uploads/bottles.png" alt="Bottles" loading="lazy">
+            <div>
+                <h4>Bottles</h4>
+                <p>{{ 'projects.bottles_desc' | t: page.lang }}</p>
+            </div>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </a>
+        <a class="fund-item" href="https://vanillaos.org/get-involved/funding">
+            <img src="https://vanillaos.org/assets/images/brand/vanillaos-logo-icon.svg" alt="Vanilla OS" loading="lazy">
+            <div>
+                <h4>Vanilla OS</h4>
+                <p>{{ 'projects.vanilla_desc' | t: page.lang }}</p>
+            </div>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </a>
+        <a class="fund-item" href="https://github.com/sponsors/tryGoUp">
+            <img src="https://avatars.githubusercontent.com/u/197488840?s=200&v=4" alt="GoUp!" loading="lazy">
+            <div>
+                <h4>GoUp!</h4>
+                <p>{{ 'projects.goup_desc' | t: page.lang }}</p>
+            </div>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </a>
+        <a class="fund-item" href="https://github.com/sponsors/Containerpak">
+            <img src="https://avatars.githubusercontent.com/u/144563190?s=200&v=4" alt="Containerpak" loading="lazy">
+            <div>
+                <h4>Containerpak</h4>
+                <p>{{ 'projects.containerpak_desc' | t: page.lang }}</p>
+            </div>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </a>
+    </div>
+</section>

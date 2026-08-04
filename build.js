@@ -14,6 +14,13 @@ async function loadConfig() {
   return yaml.parse(text);
 }
 
+async function loadProjects() {
+  const file = "projects.yml";
+  if (!(await fs.pathExists(file))) return {};
+  const text = await fs.readFile(file, "utf8");
+  return yaml.parse(text) || {};
+}
+
 async function loadTranslations() {
   const dir = "i18n";
   const translations = {};
@@ -186,6 +193,59 @@ async function buildMarkdown(engine, site, srcDir, destDir, posts = {}) {
   return posts;
 }
 
+function escapeXml(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+async function writeFeeds(site, posts) {
+  const base = (site.url || "").replace(/\/$/, "");
+
+  for (const lang of Object.keys(posts)) {
+    const entries = posts[lang]
+      .filter((post) => post.published)
+      .slice(0, 20)
+      .map((post) => {
+        const link = base + post.url;
+        return [
+          "    <item>",
+          `      <title>${escapeXml(post.title)}</title>`,
+          `      <link>${escapeXml(link)}</link>`,
+          `      <guid isPermaLink="true">${escapeXml(link)}</guid>`,
+          `      <pubDate>${new Date(post.date).toUTCString()}</pubDate>`,
+          `      <description>${escapeXml(post.description)}</description>`,
+          "    </item>",
+        ].join("\n");
+      })
+      .join("\n");
+
+    const feedPath = lang === site.default_lang ? "feed.xml" : path.join(lang, "feed.xml");
+    const selfLink = base + "/" + feedPath.split(path.sep).join("/");
+    const homeLink = lang === site.default_lang ? base + "/" : `${base}/${lang}/`;
+
+    const xml = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+      "  <channel>",
+      `    <title>${escapeXml(site.title)}</title>`,
+      `    <link>${escapeXml(homeLink)}</link>`,
+      `    <description>${escapeXml(translate(site, "blog.description", lang))}</description>`,
+      `    <language>${escapeXml(lang)}</language>`,
+      `    <atom:link href="${escapeXml(selfLink)}" rel="self" type="application/rss+xml" />`,
+      entries,
+      "  </channel>",
+      "</rss>",
+      "",
+    ].join("\n");
+
+    await fs.outputFile(path.join("dist", feedPath), xml);
+  }
+}
+
 /**
  * Copy static directories to the destination.
  * @param {string} dir - Directory name.
@@ -202,6 +262,7 @@ async function copyStatic(dir) {
 export default async function build() {
   const site = await loadConfig();
   site.translations = await loadTranslations();
+  site.projects = await loadProjects();
   const engine = new Liquid({
     root: [
       path.resolve("src/templates/includes"),
@@ -219,6 +280,7 @@ export default async function build() {
     );
   }
   await buildMarkdown(engine, site, "src/pages", "dist", posts);
+  await writeFeeds(site, posts);
   await copyStatic("assets");
   await copyStatic("uploads");
 }

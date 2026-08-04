@@ -2,7 +2,17 @@
 layout: default
 ---
 
-<h1>{{ 'blog.title' | t: page.lang }}</h1>
-<p>{{ 'blog.description' | t: page.lang }}</p>
-<hr />
-{{ content }}
+<section class="hero" style="padding-bottom: 1.5rem;">
+    <span class="eyebrow">{{ 'blog.label' | t: page.lang }}</span>
+    <h1 class="display" style="margin-block: 1rem .75rem;">{{ 'blog.title' | t: page.lang }}</h1>
+    <p class="lead">{{ 'blog.description' | t: page.lang }}</p>
+    <p class="mono" style="margin-top: 1.25rem; color: var(--fg-subtle);">
+        {{ site.posts | size }} {{ 'blog.count' | t: page.lang }}
+    </p>
+</section>
+
+<section class="section" style="padding-top: 1rem;">
+    <div class="post-list">
+        {{ content }}
+    </div>
+</section>

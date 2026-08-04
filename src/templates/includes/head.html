@@ -1,10 +1,32 @@
 <meta charset="UTF-8">
-<meta name="theme-color" content="#ffffff" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#36302b">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFDFB">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#201B18">
 <title>{% if page.title %}{{ page.title }} &sdot; {% endif %}{{ site.title }}</title>
+<meta name="description"
+    content="{% if page.description %}{{ page.description }}{% else %}{{ 'meta.description' | t: page.lang }}{% endif %}" />
+<meta name="author" content="{{ site.author }}" />
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+<meta property="og:description"
+    content="{% if page.description %}{{ page.description }}{% else %}{{ 'meta.description' | t: page.lang }}{% endif %}" />
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta name="twitter:card" content="summary" />
 <link rel="icon" type="image/png" href="{{ site.assets }}/favicon.png" />
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}"
+    href="{% if page.lang == site.default_lang %}/feed.xml{% else %}/{{ page.lang }}/feed.xml{% endif %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/assets/css/index.css" />
+<script>
+    (function () {
+        try {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || saved === 'light') {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        } catch (e) { }
+    })();
+</script>
 <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>

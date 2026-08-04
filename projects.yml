@@ -1,0 +1,216 @@
+now:
+  - name: Sinty OS
+    kind: Operating system
+    url: https://github.com/singularityos-lab
+    repo: singularityos-lab/singularity-desktop
+    stars: 77
+    lang: C
+    accent: true
+    desc:
+      en: A ground-up operating system with its own desktop environment, kernel platform and signed update feed.
+      it: Un sistema operativo costruito da zero, con desktop environment, piattaforma kernel e canale di aggiornamenti firmato.
+      es: Un sistema operativo construido desde cero, con su entorno de escritorio, plataforma de kernel y canal de actualizaciones firmado.
+
+  - name: Bottles
+    kind: Desktop app
+    url: https://usebottles.com
+    repo: bottlesdevs/Bottles
+    stars: 8656
+    lang: Python
+    accent: true
+    desc:
+      en: Run Windows software and games on Linux. Founded in 2017, still shipping.
+      it: Esegui software e giochi Windows su Linux. Nato nel 2017, ancora in sviluppo.
+      es: Ejecuta software y juegos de Windows en Linux. Nacido en 2017, aún en desarrollo.
+
+  - name: FVS v2
+    kind: Storage
+    url: https://github.com/fvs-lab
+    repo: fvs-lab/fvs2
+    stars: 7
+    lang: Go
+    accent: true
+    desc:
+      en: "Fused Versioned Storage: git-style snapshots for big data, content-addressed, deduplicated and mountable."
+      it: "Fused Versioned Storage: snapshot in stile git per grandi moli di dati, indirizzate al contenuto, deduplicate e montabili."
+      es: "Fused Versioned Storage: instantáneas al estilo git para grandes volúmenes de datos, direccionadas por contenido, deduplicadas y montables."
+
+  - name: rfw
+    kind: Framework
+    url: https://rfw.bromb.in
+    repo: rfwlab/rfw
+    stars: 14
+    lang: Go
+    desc:
+      en: A reactive framework for building web applications in Go, compiled to WebAssembly.
+      it: Un framework reattivo per costruire applicazioni web in Go, compilate in WebAssembly.
+      es: Un framework reactivo para crear aplicaciones web en Go, compiladas a WebAssembly.
+
+  - name: cpak
+    kind: Packaging
+    url: https://github.com/Containerpak/cpak
+    repo: Containerpak/cpak
+    stars: 111
+    lang: Go
+    desc:
+      en: A decentralized, portable package format for Linux with a low memory footprint.
+      it: Un formato di pacchetto decentralizzato e portabile per Linux, con un basso consumo di memoria.
+      es: Un formato de paquete descentralizado y portátil para Linux, con bajo consumo de memoria.
+
+  - name: Atom Loops
+    kind: Infrastructure
+    url: https://atomloops.bromb.in
+    repo: mirkobrombin/AtomLoops
+    stars: 10
+    lang: Go
+    desc:
+      en: Atomic, reproducible OS deployment for embedded and desktop Linux devices.
+      it: Deploy atomico e riproducibile del sistema operativo su dispositivi Linux embedded e desktop.
+      es: Despliegue atómico y reproducible del sistema operativo en dispositivos Linux embebidos y de escritorio.
+
+  - name: GoUp!
+    kind: Web server
+    url: https://github.com/tryGoUp/GoUp
+    repo: tryGoUp/GoUp
+    stars: 9
+    lang: Go
+    desc:
+      en: A minimal, configurable and very fast web server written in Go.
+      it: Un web server minimale, configurabile e molto veloce scritto in Go.
+      es: Un servidor web minimalista, configurable y muy rápido escrito en Go.
+
+  - name: go-foundation
+    kind: Library
+    url: https://go-foundation.bromb.in
+    repo: mirkobrombin/go-foundation
+    stars: 2
+    lang: Go
+    desc:
+      en: Foundational Go primitives for building declarative, struct-tag-driven libraries.
+      it: Primitive Go di base per costruire librerie dichiarative guidate dalle struct tag.
+      es: Primitivas de Go para construir librerías declarativas basadas en struct tags.
+
+  - name: Slipstream
+    kind: Database
+    url: https://github.com/mirkobrombin/go-slipstream
+    repo: mirkobrombin/go-slipstream
+    stars: 2
+    lang: Go
+    desc:
+      en: A distributed embedded database for Go with ACID transactions and secondary indexing.
+      it: Un database embedded distribuito per Go, con transazioni ACID e indici secondari.
+      es: Una base de datos embebida y distribuida para Go, con transacciones ACID e índices secundarios.
+
+  - name: go-warp
+    kind: Library
+    url: https://github.com/mirkobrombin/go-warp
+    repo: mirkobrombin/go-warp
+    stars: 3
+    lang: Go
+    desc:
+      en: A data orchestration and synchronization layer for distributed Go backends.
+      it: Un livello di orchestrazione e sincronizzazione dei dati per backend Go distribuiti.
+      es: Una capa de orquestación y sincronización de datos para backends distribuidos en Go.
+
+  - name: go-cli-builder
+    kind: Library
+    url: https://github.com/mirkobrombin/go-cli-builder
+    repo: mirkobrombin/go-cli-builder
+    stars: 3
+    lang: Go
+    desc:
+      en: A lightweight, flexible way to build command line interfaces in Go.
+      it: Un modo leggero e flessibile per costruire interfacce a riga di comando in Go.
+      es: Una forma ligera y flexible de construir interfaces de línea de comandos en Go.
+
+  - name: vnt
+    kind: Toolkit
+    url: https://github.com/mirkobrombin/vnt
+    repo: mirkobrombin/vnt
+    stars: 26
+    lang: Vue
+    desc:
+      en: Native-feeling widgets for Vue apps that ship to web, desktop and mobile.
+      it: Widget dal comportamento nativo per app Vue, distribuite su web, desktop e mobile.
+      es: Widgets con comportamiento nativo para apps Vue, distribuidas en web, escritorio y móvil.
+
+archive:
+  - name: Vanilla OS
+    kind: Operating system
+    url: https://vanillaos.org
+    stars: 52
+    lang: Linux
+    desc:
+      en: The immutable Linux distribution I founded, now carried on by its community.
+      it: La distribuzione Linux immutabile che ho fondato, oggi portata avanti dalla sua community.
+      es: La distribución Linux inmutable que fundé, hoy mantenida por su comunidad.
+
+  - name: Atoms
+    kind: Desktop app
+    url: https://github.com/AtomsDevs/Atoms
+    stars: 439
+    lang: Python
+    desc:
+      en: Manage Linux chroots and containers from a graphical app.
+      it: Gestione di chroot e container Linux da un'applicazione grafica.
+      es: Gestión de chroots y contenedores de Linux desde una app gráfica.
+
+  - name: ElementaryPython
+    kind: Template
+    url: https://github.com/mirkobrombin/ElementaryPython
+    stars: 72
+    lang: Python
+    desc:
+      en: A Python application template for elementary OS, back when I lived in that ecosystem.
+      it: Un template per applicazioni Python su elementary OS, di quando vivevo in quell'ecosistema.
+      es: Una plantilla de aplicaciones Python para elementary OS, de cuando vivía en ese ecosistema.
+
+  - name: FVS
+    kind: CLI tool
+    url: https://github.com/mirkobrombin/FVS
+    stars: 19
+    lang: Python
+    desc:
+      en: File versioning with hash comparison and deduplication, later folded into other work.
+      it: Versionamento dei file con confronto di hash e deduplicazione, poi confluito in altri lavori.
+      es: Versionado de archivos con comparación de hashes y deduplicación, luego integrado en otros trabajos.
+
+  - name: xfce4-taskbar-plugin
+    kind: Desktop plugin
+    url: https://github.com/mirkobrombin/xfce4-taskbar-plugin
+    stars: 9
+    lang: C++
+    desc:
+      en: A simple taskbar for XFCE, written when I wanted the panel to behave my way.
+      it: Una semplice taskbar per XFCE, scritta quando volevo che il pannello si comportasse a modo mio.
+      es: Una barra de tareas sencilla para XFCE, escrita cuando quería que el panel funcionara a mi manera.
+
+  - name: Twitz
+    kind: Desktop app
+    url: https://github.com/mirkobrombin/Twitz
+    stars: 13
+    lang: Python
+    desc:
+      en: An unpretentious Twitch client for Linux.
+      it: Un client Twitch per Linux, senza pretese.
+      es: Un cliente de Twitch para Linux, sin pretensiones.
+
+  - name: DaBaDee
+    kind: CLI tool
+    url: https://github.com/mirkobrombin/DaBaDee
+    stars: 6
+    lang: Go
+    desc:
+      en: File deduplication storage built on content hashing and hardlinks.
+      it: Storage con deduplicazione dei file, basato su hash del contenuto e hardlink.
+      es: Almacenamiento con deduplicación de archivos, basado en hash de contenido y hardlinks.
+
+  - name: lsh
+    kind: CLI tool
+    url: https://github.com/mirkobrombin/lsh
+    stars: 5
+    lang: Go
+    desc:
+      en: Manage and simplify SSH connections, for lazy humans.
+      it: Gestisce e semplifica le connessioni SSH, per umani pigri.
+      es: Gestiona y simplifica las conexiones SSH, para humanos perezosos.

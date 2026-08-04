@@ -2,14 +2,38 @@
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
+{% assign blog_url = "/blog/" %}
+{% if page.lang != site.default_lang %}{% assign blog_url = "/" | append: page.lang | append: "/blog/" %}{% endif %}
+
+<div class="progress-bar" id="progress-bar"></div>
+
 <article>
-    <time datetime="{{ page.date | date:" %Y-%m-%d" }}">{{ page.date | date: "%a, %b %e, %Y" }}</time>
-    {{ content }}
-    {% if page.review_by %}
-    <br />
-    <hr />
-    <span>{{ 'posts.reviewed_by' | t: page.lang }} <a href="https://github.com/{{ page.review_by }}">{{ page.review_by }}</a></span>
-    <hr />
-    {% endif %}
+    <header class="article-head">
+        <a class="button link" href="{{ blog_url }}">
+            <ion-icon name="arrow-back-outline"></ion-icon> {{ 'posts.back' | t: page.lang }}
+        </a>
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}<p class="lead" style="max-width: 60ch;">{{ page.description }}</p>{% endif %}
+        <div class="article-meta" style="margin-top: 1.5rem;">
+            <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%a, %b %e, %Y" }}</time>
+            <span class="sep"></span>
+            <span data-reading-time>{{ 'posts.reading_time' | t: page.lang }}</span>
+            {% if page.review_by %}
+            <span class="sep"></span>
+            <span>{{ 'posts.reviewed_by' | t: page.lang }} <a
+                    href="https://github.com/{{ page.review_by }}">{{ page.review_by }}</a></span>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="prose">
+        {{ content }}
+    </div>
+
+    <footer class="article-footer">
+        <a class="button secondary" href="{{ blog_url }}">
+            <ion-icon name="arrow-back-outline"></ion-icon> {{ 'posts.all' | t: page.lang }}
+        </a>
+        <span class="mono">{{ 'posts.written_by' | t: page.lang }} Mirko Brombin</span>
+    </footer>
 </article>

@@ -1,7 +1,8 @@
 title: Mirko Brombin
-description: 
-author: Mirko brombin
+description:
+author: Mirko Brombin
 email: mirko@bromb.in
+url: https://bromb.in
 
 assets: /assets
 uploads: /uploads
@@ -38,6 +39,6 @@ navigation:
     name: nav.support
   - link: "https://github.com/mirkobrombin"
     name: nav.projects
-  - link: "https://t.me/mirkofeeds"
+  - link: "/feed.xml"
     name: nav.feed
 
