@@ -950,6 +950,22 @@ hr {
     color: var(--fg-muted);
 }
 
+.article-footer .note {
+    width: 100%;
+}
+
+.signature {
+    font-family: "Caveat", cursive;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--accent);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-left: .25rem;
+    line-height: 1;
+}
+
 .support-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));

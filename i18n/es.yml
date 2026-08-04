@@ -15,6 +15,7 @@ posts:
   back: "Volver al blog"
   all: "Todos los artículos"
   written_by: "Escrito por"
+  copyright: "El texto de este artículo es propiedad de Mirko Brombin, todos los derechos reservados. No fue generado por inteligencia artificial, aunque puede haber sido corregido con herramientas que hacen uso de ella."
 blog:
   label: "~/Documents/"
   title: "Blog"
