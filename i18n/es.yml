@@ -101,7 +101,7 @@ support:
   crypto: "Criptomonedas"
   crypto_tag: "BTC, ETH, LTC, XRP"
   copy: "Copiar"
-  xrp_memo: "XRP requiere el memo 420078619. Sin el memo, las monedas se pierden."
+  xrp_memo: "XRP requiere el memo 770863059. Sin el memo, las monedas se pierden."
   projects_label: "~/Projects/funding/"
   support_projects: "Financia un proyecto"
   projects_desc: "¿Prefieres apoyar un proyecto en lugar de una persona? Estos tienen su propia financiación y el dinero va directo al trabajo."
