@@ -45,9 +45,9 @@
     --border: #EAE0D5;
     --border-strong: #DBCBB9;
 
-    --dot: rgba(60, 43, 30, .055);
-    --glow: radial-gradient(60rem 30rem at 15% -10%, rgba(237, 224, 212, .85), transparent 60%),
-        radial-gradient(45rem 26rem at 95% 0%, rgba(192, 155, 119, .28), transparent 65%);
+    --dot: rgba(60, 43, 30, .17);
+    --glow: radial-gradient(60rem 30rem at 15% -10%, rgba(206, 177, 148, .9), transparent 64%),
+        radial-gradient(45rem 26rem at 95% 0%, rgba(169, 116, 73, .45), transparent 68%);
 
     --panel-info-bg: #ECF5F4;
     --panel-info-fg: #1B4C4C;
