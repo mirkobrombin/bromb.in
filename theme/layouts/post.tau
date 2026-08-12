@@ -1,0 +1,50 @@
+{#let d = data.i18n[lang] ?? data.i18n.en}
+{#let blogUrl = lang == 'en' ? '/blog/' : '/' + lang + '/blog/'}
+<!doctype html>
+<html lang="{lang}">
+<head>
+{@include "Head"}
+</head>
+<body>
+{@include "Nav"}
+<main>
+<div class="wrapper">
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<article>
+  <header class="article-head">
+    <a class="button link" href="{blogUrl}">
+      <ion-icon name="arrow-back-outline"></ion-icon> {d.posts.back}
+    </a>
+    <h1>{title}</h1>
+    {#if description}<p class="lead" style="max-width: 60ch;">{description}</p>{/if}
+    <div class="article-meta" style="margin-top: 1.5rem;">
+      <time datetime="{date}">{date | date}</time>
+      <span class="sep"></span>
+      <span data-reading-time>{d.posts.reading_time}</span>
+      {#if review_by}
+      <span class="sep"></span>
+      <span>{d.posts.reviewed_by} <a href="https://github.com/{review_by}">{review_by}</a></span>
+      {/if}
+    </div>
+  </header>
+
+  <div class="prose">
+    {@html content}
+  </div>
+
+  <footer class="article-footer">
+    <a class="button secondary" href="{blogUrl}">
+      <ion-icon name="arrow-back-outline"></ion-icon> {d.posts.all}
+    </a>
+    <span class="mono">{d.posts.written_by} <span class="signature">Mirko Brombin</span></span>
+    <p class="note">{d.posts.copyright}</p>
+  </footer>
+</article>
+
+</div>
+</main>
+{@include "Footer"}
+</body>
+</html>

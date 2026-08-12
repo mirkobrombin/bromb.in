@@ -1,0 +1,35 @@
+title: "Mirko Brombin"
+description: "Mirko Brombin, UI/UX designer and open source maintainer. Operating systems, developer tools and writing about how software gets made."
+author: "Mirko Brombin"
+
+contentDir: "content"
+output: "dist"
+
+theme: "./theme"
+shortUrls: true
+
+custom:
+  siteUrl: "https://bromb.in"
+
+plugins:
+  - package: jsr:@steno/plugin-shiki
+    options:
+      theme: github-dark
+  - package: jsr:@steno/plugin-seo
+    options:
+      siteUrl: https://bromb.in
+      title: "Mirko Brombin"
+      description: "Mirko Brombin, UI/UX designer and open source maintainer. Operating systems, developer tools and writing about how software gets made."
+      authorName: "Mirko Brombin"
+  - package: jsr:@steno/plugin-og
+
+collections:
+  blog:
+    sortBy: date
+    order: desc
+  blog-es:
+    sortBy: date
+    order: desc
+  blog-it:
+    sortBy: date
+    order: desc

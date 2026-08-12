@@ -1,0 +1,16 @@
+{#let d = data.i18n[lang] ?? data.i18n.en}
+<footer class="site-footer">
+  <div class="wrapper">
+    <p>{d.footer.copyright}</p>
+    <p>{d.footer.cookies} <a href="/privacy">{d.footer.privacy_policy}</a>.</p>
+    <p>
+      <a rel="me" href="https://mastodon.social/@mirkobrombin">{d.navlist.mastodon}</a> .
+      <a href="https://www.linkedin.com/in/mirkobrombin/" target="_blank">{d.navlist.linkedin}</a> .
+      <a href="https://www.github.com/mirkobrombin" target="_blank">{d.navlist.github}</a> .
+      <a href="https://www.twitter.com/brombinmirko" target="_blank">{d.navlist.twitter}</a> .
+      <a href="https://www.t.me/brombinmirko" target="_blank">{d.navlist.telegram}</a>
+    </p>
+    <p>{d.footer.hosted_by} <a href="https://github.com/mirkobrombin/bromb.in" title="GitHub">GitHub</a></p>
+    <script src="/assets/js/scripts.js"></script>
+  </div>
+</footer>

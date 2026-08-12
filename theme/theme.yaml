@@ -1,0 +1,7 @@
+name: bromb-in
+version: 1.0.0
+components:
+  head: components/head.tau
+  nav: components/nav.tau
+  footer: components/footer.tau
+  postCard: components/post-card.tau

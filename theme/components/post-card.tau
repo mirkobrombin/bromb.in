@@ -1,0 +1,8 @@
+<a class="post-item" href="{url}">
+  <time datetime="{post.date}">{post.date | date}</time>
+  <div>
+    <h3>{post.title}</h3>
+    <p>{post.description}</p>
+  </div>
+  <ion-icon class="arrow" name="arrow-forward-outline"></ion-icon>
+</a>
