@@ -1,0 +1,62 @@
+{#let d = data.i18n[lang] ?? data.i18n.en}
+{#let brandHref = lang == 'en' ? '/' : '/' + lang + '/'}
+{#let esHref = layout == 'home' ? '/es/' : layout == 'blog' ? '/es/blog/' : layout == 'support' ? '/es/support/' : '/es/blog/'}
+{#let itHref = layout == 'home' ? '/it/' : layout == 'blog' ? '/it/blog/' : layout == 'support' ? '/it/support/' : '/it/blog/'}
+{#let enHref = layout == 'home' ? '/' : layout == 'blog' ? '/blog/' : layout == 'support' ? '/support/' : '/blog/'}
+<header class="site-header">
+  <div class="wrapper">
+    <a class="brand" href="{brandHref}">
+      <span>Mirko Brombin</span>
+    </a>
+
+    <button class="icon-button menu-toggle" aria-label="Menu" aria-expanded="false">
+      <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <nav class="nav-main">
+      <ul>
+        <li><a class="{layout == 'home' ? 'active' : ''}" href="{brandHref}">{d.nav.me}</a></li>
+        <li><a class="{layout == 'blog' || layout == 'post' ? 'active' : ''}" href="{lang == 'en' ? '/blog/' : '/' + lang + '/blog/'}">{d.nav.blog}</a></li>
+        <li><a class="{layout == 'support' ? 'active' : ''}" href="{lang == 'en' ? '/support/' : '/' + lang + '/support/'}">{d.nav.support}</a></li>
+        <li><a href="https://github.com/mirkobrombin">{d.nav.projects}</a></li>
+        <li><a href="/feed.xml">{d.nav.feed}</a></li>
+      </ul>
+
+      <div class="nav-tools">
+        <button class="icon-button theme-toggle" aria-label="{d.nav.theme}">
+          <ion-icon class="icon-light" name="moon-outline"></ion-icon>
+          <ion-icon class="icon-dark" name="sunny-outline"></ion-icon>
+        </button>
+
+        <div class="dropdown lang">
+          <button aria-expanded="false">
+            {lang | upper} <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+          <ul>
+            <li><a href="#" data-lang="en" data-url="{enHref}">English</a></li>
+            <li><a href="#" data-lang="es" data-url="{esHref}">Español</a></li>
+            <li><a href="#" data-lang="it" data-url="{itHref}">Italiano</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <button aria-expanded="false">
+            {d.nav.reach_me} <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+          <ul>
+            <li><a rel="me" href="https://mastodon.social/@mirkobrombin">
+              <ion-icon name="logo-mastodon"></ion-icon> {d.navlist.mastodon}</a></li>
+            <li><a href="https://github.com/mirkobrombin">
+              <ion-icon name="logo-github"></ion-icon> {d.navlist.github}</a></li>
+            <li><a href="https://t.me/brombinmirko">
+              <ion-icon name="paper-plane-outline"></ion-icon> {d.navlist.telegram}</a></li>
+            <li><a href="https://www.linkedin.com/in/mirkobrombin/">
+              <ion-icon name="logo-linkedin"></ion-icon> {d.navlist.linkedin}</a></li>
+            <li><a href="https://twitter.com/brombinmirko">
+              <ion-icon name="logo-twitter"></ion-icon> {d.navlist.twitter}</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

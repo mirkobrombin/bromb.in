@@ -1,0 +1,143 @@
+{#let d = data.i18n[lang] ?? data.i18n.en}
+{#let blogUrl = lang == 'en' ? '/blog/' : '/' + lang + '/blog/'}
+{#let supportUrl = lang == 'en' ? '/support/' : '/' + lang + '/support/'}
+{#let latest = lang == 'en' ? collections.blog.items : collections[lang == 'es' ? 'blog-es' : 'blog-it'].items}
+<!doctype html>
+<html lang="{lang}">
+<head>
+{@include "Head"}
+</head>
+<body>
+{@include "Nav"}
+<main>
+<div class="wrapper">
+
+<section class="hero">
+  <span class="eyebrow">{d.home.role}</span>
+  <h1 class="display">{d.home.title}</h1>
+  <p class="lead">{d.home.lead}</p>
+  <div class="hero-actions">
+    <a class="button primary" href="{blogUrl}">
+      {d.home.cta_read} <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+    <a class="button secondary" href="https://github.com/mirkobrombin">
+      <ion-icon name="logo-github"></ion-icon> GitHub
+    </a>
+    <a class="button ghost" href="{supportUrl}">{d.nav.support}</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{d.home.story_label}</span>
+      <h2>{d.home.story_title}</h2>
+    </div>
+  </div>
+
+  <div class="bio">
+    <div class="reveal">
+      <p>{d.home.p1}</p>
+      <p>{d.home.p2}</p>
+      <p>{d.home.p3}</p>
+      <p>{d.home.p4}</p>
+      <p>{d.home.p5}</p>
+      <p>{d.home.p6}</p>
+      <p>{d.home.p7}</p>
+      <p>{d.home.p8}</p>
+    </div>
+    <button class="button secondary reveal-toggle" data-less="{d.home.collapse}">
+      {d.home.expand} <ion-icon name="chevron-down-outline"></ion-icon>
+    </button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{d.home.writing_label}</span>
+      <h2>{d.home.writing_title}</h2>
+      <p>{d.home.writing_desc}</p>
+    </div>
+    <a class="button secondary" href="{blogUrl}">
+      {d.home.all_articles} <ion-icon name="arrow-forward-outline"></ion-icon>
+    </a>
+  </div>
+
+  <div class="post-list">
+    {#each latest as item, index}
+      {#if index < 4}<PostCard post={item.frontmatter} url={item.url} />{/if}
+    {/each}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{d.home.work_label}</span>
+      <h2>{d.home.work_title}</h2>
+      <p>{d.home.work_desc}</p>
+    </div>
+    <a class="button secondary" href="https://github.com/mirkobrombin">
+      <ion-icon name="logo-github"></ion-icon> {d.home.all_projects}
+    </a>
+  </div>
+
+  <div class="project-grid">
+    {#each data.projects.now as project}
+    <a class="project-card {project.accent ? 'is-accent' : ''}" href="{project.url}">
+      <div class="project-top">
+        <h3>{project.name}</h3>
+        <span class="project-kind">{project.kind}</span>
+      </div>
+      <p>{project.desc[lang] ?? project.desc.en}</p>
+      <div class="project-meta">
+        <span class="lang">{project.lang}</span>
+      </div>
+    </a>
+    {/each}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{d.home.archive_label}</span>
+      <h2>{d.home.archive_title}</h2>
+      <p>{d.home.archive_desc}</p>
+    </div>
+  </div>
+
+  <div class="project-grid">
+    {#each data.projects.archive as project}
+    <a class="project-card is-quiet" href="{project.url}">
+      <div class="project-top">
+        <h3>{project.name}</h3>
+        <span class="project-kind">{project.kind}</span>
+      </div>
+      <p>{project.desc[lang] ?? project.desc.en}</p>
+      <div class="project-meta">
+        <span class="lang">{project.lang}</span>
+      </div>
+    </a>
+    {/each}
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta">
+    <div>
+      <h2>{d.home.cta_title}</h2>
+      <p>{d.home.cta_desc}</p>
+    </div>
+    <a class="button primary" href="{supportUrl}">
+      <ion-icon name="heart-outline"></ion-icon> {d.nav.support}
+    </a>
+  </div>
+</section>
+
+</div>
+</main>
+{@include "Footer"}
+</body>
+</html>

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="{lang}">
+<head>
+{@include "Head"}
+</head>
+<body>
+{@html content}
+</body>
+</html>

@@ -1,2 +1,3 @@
 /dist
-node_modules/
+content/.steno/build-cache.json
+.dist.steno-backup
