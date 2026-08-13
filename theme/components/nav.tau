@@ -1,4 +1,3 @@
-{#let d = data.i18n[lang] ?? data.i18n.en}
 {#let brandHref = lang == 'en' ? '/' : '/' + lang + '/'}
 {#let esHref = layout == 'home' ? '/es/' : layout == 'blog' ? '/es/blog/' : layout == 'support' ? '/es/support/' : '/es/blog/'}
 {#let itHref = layout == 'home' ? '/it/' : layout == 'blog' ? '/it/blog/' : layout == 'support' ? '/it/support/' : '/it/blog/'}
@@ -15,15 +14,15 @@
 
     <nav class="nav-main">
       <ul>
-        <li><a class="{layout == 'home' ? 'active' : ''}" href="{brandHref}">{d.nav.me}</a></li>
-        <li><a class="{layout == 'blog' || layout == 'post' ? 'active' : ''}" href="{lang == 'en' ? '/blog/' : '/' + lang + '/blog/'}">{d.nav.blog}</a></li>
-        <li><a class="{layout == 'support' ? 'active' : ''}" href="{lang == 'en' ? '/support/' : '/' + lang + '/support/'}">{d.nav.support}</a></li>
-        <li><a href="https://github.com/mirkobrombin">{d.nav.projects}</a></li>
-        <li><a href="/feed.xml">{d.nav.feed}</a></li>
+        <li><a class="{layout == 'home' ? 'active' : ''}" href="{brandHref}">{ 'nav.me' | t(lang) }</a></li>
+        <li><a class="{layout == 'blog' || layout == 'post' ? 'active' : ''}" href="{lang == 'en' ? '/blog/' : '/' + lang + '/blog/'}">{ 'nav.blog' | t(lang) }</a></li>
+        <li><a class="{layout == 'support' ? 'active' : ''}" href="{lang == 'en' ? '/support/' : '/' + lang + '/support/'}">{ 'nav.support' | t(lang) }</a></li>
+        <li><a href="https://github.com/mirkobrombin">{ 'nav.projects' | t(lang) }</a></li>
+        <li><a href="/feed.xml">{ 'nav.feed' | t(lang) }</a></li>
       </ul>
 
       <div class="nav-tools">
-        <button class="icon-button theme-toggle" aria-label="{d.nav.theme}">
+        <button class="icon-button theme-toggle" aria-label="{ 'nav.theme' | t(lang) }">
           <ion-icon class="icon-light" name="moon-outline"></ion-icon>
           <ion-icon class="icon-dark" name="sunny-outline"></ion-icon>
         </button>
@@ -41,19 +40,19 @@
 
         <div class="dropdown">
           <button aria-expanded="false">
-            {d.nav.reach_me} <ion-icon name="chevron-down-outline"></ion-icon>
+            { 'nav.reach_me' | t(lang) } <ion-icon name="chevron-down-outline"></ion-icon>
           </button>
           <ul>
             <li><a rel="me" href="https://mastodon.social/@mirkobrombin">
-              <ion-icon name="logo-mastodon"></ion-icon> {d.navlist.mastodon}</a></li>
+              <ion-icon name="logo-mastodon"></ion-icon> { 'navlist.mastodon' | t(lang) }</a></li>
             <li><a href="https://github.com/mirkobrombin">
-              <ion-icon name="logo-github"></ion-icon> {d.navlist.github}</a></li>
+              <ion-icon name="logo-github"></ion-icon> { 'navlist.github' | t(lang) }</a></li>
             <li><a href="https://t.me/brombinmirko">
-              <ion-icon name="paper-plane-outline"></ion-icon> {d.navlist.telegram}</a></li>
+              <ion-icon name="paper-plane-outline"></ion-icon> { 'navlist.telegram' | t(lang) }</a></li>
             <li><a href="https://www.linkedin.com/in/mirkobrombin/">
-              <ion-icon name="logo-linkedin"></ion-icon> {d.navlist.linkedin}</a></li>
+              <ion-icon name="logo-linkedin"></ion-icon> { 'navlist.linkedin' | t(lang) }</a></li>
             <li><a href="https://twitter.com/brombinmirko">
-              <ion-icon name="logo-twitter"></ion-icon> {d.navlist.twitter}</a></li>
+              <ion-icon name="logo-twitter"></ion-icon> { 'navlist.twitter' | t(lang) }</a></li>
           </ul>
         </div>
       </div>

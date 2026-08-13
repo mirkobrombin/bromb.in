@@ -1,4 +1,3 @@
-{#let d = data.i18n[lang] ?? data.i18n.en}
 <!doctype html>
 <html lang="{lang}">
 <head>
@@ -10,16 +9,16 @@
 <div class="wrapper">
 
 <section class="hero" style="padding-bottom: 1.5rem;">
-  <span class="eyebrow">{d.support.label}</span>
-  <h1 class="display" style="margin-block: 1rem .75rem;">{d.support.title}</h1>
-  <p class="lead" style="max-width: 54ch;">{d.support.intro}</p>
+  <span class="eyebrow">{ 'support.label' | t(lang) }</span>
+  <h1 class="display" style="margin-block: 1rem .75rem;">{ 'support.title' | t(lang) }</h1>
+  <p class="lead" style="max-width: 54ch;">{ 'support.intro' | t(lang) }</p>
 </section>
 
 <section class="section" style="padding-top: 1.5rem;">
   <div class="section-head">
     <div>
-      <span class="eyebrow">{d.support.direct_label}</span>
-      <h2>{d.support.direct_title}</h2>
+      <span class="eyebrow">{ 'support.direct_label' | t(lang) }</span>
+      <h2>{ 'support.direct_title' | t(lang) }</h2>
     </div>
   </div>
 
@@ -28,13 +27,13 @@
       <div class="support-top">
         <div>
           <ion-icon name="logo-github"></ion-icon>
-          <h3>{d.support.github}</h3>
+          <h3>{ 'support.github' | t(lang) }</h3>
         </div>
-        <span class="support-tag">{d.support.recommended}</span>
+        <span class="support-tag">{ 'support.recommended' | t(lang) }</span>
       </div>
-      <p>{d.support.github_desc}</p>
+      <p>{ 'support.github_desc' | t(lang) }</p>
       <a href="https://github.com/sponsors/mirkobrombin" class="button primary">
-        {d.support.github_sponsor} <ion-icon name="arrow-forward-outline"></ion-icon>
+        { 'support.github_sponsor' | t(lang) } <ion-icon name="arrow-forward-outline"></ion-icon>
       </a>
     </div>
 
@@ -42,28 +41,28 @@
       <div class="support-top">
         <div>
           <ion-icon name="logo-paypal"></ion-icon>
-          <h3>{d.support.paypal}</h3>
+          <h3>{ 'support.paypal' | t(lang) }</h3>
         </div>
-        <span class="support-tag">{d.support.paypal_tag}</span>
+        <span class="support-tag">{ 'support.paypal_tag' | t(lang) }</span>
       </div>
-      <p>{d.support.paypal_desc}</p>
+      <p>{ 'support.paypal_desc' | t(lang) }</p>
       <a href="https://www.paypal.com/donate?hosted_button_id=HM2VKUH5STU4J" class="button secondary">
-        {d.support.paypal_donate}
+        { 'support.paypal_donate' | t(lang) }
       </a>
-      <a href="https://paypal.me/MirkoBrombin" class="button link">{d.support.paypal_old}</a>
+      <a href="https://paypal.me/MirkoBrombin" class="button link">{ 'support.paypal_old' | t(lang) }</a>
     </div>
 
     <div class="support-card">
       <div class="support-top">
         <div>
           <ion-icon name="heart-outline"></ion-icon>
-          <h3>{d.support.patreon}</h3>
+          <h3>{ 'support.patreon' | t(lang) }</h3>
         </div>
-        <span class="support-tag">{d.support.patreon_tag}</span>
+        <span class="support-tag">{ 'support.patreon_tag' | t(lang) }</span>
       </div>
-      <p>{d.support.patreon_desc}</p>
+      <p>{ 'support.patreon_desc' | t(lang) }</p>
       <a href="https://www.patreon.com/MirkoBrombin" class="button secondary">
-        {d.support.patreon_support}
+        { 'support.patreon_support' | t(lang) }
       </a>
     </div>
 
@@ -71,17 +70,17 @@
       <div class="support-top">
         <div>
           <ion-icon name="card-outline"></ion-icon>
-          <h3>{d.support.bank}</h3>
+          <h3>{ 'support.bank' | t(lang) }</h3>
         </div>
-        <span class="support-tag">{d.support.bank_tag}</span>
+        <span class="support-tag">{ 'support.bank_tag' | t(lang) }</span>
       </div>
-      <p>{d.support.bank_desc}</p>
+      <p>{ 'support.bank_desc' | t(lang) }</p>
       <div class="copy-field">
         <div class="copy-body">
           <span class="copy-label">IBAN</span>
           <span class="copy-value">LT50 3250 0948 5804 5072</span>
         </div>
-        <button class="copy-button" data-copy="LT503250094858045072" aria-label="{d.support.copy}">
+        <button class="copy-button" data-copy="LT503250094858045072" aria-label="{ 'support.copy' | t(lang) }">
           <ion-icon name="copy-outline"></ion-icon>
         </button>
       </div>
@@ -90,20 +89,20 @@
           <span class="copy-label">BIC / SWIFT</span>
           <span class="copy-value">REVOLT21</span>
         </div>
-        <button class="copy-button" data-copy="REVOLT21" aria-label="{d.support.copy}">
+        <button class="copy-button" data-copy="REVOLT21" aria-label="{ 'support.copy' | t(lang) }">
           <ion-icon name="copy-outline"></ion-icon>
         </button>
       </div>
-      <p class="note">{d.support.bank_holder} Mirko Brombin</p>
+      <p class="note">{ 'support.bank_holder' | t(lang) } Mirko Brombin</p>
     </div>
 
     <div class="support-card is-wide">
       <div class="support-top">
         <div>
           <ion-icon name="logo-bitcoin"></ion-icon>
-          <h3>{d.support.crypto}</h3>
+          <h3>{ 'support.crypto' | t(lang) }</h3>
         </div>
-        <span class="support-tag">{d.support.crypto_tag}</span>
+        <span class="support-tag">{ 'support.crypto_tag' | t(lang) }</span>
       </div>
       <div class="fund-list" style="grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: .5rem;">
         <div>
@@ -112,7 +111,7 @@
               <span class="copy-label">Bitcoin &middot; BTC (SegWit)</span>
               <span class="copy-value">bc1qaujs7f50uutxrr9nh92hr3n7nkl76lltncgdmj</span>
             </div>
-            <button class="copy-button" data-copy="bc1qaujs7f50uutxrr9nh92hr3n7nkl76lltncgdmj" aria-label="{d.support.copy}">
+            <button class="copy-button" data-copy="bc1qaujs7f50uutxrr9nh92hr3n7nkl76lltncgdmj" aria-label="{ 'support.copy' | t(lang) }">
               <ion-icon name="copy-outline"></ion-icon>
             </button>
           </div>
@@ -121,7 +120,7 @@
               <span class="copy-label">Ethereum &middot; ERC20</span>
               <span class="copy-value">0x20D27496EC8e1d85c0b5A0bF8fbAE8cBd826F9e6</span>
             </div>
-            <button class="copy-button" data-copy="0x20D27496EC8e1d85c0b5A0bF8fbAE8cBd826F9e6" aria-label="{d.support.copy}">
+            <button class="copy-button" data-copy="0x20D27496EC8e1d85c0b5A0bF8fbAE8cBd826F9e6" aria-label="{ 'support.copy' | t(lang) }">
               <ion-icon name="copy-outline"></ion-icon>
             </button>
           </div>
@@ -132,7 +131,7 @@
               <span class="copy-label">Litecoin &middot; LTC</span>
               <span class="copy-value">ltc1qy8tz3gd52j68lzuy3nlr72ngt3wv09ffsf3q2l</span>
             </div>
-            <button class="copy-button" data-copy="ltc1qy8tz3gd52j68lzuy3nlr72ngt3wv09ffsf3q2l" aria-label="{d.support.copy}">
+            <button class="copy-button" data-copy="ltc1qy8tz3gd52j68lzuy3nlr72ngt3wv09ffsf3q2l" aria-label="{ 'support.copy' | t(lang) }">
               <ion-icon name="copy-outline"></ion-icon>
             </button>
           </div>
@@ -141,13 +140,13 @@
               <span class="copy-label">Ripple &middot; XRP</span>
               <span class="copy-value">rLNmmcNEizWaygypRVTKaWoZG6RrqfsJpi</span>
             </div>
-            <button class="copy-button" data-copy="rLNmmcNEizWaygypRVTKaWoZG6RrqfsJpi" aria-label="{d.support.copy}">
+            <button class="copy-button" data-copy="rLNmmcNEizWaygypRVTKaWoZG6RrqfsJpi" aria-label="{ 'support.copy' | t(lang) }">
               <ion-icon name="copy-outline"></ion-icon>
             </button>
           </div>
         </div>
       </div>
-      <p class="note">{d.support.xrp_memo}</p>
+      <p class="note">{ 'support.xrp_memo' | t(lang) }</p>
     </div>
   </div>
 </section>
@@ -155,12 +154,12 @@
 <section class="section">
   <div class="section-head">
     <div>
-      <span class="eyebrow">{d.support.projects_label}</span>
-      <h2>{d.support.support_projects}</h2>
-      <p>{d.support.projects_desc}</p>
+      <span class="eyebrow">{ 'support.projects_label' | t(lang) }</span>
+      <h2>{ 'support.support_projects' | t(lang) }</h2>
+      <p>{ 'support.projects_desc' | t(lang) }</p>
     </div>
     <a class="button secondary" href="https://github.com/mirkobrombin">
-      <ion-icon name="logo-github"></ion-icon> {d.support.all_projects}
+      <ion-icon name="logo-github"></ion-icon> { 'support.all_projects' | t(lang) }
     </a>
   </div>
 
@@ -169,7 +168,7 @@
       <img src="https://usebottles.com/uploads/bottles.png" alt="Bottles" loading="lazy">
       <div>
         <h4>Bottles</h4>
-        <p>{d.projects.bottles_desc}</p>
+        <p>{ 'projects.bottles_desc' | t(lang) }</p>
       </div>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </a>
@@ -177,7 +176,7 @@
       <img src="https://vanillaos.org/assets/images/brand/vanillaos-logo-icon.svg" alt="Vanilla OS" loading="lazy">
       <div>
         <h4>Vanilla OS</h4>
-        <p>{d.projects.vanilla_desc}</p>
+        <p>{ 'projects.vanilla_desc' | t(lang) }</p>
       </div>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </a>
@@ -185,7 +184,7 @@
       <img src="https://avatars.githubusercontent.com/u/197488840?s=200&v=4" alt="GoUp!" loading="lazy">
       <div>
         <h4>GoUp!</h4>
-        <p>{d.projects.goup_desc}</p>
+        <p>{ 'projects.goup_desc' | t(lang) }</p>
       </div>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </a>
@@ -193,7 +192,7 @@
       <img src="https://avatars.githubusercontent.com/u/144563190?s=200&v=4" alt="Containerpak" loading="lazy">
       <div>
         <h4>Containerpak</h4>
-        <p>{d.projects.containerpak_desc}</p>
+        <p>{ 'projects.containerpak_desc' | t(lang) }</p>
       </div>
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </a>

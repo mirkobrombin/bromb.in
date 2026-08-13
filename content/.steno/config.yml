@@ -12,6 +12,9 @@ custom:
   siteUrl: "https://bromb.in"
 
 plugins:
+  - package: jsr:@steno/plugin-i18n
+    options:
+      defaultLocale: en
   - package: jsr:@steno/plugin-shiki
     options:
       theme: github-dark

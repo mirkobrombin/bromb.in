@@ -1,4 +1,3 @@
-{#let d = data.i18n[lang] ?? data.i18n.en}
 <!doctype html>
 <html lang="{lang}">
 <head>
@@ -11,11 +10,11 @@
 
 <section class="hero">
   <span class="eyebrow">~/404</span>
-  <h1 class="display" style="margin-block: 1rem .75rem;">{d['404'].title}</h1>
-  <p class="lead">{d['404'].description}</p>
+  <h1 class="display" style="margin-block: 1rem .75rem;">{ '404.title' | t(lang) }</h1>
+  <p class="lead">{ '404.description' | t(lang) }</p>
   <div class="hero-actions">
     <a class="button primary" href="/">
-      <ion-icon name="arrow-back-outline"></ion-icon> {d.nav.me}
+      <ion-icon name="arrow-back-outline"></ion-icon> { 'nav.me' | t(lang) }
     </a>
   </div>
   <div class="prose" style="margin-top: 2rem;">{@html content}</div>
