@@ -1,14 +1,13 @@
-{#let d = data.i18n[lang] ?? data.i18n.en}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFDFB">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#201B18">
 <title>{#if title && layout != 'home'}{title} &sdot; {/if}{site.title}</title>
-<meta name="description" content="{description ?? d.meta.description}" />
+<meta name="description" content="{#if description}{description}{:else}{ 'meta.description' | t(lang) }{/if}" />
 <meta name="author" content="{site.author}" />
 <meta property="og:type" content="{layout == 'post' ? 'article' : 'website'}" />
 <meta property="og:title" content="{layout == 'home' ? site.title : (title ?? site.title)}" />
-<meta property="og:description" content="{description ?? d.meta.description}" />
+<meta property="og:description" content="{#if description}{description}{:else}{ 'meta.description' | t(lang) }{/if}" />
 <meta property="og:site_name" content="{site.title}" />
 <meta name="twitter:card" content="summary" />
 <link rel="icon" type="image/png" href="/assets/favicon.png" />

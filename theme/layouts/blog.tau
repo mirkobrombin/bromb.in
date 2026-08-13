@@ -1,4 +1,3 @@
-{#let d = data.i18n[lang] ?? data.i18n.en}
 {#let items = lang == 'en' ? collections.blog.items : collections[lang == 'es' ? 'blog-es' : 'blog-it'].items}
 <!doctype html>
 <html lang="{lang}">
@@ -11,11 +10,11 @@
 <div class="wrapper">
 
 <section class="hero" style="padding-bottom: 1.5rem;">
-  <span class="eyebrow">{d.blog.label}</span>
-  <h1 class="display" style="margin-block: 1rem .75rem;">{d.blog.title}</h1>
-  <p class="lead">{d.blog.description}</p>
+  <span class="eyebrow">{ 'blog.label' | t(lang) }</span>
+  <h1 class="display" style="margin-block: 1rem .75rem;">{ 'blog.title' | t(lang) }</h1>
+  <p class="lead">{ 'blog.description' | t(lang) }</p>
   <p class="mono" style="margin-top: 1.25rem; color: var(--fg-subtle);">
-    {items.length} {d.blog.count}
+    {items.length} { 'blog.count' | t(lang) }
   </p>
 </section>
 
@@ -24,7 +23,7 @@
     {#each items as item}
       <PostCard post={item.frontmatter} url={item.url} />
     {:else}
-      <p>{d.blog.count}</p>
+      <p>{ 'blog.count' | t(lang) }</p>
     {/each}
   </div>
 </section>
